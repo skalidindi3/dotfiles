@@ -1,0 +1,20 @@
+[user]
+	name = Sai Kalidindi
+	email = skalidindi3@gmail.com
+[core]
+	editor = vim
+	pager = less -F -X
+[diff]
+	tool = vimdiff
+[difftool]
+	prompt = false
+[color]
+	ui = always
+	status = always
+	branch = always
+	interactive = always
+	diff = always
+[push]
+	default = simple
+[status]
+	submoduleSummary = true
