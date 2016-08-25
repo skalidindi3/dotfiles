@@ -108,7 +108,9 @@ if has("mouse")
     if has("mouse_sgr")
         set ttymouse=sgr                            " avoid mouse not working past certain column
     else
-        set ttymouse=xterm2                         " allow split dragging
+        if !has('nvim')
+            set ttymouse=xterm2                     " allow split dragging
+        endif
     end
     set mouse=a                                     " allow mouse in all modes
 endif
