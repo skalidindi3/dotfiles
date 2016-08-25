@@ -54,3 +54,7 @@ if [[ -f ~/dotfiles/antigen/antigen.zsh ]]; then
     antigen apply
 fi
 
+# Google
+[[ -f ~/.googlerc ]] \
+    && source ~/.googlerc
+
