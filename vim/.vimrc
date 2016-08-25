@@ -133,22 +133,30 @@ set foldminlines=0                                  " fold single-line nests too
 " }}}
 
 " Plug {{{
-call plug#begin('~/.vim/plugged')
-" Plugins
-Plug 'tpope/vim-fugitive'
-Plug 'gregsexton/gitv'
-Plug 'kien/ctrlp.vim'
-"Plug 'skalidindi3/ag.vim'
-Plug 'airblade/vim-gitgutter'
-Plug 'scrooloose/nerdtree'
-Plug 'jistr/vim-nerdtree-tabs'
-Plug 'Xuyuanp/nerdtree-git-plugin'
-Plug 'sjl/gundo.vim'
-Plug 'Yggdroot/indentLine'
-Plug 'terryma/vim-multiple-cursors'
-" Syntax Highlighting
-Plug 'justinmk/vim-syntax-extra' " C/C++
-call plug#end()
+" Load appropriate version of Plug
+if has('nvim') && !empty(glob('~/.config/nvim/autoload/plug.vim'))
+    call plug#begin('~/.vim/plugged')
+elseif !has('nvim') && !empty(glob('~/.vim/autoload/plug.vim'))
+    call plug#begin('~/.vim/plugged')
+endif
+" Load modules if Plug is loaded
+if exists(':Plug')
+    " Plugins
+    Plug 'tpope/vim-fugitive'
+    Plug 'gregsexton/gitv'
+    Plug 'kien/ctrlp.vim'
+    "Plug 'skalidindi3/ag.vim'
+    Plug 'airblade/vim-gitgutter'
+    Plug 'scrooloose/nerdtree'
+    Plug 'jistr/vim-nerdtree-tabs'
+    Plug 'Xuyuanp/nerdtree-git-plugin'
+    Plug 'sjl/gundo.vim'
+    Plug 'Yggdroot/indentLine'
+    Plug 'terryma/vim-multiple-cursors'
+    " Syntax Highlighting
+    Plug 'justinmk/vim-syntax-extra' " C/C++
+    call plug#end()
+endif
 
 " vim-fugitive {{{
 if !empty(glob("~/.vim/plugged/vim-fugitive"))
