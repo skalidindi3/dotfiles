@@ -133,6 +133,18 @@ set foldminlines=0                                  " fold single-line nests too
 " }}}
 
 " Plug {{{
+" Helper function to get Plug straight from vim
+function DownloadPlug()
+    if has('nvim')
+        silent !curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs
+        \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+    else
+        silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+        \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+    endif
+    echom "Restart vim to use plugins"
+    redraw!
+endfunction
 " Load appropriate version of Plug
 if has('nvim') && !empty(glob('~/.config/nvim/autoload/plug.vim'))
     call plug#begin('~/.vim/plugged')
