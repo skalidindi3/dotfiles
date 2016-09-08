@@ -1,8 +1,5 @@
 # Explicitly set SHELL
 export SHELL="`which zsh`"
-# Source custom aliases and colors
-[[ -f ~/.bash_aliases ]] \
-    && source ~/.bash_aliases
 export TERM="xterm-256color"
 
 # Key-bindings                                      # iTerm2 default    # OSX default   # Keys
@@ -56,6 +53,10 @@ if [[ -f ~/dotfiles/antigen/antigen.zsh ]]; then
     antigen bundle supercrabtree/k
     antigen apply
 fi
+
+# Source custom aliases and colors
+[[ -f ~/.bash_aliases ]] \
+    && source ~/.bash_aliases
 
 # Google
 [[ -f ~/.googlerc ]] \
