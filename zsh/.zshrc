@@ -2,7 +2,9 @@
 export SHELL="`which zsh`"
 export TERM="xterm-256color"
 
-# Key-bindings                                      # iTerm2 default    # OSX default   # Keys
+# Key-bindings                                      # ensure that zsh+tmux combo keeps emacs bindings
+bindkey -e
+# OSX convenience                                   # iTerm2 default    # OSX default   # Keys
 # ------------                                      # --------------    # -----------   # ----
 bindkey '^R'   history-incremental-search-backward  # true              # true          # ctrl + R
 bindkey '^[[Z' reverse-menu-complete                # true              # true          # shift + TAB
