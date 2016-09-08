@@ -1,9 +1,9 @@
 # Explicitly set SHELL
 export SHELL="`which zsh`"
-
 # Source custom aliases and colors
 [[ -f ~/.bash_aliases ]] \
     && source ~/.bash_aliases
+export TERM="xterm-256color"
 
 # Key-bindings                                      # iTerm2 default    # OSX default   # Keys
 # ------------                                      # --------------    # -----------   # ----
