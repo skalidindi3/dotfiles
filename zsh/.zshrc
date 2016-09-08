@@ -40,11 +40,16 @@ zstyle ':completion:*' completer _expand _complete  # expand globs and path stri
 zstyle ':completion:*' menu select=2                # loads zsh/complist, uses completion menu for >= 2 matches
 zstyle ':completion:*' group-name ''                # set group name to name of tag
 zstyle ':completion:*' list-dirs-first true         # group completions, cycle directories first
-if [[ -n $LSCOLORS ]]; then                         # use `ls` coloring for completion list
+zstyle ':completion:*:processes' \
+  command 'ps -au$USER'                             # complete current running processes for `kill`
+# Completion Coloring
+if [[ -n $LSCOLORS ]]; then                         # use `ls` coloring for path completion list
     zstyle ':completion:*' list-colors ${(s.:.)LSCOLORS}    # OSX compat
 elif [[ -n $LS_COLORS ]]; then
     zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}   # Linux compat
 fi
+zstyle ':completion:*:*:kill:*' list-colors \
+  '=(#b) #([0-9]#)*( *[a-z])*=34=31=33'             # set coloring for kill completion list
 
 # Antigen
 if [[ -f ~/dotfiles/antigen/antigen.zsh ]]; then
