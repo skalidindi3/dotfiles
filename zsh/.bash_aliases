@@ -2,7 +2,7 @@
 RED=$(printf "\x1b[1;31m")
 GREEN=$(printf "\x1b[1;32m")
 BLUE=$(printf "\x1b[1;34m")
-YELLOW=$(printf "\x1b[1;33m")
+YELLOW=$(printf "\x1b[0;33m")
 RESET=$(printf "\x1b[0m")
 
 
