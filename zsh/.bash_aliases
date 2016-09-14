@@ -15,7 +15,7 @@ export LESS_TERMCAP_ue=$'\033[0m'
 export LESS_TERMCAP_md=$'\033[01;38;5;74m'
 export LESS_TERMCAP_me=$'\033[0m'
 # Check current 8/16 color support
-function show_colors() {
+show_colors() {
     echo -e "\033[0;30mBLACK\t\033[1;37mWHITE"
     echo -e "\033[0;34mBLUE\t\033[1;34mLIGHT_BLUE"
     echo -e "\033[0;32mGREEN\t\033[1;32mLIGHT_GREEN"
@@ -35,23 +35,23 @@ alias strip_colors="perl -pe 's/\e\[?.*?[\@-~]//g'"
 ###################
 which pygmentize &> /dev/null \
     && alias pcat='pygmentize -f terminal256 -O style=native -g'
-function xmlshow() {
+xmlshow() {
     cat $@ \
         | xmllint --format - \
         | pcat
 }
-function csvshow() {
+csvshow() {
     cat $@ \
         | sed -e 's/,,/, ,/g' \
         | column -s, -t \
         | less -rNS#5
 }
-function tsvshow() {
+tsvshow() {
     cat $@ \
         | column -s "	" -t \
         | less -rNS#5
 }
-function cdiff() {
+cdiff() {
     diff $@ \
         | sed -E "s/(^< .*$)/$RED\1$RESET/" \
         | sed -E "s/(^> .*$)/$GREEN\1$RESET/" \
@@ -78,7 +78,7 @@ cpp () {
     rsync -ah --progress "$1" "$2"
 }
 # Calculations
-function _calc() {
+_calc() {
     echo "$@" | bc
 }
 alias calc='noglob _calc'
@@ -207,10 +207,10 @@ fi
 #############
 # MP3 Utils #
 #############
-function spec() {
+spec() {
     sox "$@" -n spectrogram && open ./spectrogram.png
 }
-function all2mp3() {
+all2mp3() {
     ffmpeg -i "$1" -ab 320k -map_metadata 0 -id3v2_version 3 "${1}.mp3"
 }
 
