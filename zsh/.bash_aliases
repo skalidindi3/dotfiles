@@ -1,19 +1,20 @@
+##########
+# Colors #
+##########
 # Color Codes
 RED=$(printf "\x1b[1;31m")
 GREEN=$(printf "\x1b[1;32m")
 BLUE=$(printf "\x1b[1;34m")
 YELLOW=$(printf "\x1b[0;33m")
 RESET=$(printf "\x1b[0m")
-
-
-##########
-# Colors #
-##########
+# `ls` Colors
 export LSCOLORS='ExDxxxxxCxxxgxxxxxExEx'
-export LESS_TERMCAP_us=$'\033[04;38;5;215m' # man page coloring
+# `man` Colors
+export LESS_TERMCAP_us=$'\033[04;38;5;215m'
 export LESS_TERMCAP_ue=$'\033[0m'
 export LESS_TERMCAP_md=$'\033[01;38;5;74m'
 export LESS_TERMCAP_me=$'\033[0m'
+# Check current 8/16 color support
 function show_colors() {
   echo -e "\033[0;30mBLACK\t\033[1;37mWHITE"
   echo -e "\033[0;34mBLUE\t\033[1;34mLIGHT_BLUE"
@@ -25,6 +26,7 @@ function show_colors() {
   echo -e "\033[1;30mGRAY\t\033[0;37mLIGHT_GRAY"
   echo -e "\033[0mRESET"
 }
+# Remove colors
 alias strip_colors="perl -pe 's/\e\[?.*?[\@-~]//g'"
 
 
@@ -56,16 +58,6 @@ function cdiff() {
     | sed -E "s/^---$/$BLUE---$RESET/"
 }
 
-#############
-# MP3 Utils #
-#############
-function spec() {
-    sox "$@" -n spectrogram && open ./spectrogram.png
-}
-function all2mp3() {
-    ffmpeg -i "$1" -ab 320k -map_metadata 0 -id3v2_version 3 "${1}.mp3"
-}
-
 
 ################
 # General 'nix #
@@ -77,7 +69,6 @@ alias pls='sudo !!'
 alias j='jobs'
 alias more='more -r'
 alias less='less -cP "Press \"v\" to edit in vim, or \"s\" to save to file\.\.\."'
-alias lsr='CLICOLOR_FORCE=1 ls -altr | tail -r | head'
 alias vless='/usr/share/vim/vim73/macros/less.sh'
 alias todo='echo "TODO: $*" >> ~/.TODO'
 alias todos='less -p TODO ~/.TODO'
@@ -150,6 +141,8 @@ if which vagrant &> /dev/null; then
     }
     alias vh='vagrant halt'
     alias vd='vagrant destroy'
+  [ -e ~/Documents/vagrant ] \
+    && cdv() { cd "/Users/`whoami`/Documents/vagrant/$@"; }
 fi
 
 
@@ -159,6 +152,7 @@ fi
 if [ 'Darwin' = $(uname) ]; then
   # General
   alias ls='ls -GF'
+  alias lsr='CLICOLOR_FORCE=1 ls -altr | tail -r | head'
 
   # App Aliases
   which mvim &> /dev/null \
@@ -169,16 +163,8 @@ if [ 'Darwin' = $(uname) ]; then
     && alias sublime='/Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl'
 
   # Folders
-  [ -e ~/Documents/vagrant ] \
-    && cdv() { cd "/Users/`whoami`/Documents/vagrant/$@"; }
-  [ -e ~/Documents/transcriptic ] \
-    && cdt() { cd "/Users/`whoami`/Documents/transcriptic/$@"; }
   [ -e ~/Documents/projects ] \
     && cdp() { cd "/Users/`whoami`/Documents/projects/$@"; }
-
-  # Brew Git Completion
-  [ -f $(brew --prefix)/etc/bash_completion ] \
-    && source $(brew --prefix)/etc/bash_completion
 
   # Peripherals
   lockscreen() {
@@ -208,12 +194,25 @@ fi
 #########
 if [ 'Linux' = $(uname) ]; then
   alias ls='ls --color=always'
+  alias lsr='CLICOLOR_FORCE=1 ls -altr | tac | head'
+
   # OpenOCD Aliases
   which openocd &> /dev/null \
     && alias link_discovery='sudo openocd -f board/stm32f4discovery.cfg'
   which openocd &> /dev/null \
     && alias link_stm='sudo openocd -f interface/stlink-v2.cfg -f target/stm32f4x_stlink.cfg'
 fi
+
+
+#############
+# MP3 Utils #
+#############
+function spec() {
+    sox "$@" -n spectrogram && open ./spectrogram.png
+}
+function all2mp3() {
+    ffmpeg -i "$1" -ab 320k -map_metadata 0 -id3v2_version 3 "${1}.mp3"
+}
 
 
 ###########
