@@ -16,15 +16,15 @@ export LESS_TERMCAP_md=$'\033[01;38;5;74m'
 export LESS_TERMCAP_me=$'\033[0m'
 # Check current 8/16 color support
 function show_colors() {
-  echo -e "\033[0;30mBLACK\t\033[1;37mWHITE"
-  echo -e "\033[0;34mBLUE\t\033[1;34mLIGHT_BLUE"
-  echo -e "\033[0;32mGREEN\t\033[1;32mLIGHT_GREEN"
-  echo -e "\033[0;36mCYAN\t\033[1;36mLIGHT_CYAN"
-  echo -e "\033[0;31mRED\t\033[1;31mLIGHT_RED"
-  echo -e "\033[0;35mPURPLE\t\033[1;35mLIGHT_PURPLE"
-  echo -e "\033[0;33mYELLOW\t\033[1;33mLIGHT_YELLOW"
-  echo -e "\033[1;30mGRAY\t\033[0;37mLIGHT_GRAY"
-  echo -e "\033[0mRESET"
+    echo -e "\033[0;30mBLACK\t\033[1;37mWHITE"
+    echo -e "\033[0;34mBLUE\t\033[1;34mLIGHT_BLUE"
+    echo -e "\033[0;32mGREEN\t\033[1;32mLIGHT_GREEN"
+    echo -e "\033[0;36mCYAN\t\033[1;36mLIGHT_CYAN"
+    echo -e "\033[0;31mRED\t\033[1;31mLIGHT_RED"
+    echo -e "\033[0;35mPURPLE\t\033[1;35mLIGHT_PURPLE"
+    echo -e "\033[0;33mYELLOW\t\033[1;33mLIGHT_YELLOW"
+    echo -e "\033[1;30mGRAY\t\033[0;37mLIGHT_GRAY"
+    echo -e "\033[0mRESET"
 }
 # Remove colors
 alias strip_colors="perl -pe 's/\e\[?.*?[\@-~]//g'"
@@ -34,28 +34,28 @@ alias strip_colors="perl -pe 's/\e\[?.*?[\@-~]//g'"
 # Pretty-Printing #
 ###################
 which pygmentize &> /dev/null \
-  && alias pcat='pygmentize -f terminal256 -O style=native -g'
+    && alias pcat='pygmentize -f terminal256 -O style=native -g'
 function xmlshow() {
-  cat $@ \
-    | xmllint --format - \
-    | pcat
+    cat $@ \
+        | xmllint --format - \
+        | pcat
 }
 function csvshow() {
-  cat $@ \
-    | sed -e 's/,,/, ,/g' \
-    | column -s, -t \
-    | less -rNS#5
+    cat $@ \
+        | sed -e 's/,,/, ,/g' \
+        | column -s, -t \
+        | less -rNS#5
 }
 function tsvshow() {
-  cat $@ \
-    | column -s "	" -t \
-    | less -rNS#5
+    cat $@ \
+        | column -s "	" -t \
+        | less -rNS#5
 }
 function cdiff() {
-  diff $@ \
-    | sed -E "s/(^< .*$)/$RED\1$RESET/" \
-    | sed -E "s/(^> .*$)/$GREEN\1$RESET/" \
-    | sed -E "s/^---$/$BLUE---$RESET/"
+    diff $@ \
+        | sed -E "s/(^< .*$)/$RED\1$RESET/" \
+        | sed -E "s/(^> .*$)/$GREEN\1$RESET/" \
+        | sed -E "s/^---$/$BLUE---$RESET/"
 }
 
 
@@ -79,54 +79,54 @@ cpp () {
 }
 # Calculations
 function _calc() {
-  echo "$@" | bc
+    echo "$@" | bc
 }
 alias calc='noglob _calc'
 # Prefer neovim
 unalias vim &> /dev/null
 which vim &> /dev/null \
-  && alias ovim="`which vim`"
+    && alias ovim="`which vim`"
 which nvim &> /dev/null \
-  && alias vim="`which nvim`"
+    && alias vim="`which nvim`"
 
 
 #######
 # Git #
 #######
 if which git &> /dev/null; then
-  #aliases
-  alias gita='git add'
-  alias gitb='git branch'
-  alias gitc='git commit'
-  alias gitd='git diff'
-  alias gitds='git diff --stat'
-  alias gitdt='git difftool'
-  alias gitl='git log --oneline --graph --decorate'
-  alias gitls='git log --stat'
-  alias gitco='git checkout'
-  alias gitst='git stash'
+    #aliases
+    alias gita='git add'
+    alias gitb='git branch'
+    alias gitc='git commit'
+    alias gitd='git diff'
+    alias gitds='git diff --stat'
+    alias gitdt='git difftool'
+    alias gitl='git log --oneline --graph --decorate'
+    alias gitls='git log --stat'
+    alias gitco='git checkout'
+    alias gitst='git stash'
 
-  #functions
-  alias gits='git status $* | grep -v "^#$" | grep -v "^$" | grep -v "(use \"git" | sed -E "s/(On branch )(.*)$/\1$RED\2$RESET/"'
-  alias gitss='git status --short'
-  alias gitstl='git stash list | sed -E "s/(stash\@\{.*\}:)(.*)$/$BLUE\1$YELLOW\2$RESET/"'
-  alias gitsha='for sha in $(git log --pretty=format:%H master..); do git show $sha; done'
-  alias gitcs='open https://github.com/tiimgreen/github-cheat-sheet'
-  alias gitu='git shortlog | grep --color=no -E "^[^ ]" | sed -E "s/:$//"'
+    #functions
+    alias gits='git status $* | grep -v "^#$" | grep -v "^$" | grep -v "(use \"git" | sed -E "s/(On branch )(.*)$/\1$RED\2$RESET/"'
+    alias gitss='git status --short'
+    alias gitstl='git stash list | sed -E "s/(stash\@\{.*\}:)(.*)$/$BLUE\1$YELLOW\2$RESET/"'
+    alias gitsha='for sha in $(git log --pretty=format:%H master..); do git show $sha; done'
+    alias gitcs='open https://github.com/tiimgreen/github-cheat-sheet'
+    alias gitu='git shortlog | grep --color=no -E "^[^ ]" | sed -E "s/:$//"'
 
-  # allow git completions for aliases
-  if [ -n "$ZSH_VERSION" ]; then
-    compdef _git gita=git-add
-    compdef _git gitb=git-branch
-    compdef _git gitc=git-commit
-    compdef _git gitd=git-diff
-    compdef _git gitds=git-diff
-    compdef _git gitdt=git-difftool
-    compdef _git gitl=git-log
-    compdef _git gitls=git-log
-    compdef _git gitco=git-checkout
-    compdef _git gitst=git-stash
-  fi
+    # allow git completions for aliases
+    if [ -n "$ZSH_VERSION" ]; then
+        compdef _git gita=git-add
+        compdef _git gitb=git-branch
+        compdef _git gitc=git-commit
+        compdef _git gitd=git-diff
+        compdef _git gitds=git-diff
+        compdef _git gitdt=git-difftool
+        compdef _git gitl=git-log
+        compdef _git gitls=git-log
+        compdef _git gitco=git-checkout
+        compdef _git gitst=git-stash
+    fi
 fi
 
 
@@ -141,8 +141,8 @@ if which vagrant &> /dev/null; then
     }
     alias vh='vagrant halt'
     alias vd='vagrant destroy'
-  [ -e ~/Documents/vagrant ] \
-    && cdv() { cd "/Users/`whoami`/Documents/vagrant/$@"; }
+    [ -e ~/Documents/vagrant ] \
+        && cdv() { cd "/Users/`whoami`/Documents/vagrant/$@"; }
 fi
 
 
@@ -150,42 +150,42 @@ fi
 # OSX #
 #######
 if [ 'Darwin' = $(uname) ]; then
-  # General
-  alias ls='ls -GF'
-  alias lsr='CLICOLOR_FORCE=1 ls -altr | tail -r | head'
+    # General
+    alias ls='ls -GF'
+    alias lsr='CLICOLOR_FORCE=1 ls -altr | tail -r | head'
 
-  # App Aliases
-  which mvim &> /dev/null \
-    && alias vim='mvim -v'
-  [ -e /Applications/VLC.app/Contents/MacOS/VLC ] \
-    && alias vlc='/Applications/VLC.app/Contents/MacOS/VLC'
-  [ -e /Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl ] \
-    && alias sublime='/Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl'
+    # App Aliases
+    which mvim &> /dev/null \
+        && alias vim='mvim -v'
+    [ -e /Applications/VLC.app/Contents/MacOS/VLC ] \
+        && alias vlc='/Applications/VLC.app/Contents/MacOS/VLC'
+    [ -e /Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl ] \
+        && alias sublime='/Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl'
 
-  # Folders
-  [ -e ~/Documents/projects ] \
-    && cdp() { cd "/Users/`whoami`/Documents/projects/$@"; }
+    # Folders
+    [ -e ~/Documents/projects ] \
+        && cdp() { cd "/Users/`whoami`/Documents/projects/$@"; }
 
-  # Peripherals
-  lockscreen() {
-    exec /System/Library/CoreServices/"Menu Extras"/User.menu/Contents/Resources/CGSession -suspend &
-  }
-  alias lock='lockscreen'
-  vol() {
-    if [[ -n $1 ]]; then
-      osascript -e 'set volume output muted false'
-      osascript -e "set volume output volume $1"
-    elif [[ `osascript -e 'output muted of (get volume settings)'` = 'true' ]]; then
-      echo "muted"
-    else
-      osascript -e "output volume of (get volume settings)"
-    fi
-  }
-  mute() {
-    osascript -e 'set volume output muted true'
-    echo "muted"
-  }
-  alias m='mute'
+    # Peripherals
+    lockscreen() {
+        exec /System/Library/CoreServices/"Menu Extras"/User.menu/Contents/Resources/CGSession -suspend &
+    }
+    alias lock='lockscreen'
+    vol() {
+        if [[ -n $1 ]]; then
+            osascript -e 'set volume output muted false'
+            osascript -e "set volume output volume $1"
+        elif [[ `osascript -e 'output muted of (get volume settings)'` = 'true' ]]; then
+            echo "muted"
+        else
+            osascript -e "output volume of (get volume settings)"
+        fi
+    }
+    mute() {
+        osascript -e 'set volume output muted true'
+        echo "muted"
+    }
+    alias m='mute'
 fi
 
 
@@ -193,14 +193,14 @@ fi
 # Linux #
 #########
 if [ 'Linux' = $(uname) ]; then
-  alias ls='ls --color=always'
-  alias lsr='CLICOLOR_FORCE=1 ls -altr | tac | head'
+    alias ls='ls --color=always'
+    alias lsr='CLICOLOR_FORCE=1 ls -altr | tac | head'
 
-  # OpenOCD Aliases
-  which openocd &> /dev/null \
-    && alias link_discovery='sudo openocd -f board/stm32f4discovery.cfg'
-  which openocd &> /dev/null \
-    && alias link_stm='sudo openocd -f interface/stlink-v2.cfg -f target/stm32f4x_stlink.cfg'
+    # OpenOCD Aliases
+    which openocd &> /dev/null \
+        && alias link_discovery='sudo openocd -f board/stm32f4discovery.cfg'
+    which openocd &> /dev/null \
+        && alias link_stm='sudo openocd -f interface/stlink-v2.cfg -f target/stm32f4x_stlink.cfg'
 fi
 
 
