@@ -271,6 +271,8 @@ endif
 " strip whitespace fn
 
 " More Plugins
+" geoffharcourt/one-dark.vim
+" sheerun/vim-polyglot
 " tpope/vim-surround
 " lightline.vim
 " tcomment / NERD_commenter
