@@ -15,6 +15,9 @@ bindkey "^[b"  backward-word                        # false             # false 
 bindkey "^[f"  forward-word                         # false             # false         # option + right arrow
 bindkey "^H"   backward-delete-word                 # false             # false         # option + delete
 
+# Interactive shell
+setopt interactivecomments
+
 # Modify interactive shell word delimiters (for movement and backward-kill-word)
 export WORDCHARS=${WORDCHARS:s#/#}                  # count '/' as delimiter
 export WORDCHARS=${WORDCHARS:s#-#}                  # count '-' as delimiter
