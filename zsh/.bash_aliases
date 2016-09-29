@@ -185,7 +185,6 @@ if [ 'Darwin' = $(uname) ]; then
         osascript -e 'set volume output muted true'
         echo "muted"
     }
-    alias m='mute'
 fi
 
 
@@ -201,6 +200,22 @@ if [ 'Linux' = $(uname) ]; then
         && alias link_discovery='sudo openocd -f board/stm32f4discovery.cfg'
     which openocd &> /dev/null \
         && alias link_stm='sudo openocd -f interface/stlink-v2.cfg -f target/stm32f4x_stlink.cfg'
+
+    # Peripherals
+    vol() {
+        if [[ -n $1 ]]; then
+            amixer -q -D pulse sset Master unmute
+            amixer -q set Master "$1"
+        elif [[ `amixer sget Master | awk -F"[][]" '/dB/ { print $6 }'` = 'off' ]]; then
+            echo "muted"
+        else
+            amixer sget Master | awk -F" " '/dB/ { print $3 }'
+        fi
+    }
+    mute() {
+        amixer -q -D pulse sset Master mute
+        echo "muted"
+    }
 fi
 
 
