@@ -104,15 +104,16 @@ if which git &> /dev/null; then
     alias gitl='git log --oneline --graph --decorate'
     alias gitls='git log --stat'
     alias gitco='git checkout'
+    alias gits='git status --short --branch'
     alias gitst='git stash'
 
     #functions
-    alias gits='git status $* | grep -v "^#$" | grep -v "^$" | grep -v "(use \"git" | sed -E "s/(On branch )(.*)$/\1$RED\2$RESET/"'
-    alias gitss='git status --short'
+    alias gitss='git status $* | grep -v "^#$" | grep -v "^$" | grep -v "(use \"git" | sed -E "s/(On branch )(.*)$/\1$RED\2$RESET/"'
     alias gitstl='git stash list | sed -E "s/(stash\@\{.*\}:)(.*)$/$BLUE\1$YELLOW\2$RESET/"'
     alias gitsha='for sha in $(git log --pretty=format:%H master..); do git show $sha; done'
-    alias gitcs='open https://github.com/tiimgreen/github-cheat-sheet'
     alias gitu='git shortlog | grep --color=no -E "^[^ ]" | sed -E "s/:$//"'
+    alias gitcs='open https://github.com/tiimgreen/github-cheat-sheet'
+    # https://hackernoon.com/lesser-known-git-commands-151a1918a60
 
     # allow git completions for aliases
     if [ -n "$ZSH_VERSION" ]; then
