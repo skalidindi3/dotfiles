@@ -88,6 +88,8 @@ which vim &> /dev/null \
     && alias ovim="`which vim`"
 which nvim &> /dev/null \
     && alias vim="`which nvim`"
+which nvim &> /dev/null \
+    && alias vimdiff="nvim -d"
 
 
 #######
