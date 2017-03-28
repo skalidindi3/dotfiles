@@ -68,7 +68,9 @@ set showmode                                        " explicit visual/insert/etc
 set number                                          " show line numbers
 set ruler                                           " show cursor coordinates
 set showcmd                                         " in visual mode, show selection stats
-set list listchars=trail:⋅                          " show trailing spaces
+set list listchars=                                 " allow list mode so we can set listchars formatting
+set listchars+=trail:•                              " show trailing spaces as "•"
+set listchars+=eol:↲                                " show end-of-line's as "↲"
 augroup CursorLineOnlyInActiveWindow
     autocmd!
     autocmd VimEnter,WinEnter,BufWinEnter * setlocal cursorline
@@ -92,6 +94,7 @@ set tabstop=4                                       " size of <TAB>
 set softtabstop=4                                   " backspace works on size of <TAB>
 set expandtab                                       " convert <TAB> to spaces
 set shiftwidth=4                                    " shifts quantized to 4 spaces
+set listchars+=tab:»»                               " show tabs expanded as "»"*tabwidth
 " }}}
 
 " Searching {{{
@@ -265,6 +268,12 @@ endif
 " }}}
 
 " TODOs {{{
+
+" "More listchars (:h listchars)"
+" * nbsp
+" * extends/precedes
+" * conceal
+" ? split trailing chars to own section, with highlight group? http://vim.wikia.com/wiki/Highlight_unwanted_spaces
 
 " http://stackoverflow.com/questions/24716804/inline-comments-in-vimrc-mappings
 " "|" separates commands in vim, so use to comment remaps
