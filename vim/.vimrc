@@ -117,12 +117,13 @@ endif
 " }}}
 
 " Syntax Highlighting {{{
-syntax on                                           " enable syntax highlighting
 set background=dark                                 " easy on the eyes
-colorscheme elflord                                 " use packaged vim colorscheme
-silent! colorscheme BloodDragon                     " ...unless mine is present
-if &diff
-    silent! colorscheme github                      " use a different theme for vimdiff
+syntax on                                           " enable syntax highlighting
+if (has("termguicolors"))
+    set termguicolors                               " use 24b true color mode in neovim if available
+    colorscheme onedark                             " with a true color colorscheme
+else
+    colorscheme elflord                             " or fall back to packaged vim colorscheme
 endif
 " }}}
 
