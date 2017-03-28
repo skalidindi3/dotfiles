@@ -237,6 +237,8 @@ all2mp3() {
 export BC_ENV_ARGS=~/.bcrc
 export HISTCONTROL=ignorespace:ignoredups
 export HISTTIMEFORMAT='%F %T '
+which npm &> /dev/null \
+    && export NODE_PATH=$(npm root -g):$NODE_PATH
 
 
 # TODO: https://robots.thoughtbot.com/autosquashing-git-commits
