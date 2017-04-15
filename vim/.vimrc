@@ -122,11 +122,11 @@ endif
 " Syntax Highlighting {{{
 set background=dark                                 " easy on the eyes
 syntax on                                           " enable syntax highlighting
+colorscheme elflord                                 " use packaged vim colorscheme
 if (has("termguicolors"))
     set termguicolors                               " use 24b true color mode in neovim if available
-    colorscheme onedark                             " with a true color colorscheme
+    silent! colorscheme onedark                     " with a true color colorscheme if available
 else
-    colorscheme elflord                             " or fall back to packaged vim colorscheme
 endif
 " }}}
 
