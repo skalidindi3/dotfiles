@@ -157,20 +157,23 @@ elseif !has('nvim') && !empty(glob('~/.vim/autoload/plug.vim'))
 endif
 " Load modules if Plug is loaded
 if exists(':Plug')
-    " Plugins
-    Plug 'tpope/vim-fugitive'
-    Plug 'gregsexton/gitv'
+    " Searching
     Plug 'kien/ctrlp.vim'
-    "Plug 'skalidindi3/ag.vim'
+    " Git
+    Plug 'tpope/vim-fugitive'
     Plug 'airblade/vim-gitgutter'
+    " NERDTree
     Plug 'scrooloose/nerdtree'
     Plug 'jistr/vim-nerdtree-tabs'
     Plug 'Xuyuanp/nerdtree-git-plugin'
+    " Colors
+    Plug 'joshdick/onedark.vim'
+    " Syntax Highlighting
+    Plug 'sheerun/vim-polyglot'
+    " Misc
     Plug 'sjl/gundo.vim'
     Plug 'Yggdroot/indentLine'
     Plug 'terryma/vim-multiple-cursors'
-    " Syntax Highlighting
-    Plug 'justinmk/vim-syntax-extra' " C/C++
     call plug#end()
 endif
 
