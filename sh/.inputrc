@@ -1,0 +1,12 @@
+# Meta key handling
+set input-meta on
+set output-meta on
+set convert-meta off
+
+# Key-bindings                  # iTerm2 default    # OSX default   # Keys
+"\e[OH": beginning-of-line      # true              # false         # Fn + <--
+"\e[OF": end-of-line            # true              # false         # Fn + -->
+"\e[b":  backward-word          # false             # false         # option + left arrow
+"\e[f":  forward-word           # false             # false         # option + right arrow
+"\C-h":  backward-kill-word     # false             # false         # option + delete
+
