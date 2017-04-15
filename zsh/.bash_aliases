@@ -236,7 +236,6 @@ all2mp3() {
 ###########
 # Exports #
 ###########
-export BC_ENV_ARGS=~/.bcrc
 export HISTCONTROL=ignorespace:ignoredups
 export HISTTIMEFORMAT='%F %T '
 which npm &> /dev/null \
