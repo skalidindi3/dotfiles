@@ -169,8 +169,6 @@ if [ 'Darwin' = $(uname) ]; then
     alias lsr='CLICOLOR_FORCE=1 ls -altr | tail -r | head'
 
     # App Aliases
-    which mvim &> /dev/null \
-        && alias vim='mvim -v'
     [ -e /Applications/VLC.app/Contents/MacOS/VLC ] \
         && alias vlc='/Applications/VLC.app/Contents/MacOS/VLC'
     [ -e /Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl ] \
