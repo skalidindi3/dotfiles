@@ -167,8 +167,6 @@ if exists(':Plug')
     Plug 'scrooloose/nerdtree'
     Plug 'jistr/vim-nerdtree-tabs'
     Plug 'Xuyuanp/nerdtree-git-plugin'
-    " Colors
-    Plug 'joshdick/onedark.vim'
     " Syntax Highlighting
     Plug 'sheerun/vim-polyglot'
     " Misc
