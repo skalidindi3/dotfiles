@@ -149,6 +149,17 @@ if which vagrant &> /dev/null; then
 fi
 
 
+###########
+# Folders #
+###########
+if [ -e ~/Documents/projects ]; then
+    cdp() { cd "/Users/`whoami`/Documents/projects/$@"; }
+    if [ -n "$ZSH_VERSION" ]; then
+        compctl -W "/Users/`whoami`/Documents/projects/$1" -/ cdp
+    fi
+fi
+
+
 #######
 # OSX #
 #######
@@ -164,10 +175,6 @@ if [ 'Darwin' = $(uname) ]; then
         && alias vlc='/Applications/VLC.app/Contents/MacOS/VLC'
     [ -e /Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl ] \
         && alias sublime='/Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl'
-
-    # Folders
-    [ -e ~/Documents/projects ] \
-        && cdp() { cd "/Users/`whoami`/Documents/projects/$@"; }
 
     # Peripherals
     lockscreen() {
