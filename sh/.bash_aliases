@@ -203,12 +203,6 @@ if [ 'Linux' = $(uname) ]; then
     alias ls='ls --color=always'
     alias lsr='CLICOLOR_FORCE=1 ls -altr | tac | head'
 
-    # OpenOCD Aliases
-    which openocd &> /dev/null \
-        && alias link_discovery='sudo openocd -f board/stm32f4discovery.cfg'
-    which openocd &> /dev/null \
-        && alias link_stm='sudo openocd -f interface/stlink-v2.cfg -f target/stm32f4x_stlink.cfg'
-
     # Peripherals
     vol() {
         if [[ -n $1 ]]; then
