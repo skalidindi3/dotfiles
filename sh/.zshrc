@@ -27,11 +27,12 @@ export WORDCHARS=${WORDCHARS:s#_#}                  # count '_' as delimiter
 setopt PROMPT_SUBST                                 # allow for prompt expansion
 PROMPT='%(?.%F{32}.%F{196})'                        # if last exit code == 0, set fg color blue (32), else red (196)
 PROMPT+='%1~ '                                      # current dir name only, with home as '~'
-PROMPT+='ϟ '                                        # custom prompt symbol
+PROMPT+='ϟ  '                                       # custom prompt symbol
 PROMPT+='%f%k'                                      # end foreground & background coloring
 RPROMPT='%F{8}'                                     # set foreground color gray (8)
 RPROMPT+='[%D{%T}]'                                 # datetime string formatted as 24-hour time (with seconds)
 RPROMPT+='%f%k'                                     # end foreground & background coloring
+ZLE_RPROMPT_INDENT=0                                # avoid extra character at end of rprompt (& prompt)
 #preexec() { print -P $RPROMPT }                    # useful for timing commands
 
 # Completion
