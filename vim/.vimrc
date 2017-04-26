@@ -118,17 +118,6 @@ if has("mouse")
 endif
 " }}}
 
-" Syntax Highlighting {{{
-set background=dark                                 " easy on the eyes
-syntax on                                           " enable syntax highlighting
-colorscheme elflord                                 " use packaged vim colorscheme
-if (has("termguicolors"))
-    set termguicolors                               " use 24b true color mode in neovim if available
-    silent! colorscheme onedark                     " with a true color colorscheme if available
-else
-endif
-" }}}
-
 " Code Folding {{{
 set foldmethod=indent                               " automatically fold by indent level
 set nofoldenable                                    " but don't fold by default
@@ -169,6 +158,8 @@ if exists(':Plug')
     Plug 'scrooloose/nerdtree'
     Plug 'jistr/vim-nerdtree-tabs'
     Plug 'Xuyuanp/nerdtree-git-plugin'
+    " Colors
+    Plug 'romainl/Apprentice'
     " Syntax Highlighting
     Plug 'sheerun/vim-polyglot'
     " Misc
@@ -269,6 +260,18 @@ if !empty(glob(plug_path . '/vim-multiple-cursors'))
     let g:multi_cursor_next_key='<C-d>'
 endif
 " }}}
+" }}}
+
+" Syntax Highlighting {{{
+set background=dark                                 " easy on the eyes
+syntax on                                           " enable syntax highlighting
+colorscheme elflord                                 " barebones default to packaged vim colorscheme
+if &diff
+    silent! colorscheme apprentice                  " use a different theme for vimdiff
+elseif (has("termguicolors"))
+    set termguicolors                               " use 24b true color mode in neovim if available
+    silent! colorscheme onedark                     " with a true color colorscheme if available
+endif
 " }}}
 
 " TODOs {{{
