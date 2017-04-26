@@ -70,7 +70,6 @@ set ruler                                           " show cursor coordinates
 set showcmd                                         " in visual mode, show selection stats
 set list listchars=                                 " allow list mode so we can set listchars formatting
 set listchars+=trail:•                              " show trailing spaces as "•"
-set listchars+=eol:↲                                " show end-of-line's as "↲"
 augroup CursorLineOnlyInActiveWindow
     autocmd!
     autocmd VimEnter,WinEnter,BufWinEnter * setlocal cursorline
