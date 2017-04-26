@@ -126,7 +126,7 @@ set foldminlines=0                                  " fold single-line nests too
 
 " Plug {{{
 " Helper function to get Plug straight from vim
-function DownloadPlug()
+function! DownloadPlug()
     if has('nvim')
         silent !curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs
         \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
