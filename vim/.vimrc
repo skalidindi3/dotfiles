@@ -149,13 +149,16 @@ function DownloadPlug()
     echom "Restart vim to use plugins"
     redraw!
 endfunction
+
 " Load appropriate version of Plug
+" NOTE: colors need to be copied or symlinked directly into '~/.config/nvim/colors/'
 if has('nvim') && !empty(glob('~/.config/nvim/autoload/plug.vim'))
-    call plug#begin('~/.config/nvim/plugged')
-    " NOTE: colors need to be copied or symlinked directly into '~/.config/nvim/colors/'
+    let plug_path = '~/.config/nvim/plugged'
 elseif !has('nvim') && !empty(glob('~/.vim/autoload/plug.vim'))
-    call plug#begin('~/.vim/plugged')
+    let plug_path = '~/.vim/plugged'
 endif
+call plug#begin(plug_path)
+
 " Load modules if Plug is loaded
 if exists(':Plug')
     " Searching
@@ -177,19 +180,19 @@ if exists(':Plug')
 endif
 
 " vim-fugitive {{{
-if !empty(glob("~/.vim/plugged/vim-fugitive"))
+if !empty(glob(plug_path . '/vim-fugitive'))
     nnoremap <leader>gb :Gblame<CR>
 endif
 " }}}
 
 " gitv {{{
-if !empty(glob("~/.vim/plugged/gitv"))
+if !empty(glob(plug_path . '/gitv'))
     nnoremap <leader>gl :Gitv<CR>
 endif
 " }}}
 
 " ctrlp.vim {{{
-if !empty(glob("~/.vim/plugged/ctrlp.vim"))
+if !empty(glob(plug_path . '/ctrlp.vim'))
     let g:ctrlp_working_path_mode = 'ra'
     if executable('ag')
         let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
@@ -199,7 +202,7 @@ endif
 " }}}
 
 " ag.vim {{{
-if !empty(glob("~/.vim/plugged/ag.vim"))
+if !empty(glob(plug_path . '/ag.vim'))
     let g:ag_working_path_mode = 'r'
     let g:ag_mapping_message_text = 'woot woot'
     let g:ag_qmapping_func = 'call AgSetMappings()'
@@ -225,13 +228,13 @@ endif
 " }}}
 
 " vim-gitgutter {{{
-if !empty(glob("~/.vim/plugged/vim-gitgutter"))
+if !empty(glob(plug_path . '/vim-gitgutter'))
     nnoremap <leader>gg :GitGutter<CR>
 endif
 " }}}
 
 " nerdtree {{{
-if !empty(glob("~/.vim/plugged/nerdtree"))
+if !empty(glob(plug_path . '/nerdtree'))
     " close vim if only NERDTree left
     autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
 
@@ -242,13 +245,13 @@ endif
 " }}}
 
 " vim-nerdtree-tabs {{{
-if !empty(glob("~/.vim/plugged/vim-nerdtree-tabs"))
+if !empty(glob(plug_path . '/vim-nerdtree-tabs'))
     nnoremap <C-n> :NERDTreeTabsToggle<CR>
 endif
 " }}}
 
 " gundo.vim {{{
-if !empty(glob("~/.vim/plugged/gundo.vim"))
+if !empty(glob(plug_path . '/gundo.vim'))
     let g:gundo_right = 1
     let g:gundo_preview_bottom = 1
     nnoremap <leader>u :GundoToggle<CR>
@@ -256,14 +259,14 @@ endif
 " }}}
 
 " indentLine {{{
-if !empty(glob("~/.vim/plugged/indentLine"))
+if !empty(glob(plug_path . '/indentLine'))
     " should match colorscheme LineNr ctermfg
     let g:indentLine_color_term = synIDattr(synIDtrans(hlID('LineNr')), 'fg')
 endif
 " }}}
 
 " vim-multiple-cursors {{{
-if !empty(glob("~/.vim/plugged/vim-multiple-cursors"))
+if !empty(glob(plug_path . '/vim-multiple-cursors'))
     let g:multi_cursor_next_key='<C-d>'
 endif
 " }}}
