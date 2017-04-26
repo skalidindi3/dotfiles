@@ -2,12 +2,8 @@
 	name = Sai Kalidindi
 	email = skalidindi3@gmail.com
 [core]
-	editor = vim
+	editor = nvim
 	pager = less -F -X
-[diff]
-	tool = vimdiff
-[difftool]
-	prompt = false
 [color]
 	ui = always
 	status = always
@@ -18,3 +14,11 @@
 	default = simple
 [status]
 	submoduleSummary = true
+[merge]
+	tool = vimdiff3
+	conflictstyle = diff3
+[mergetool]
+	path = nvim
+	prompt = true
+[mergetool "vimdiff3"]
+	path = nvim
