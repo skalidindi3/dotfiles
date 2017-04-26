@@ -252,6 +252,9 @@ endif
 if !empty(glob(plug_path . '/indentLine'))
     " should match colorscheme LineNr ctermfg
     let g:indentLine_color_term = synIDattr(synIDtrans(hlID('LineNr')), 'fg')
+    if &diff
+        let g:indentLine_enabled = 0                " disable indentline for vimdiff
+    endif
 endif
 " }}}
 
