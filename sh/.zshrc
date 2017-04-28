@@ -66,10 +66,12 @@ if [[ -f ~/dotfiles/antigen/antigen.zsh ]]; then
 fi
 
 # Source custom aliases and colors
-[[ -f ~/.bash_aliases ]] \
-    && source ~/.bash_aliases
+if [[ -f ~/.bash_aliases ]]; then
+    source ~/.bash_aliases
+fi
 
 # Google
-[[ -f ~/.googlerc ]] \
-    && source ~/.googlerc
+if [[ -f ~/.googlerc ]]; then
+    source ~/.googlerc
+fi
 
