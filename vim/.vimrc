@@ -139,13 +139,14 @@ function! DownloadPlug()
 endfunction
 
 " Load appropriate version of Plug
-" NOTE: colors need to be copied or symlinked directly into '~/.config/nvim/colors/'
-if has('nvim') && !empty(glob('~/.config/nvim/autoload/plug.vim'))
+if has('nvim')
     let plug_path = '~/.config/nvim/plugged'
-elseif !has('nvim') && !empty(glob('~/.vim/autoload/plug.vim'))
+else
     let plug_path = '~/.vim/plugged'
 endif
-call plug#begin(plug_path)
+if !empty(glob(substitute(plug_path, 'plugged', 'autoload', '') . '/plug.vim'))
+    call plug#begin(plug_path)
+endif
 
 " Load modules if Plug is loaded
 if exists(':Plug')
