@@ -77,11 +77,6 @@ alias cxxd='cxxd -u -R 5'
 cpp () {
     rsync -ah --progress "$1" "$2"
 }
-# Calculations
-_calc() {
-    echo "$@" | bc
-}
-alias calc='noglob _calc'
 # Prefer neovim
 unalias vim &> /dev/null
 which vim &> /dev/null \
