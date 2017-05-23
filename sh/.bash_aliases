@@ -128,6 +128,18 @@ if which git &> /dev/null; then
 fi
 
 
+#########
+# Scala #
+#########
+if which scala &> /dev/null; then
+    if which amm &> /dev/null; then
+        alias scala='amm'
+    else
+        alias scala='echo "you should download ammonite!\n" && scala'
+    fi
+fi
+
+
 ###########
 # Vagrant #
 ###########
