@@ -152,7 +152,7 @@ if which vagrant &> /dev/null; then
     alias vh='vagrant halt'
     alias vd='vagrant destroy'
     [ -e ~/Documents/vagrant ] \
-        && cdv() { cd "/Users/`whoami`/Documents/vagrant/$@"; }
+        && cdv() { cd "${HOME}/Documents/vagrant/$@"; }
 fi
 
 
@@ -160,9 +160,9 @@ fi
 # Folders #
 ###########
 if [ -e ~/Documents/projects ]; then
-    cdp() { cd "/Users/`whoami`/Documents/projects/$@"; }
+    cdp() { cd "${HOME}/Documents/projects/$@"; }
     if [ -n "$ZSH_VERSION" ]; then
-        compctl -W "/Users/`whoami`/Documents/projects/$1" -/ cdp
+        compctl -W "${HOME}/Documents/projects/$1" -/ cdp
     fi
 fi
 
