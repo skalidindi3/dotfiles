@@ -161,6 +161,7 @@ if exists(':Plug')
     Plug 'Xuyuanp/nerdtree-git-plugin'
     " Colors
     Plug 'romainl/Apprentice'
+    Plug 'rakr/vim-one'
     " Syntax Highlighting
     Plug 'sheerun/vim-polyglot'
     " Misc
@@ -274,7 +275,7 @@ if &diff
     silent! colorscheme apprentice                  " use a different theme for vimdiff
 elseif (has("termguicolors"))
     set termguicolors                               " use 24b true color mode in neovim if available
-    silent! colorscheme onedark                     " with a true color colorscheme if available
+    silent! colorscheme one                         " with a true color colorscheme if available
 endif
 " }}}
 
