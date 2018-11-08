@@ -128,6 +128,17 @@ if which git &> /dev/null; then
 fi
 
 
+##########
+# Python #
+##########
+if [ -e ~/Library/Python/3.7/bin/ ]; then
+    export PATH=~/Library/Python/3.7/bin/:$PATH
+fi
+if [ -e ~/Library/Python/2.7/bin/ ]; then
+    export PATH=~/Library/Python/2.7/bin/:$PATH
+fi
+
+
 #########
 # Scala #
 #########
