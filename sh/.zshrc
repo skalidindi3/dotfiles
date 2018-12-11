@@ -1,7 +1,7 @@
 # Explicitly set SHELL, TERM, EDITOR
 export SHELL="`which zsh`"
 export TERM="xterm-256color"
-export EDITOR='vim'
+export EDITOR='nvim'
 
 # Key-bindings                                      # ensure that zsh+tmux combo keeps emacs bindings
 bindkey -e
