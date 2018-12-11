@@ -281,6 +281,32 @@ elseif (has("termguicolors"))
 endif
 " }}}
 
+" Google {{{
+if filereadable('/usr/share/vim/google/google.vim')
+    source /usr/share/vim/google/google.vim
+
+    Glug codefmt
+    Glug codefmt-google
+    Glug googlestyle
+    augroup autoformat_settings
+        autocmd!
+
+        " Google C/C++ sytle is a 2-space tab
+        autocmd BufRead,BufNewFile /google/**/*.{c,cc,cpp,h,hh,hpp,proto} set tabstop=2
+        autocmd BufRead,BufNewFile /google/**/*.{c,cc,cpp,h,hh,hpp,proto} set softtabstop=2
+        autocmd BufRead,BufNewFile /google/**/*.{c,cc,cpp,h,hh,hpp,proto} set shiftwidth=2
+
+        " auto-format google code
+        autocmd BufRead,BufNewFile /google/**/*.{c,cc,cpp,h,hh,hpp,proto} AutoFormatBuffer clang-format
+        autocmd BufRead,BufNewFile /google/**/BUILD AutoFormatBuffer buildifier
+        autocmd BufRead,BufNewFile /google/**/*.bzl AutoFormatBuffer buildifier
+        autocmd BufRead,BufNewFile /google/**/*.md AutoFormatBuffer mdformat
+        autocmd BufRead,BufNewFile /google/**/*.py AutoFormatBuffer pyformat
+        autocmd BufRead,BufNewFile /google/**/*.textproto AutoFormatBuffer text-proto-format
+    augroup END
+endif
+" }}}
+
 " TODOs {{{
 
 " "More listchars (:h listchars)"
