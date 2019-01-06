@@ -9,6 +9,7 @@ YELLOW=$(printf "\x1b[0;33m")
 RESET=$(printf "\x1b[0m")
 # `ls` Colors
 export LSCOLORS='ExDxxxxxCxxxgxxxxxExEx'
+export LS_COLORS='di=1;34:ln=1;33:so=0:pi=0:ex=1;32:bd=0:cd=36:su=0:sg=0:tw=1;34:ow=1;34'
 # `man` Colors
 export LESS_TERMCAP_us=$'\033[04;38;5;215m'
 export LESS_TERMCAP_ue=$'\033[0m'

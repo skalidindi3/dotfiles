@@ -48,11 +48,15 @@ zstyle ':completion:*' group-name ''                # set group name to name of 
 zstyle ':completion:*' list-dirs-first true         # group completions, cycle directories first
 zstyle ':completion:*:processes' \
   command 'ps -au$USER'                             # complete current running processes for `kill`
+
+# Source custom aliases and colors
+if [[ -f ~/.bash_aliases ]]; then
+    source ~/.bash_aliases
+fi
+
 # Completion Coloring
-if [[ -n $LSCOLORS ]]; then                         # use `ls` coloring for path completion list
-    zstyle ':completion:*' list-colors ${(s.:.)LSCOLORS}    # OSX compat
-elif [[ -n $LS_COLORS ]]; then
-    zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}   # Linux compat
+if [[ -n $LS_COLORS ]]; then                        # use `ls` coloring for path completion list
+    zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 fi
 zstyle ':completion:*:*:kill:*' list-colors \
   '=(#b) #([0-9]#)*( *[a-z])*=34=31=33'             # set coloring for kill completion list
@@ -63,11 +67,6 @@ if [[ -f ~/dotfiles/antigen/antigen.zsh ]]; then
     antigen bundle zsh-users/zsh-syntax-highlighting
     antigen bundle supercrabtree/k
     antigen apply
-fi
-
-# Source custom aliases and colors
-if [[ -f ~/.bash_aliases ]]; then
-    source ~/.bash_aliases
 fi
 
 # Google
