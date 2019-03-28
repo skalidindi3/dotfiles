@@ -307,6 +307,10 @@ if filereadable('/usr/share/vim/google/google.vim')
 endif
 " }}}
 
+" File-specific {{{
+set modeline                                        " allow file-specific options
+" }}}
+
 " TODOs {{{
 
 " "More listchars (:h listchars)"
