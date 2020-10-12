@@ -5,6 +5,8 @@ set nocompatible                                    " vi who?
 set lazyredraw                                      " take it easy
 silent! set ff=unix                                 " always unix line endings (skip for RO)
 set backspace=eol,start,indent                      " allow backspace over line-endings
+set splitbelow                                      " horizontal split creates new pane below active
+set splitright                                      " vertical split creates new pane right of active
 " }}}
 
 " Keys (Remaps) {{{
