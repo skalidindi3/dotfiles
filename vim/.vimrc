@@ -165,6 +165,9 @@ if exists(':Plug')
     " Colors
     Plug 'rakr/vim-one'
     Plug 'romainl/Apprentice'
+    Plug 'rakr/vim-two-firewatch'
+    Plug 'arcticicestudio/nord-vim'
+    Plug 'dracula/vim'
     " Syntax Highlighting
     Plug 'sheerun/vim-polyglot'
     Plug 'gabrielelana/vim-markdown'
