@@ -29,10 +29,6 @@ PROMPT='%(?.%F{32}.%F{196})'                        # if last exit code == 0, se
 PROMPT+='%1~ '                                      # current dir name only, with home as '~'
 PROMPT+='ϟ '                                        # custom prompt symbol
 PROMPT+='%f%k'                                      # end foreground & background coloring
-RPROMPT='%F{8}'                                     # set foreground color gray (8)
-RPROMPT+='[%D{%T}]'                                 # datetime string formatted as 24-hour time (with seconds)
-RPROMPT+='%f%k'                                     # end foreground & background coloring
-#preexec() { print -P $RPROMPT }                    # useful for timing commands
 
 # Completion
 autoload -U compinit && compinit                    # fire up completion base module
