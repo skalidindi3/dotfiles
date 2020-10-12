@@ -225,17 +225,14 @@ if [ 'Linux' = $(uname) ]; then
     # Peripherals
     vol() {
         if [[ -n $1 ]]; then
-            amixer -q -D pulse sset Master unmute
-            amixer -q set Master "$1"
-        elif [[ `amixer sget Master | awk -F"[][]" '/dB/ { print $6 }'` = 'off' ]]; then
-            echo "muted"
+            amixer -q set Master unmute
+            amixer set Master "$1"% | grep -E "\[on\]"
         else
-            amixer sget Master | awk -F" " '/dB/ { print $3 }'
+            amixer get Master | grep -E "\[off\]|\[on\]"
         fi
     }
     mute() {
-        amixer -q -D pulse sset Master mute
-        echo "muted"
+        amixer set Master mute | grep -E "\[off\]"
     }
 fi
 
