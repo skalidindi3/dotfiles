@@ -164,10 +164,11 @@ if exists(':Plug')
     Plug 'jistr/vim-nerdtree-tabs'
     Plug 'Xuyuanp/nerdtree-git-plugin'
     " Colors
-    Plug 'romainl/Apprentice'
     Plug 'rakr/vim-one'
+    Plug 'romainl/Apprentice'
     " Syntax Highlighting
     Plug 'sheerun/vim-polyglot'
+    Plug 'gabrielelana/vim-markdown'
     " Misc
     Plug 'sjl/gundo.vim'
     Plug 'Yggdroot/indentLine'
