@@ -42,6 +42,8 @@ nnoremap - zc
 nnoremap = zo
 nnoremap _ zM
 nnoremap + zR
+" ex mode is annoying
+nnoremap Q <Nop>
 " }}}
 
 " Keys (Shortcuts) {{{
