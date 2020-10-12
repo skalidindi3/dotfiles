@@ -309,6 +309,10 @@ if filereadable('/usr/share/vim/google/google.vim')
         autocmd BufRead,BufNewFile /google/**/*.py AutoFormatBuffer pyformat
         autocmd BufRead,BufNewFile /google/**/*.textproto AutoFormatBuffer text-proto-format
     augroup END
+
+
+    nnoremap <leader>g :NoAutoFormatBuffer<CR>
+    nnoremap <leader>G :AutoFormatBuffer<CR>
 endif
 " }}}
 
