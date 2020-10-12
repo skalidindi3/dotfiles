@@ -139,7 +139,6 @@ function! DownloadPlug()
         \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
     endif
     echom "Restart vim to use plugins"
-    redraw!
 endfunction
 
 " Load appropriate version of Plug
