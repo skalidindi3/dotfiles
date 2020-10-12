@@ -3,7 +3,7 @@
 " vim {{{
 set nocompatible                                    " vi who?
 set lazyredraw                                      " take it easy
-set ff=unix                                         " always unix line endings
+silent! set ff=unix                                 " always unix line endings (skip for RO)
 set backspace=eol,start,indent                      " allow backspace over line-endings
 " }}}
 
