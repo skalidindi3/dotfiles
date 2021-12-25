@@ -31,33 +31,45 @@ show_colors() {
 alias strip_colors="perl -pe 's/\e\[?.*?[\@-~]//g'"
 
 
-###################
-# Pretty-Printing #
-###################
-which pygmentize &> /dev/null \
-    && alias pcat='pygmentize -f terminal256 -O style=native -g'
-xmlshow() {
-    cat $@ \
-        | xmllint --format - \
-        | pcat
-}
-csvshow() {
-    cat $@ \
-        | sed -e 's/,,/, ,/g' \
-        | column -s, -t \
-        | less -rNS#5
-}
-tsvshow() {
-    cat $@ \
-        | column -s "	" -t \
-        | less -rNS#5
-}
-cdiff() {
-    diff $@ \
-        | sed -E "s/(^< .*$)/$RED\1$RESET/" \
-        | sed -E "s/(^> .*$)/$GREEN\1$RESET/" \
-        | sed -E "s/^---$/$BLUE---$RESET/"
-}
+###########
+# Folders #
+###########
+if [ -e ~/Documents/projects ]; then
+    cdp() { cd "${HOME}/Documents/projects/$@"; }
+    if [ -n "$ZSH_VERSION" ]; then
+        compctl -W "${HOME}/Documents/projects/$1" -/ cdp
+    fi
+fi
+
+
+############
+# Homebrew #
+############
+if [ -e /opt/homebrew/bin/brew ]; then
+    eval "$(/opt/homebrew/bin/brew shellenv)"
+fi
+
+
+##########
+# Python #
+##########
+if [ -e /opt/homebrew/bin/pyenv ]; then
+    eval "$(pyenv init --path)"
+    eval "$(pyenv init -)"
+    export PATH="$HOME/.local/bin:$PATH"
+fi
+
+
+#########
+# Scala #
+#########
+if which scala &> /dev/null; then
+    if which amm &> /dev/null; then
+        alias scala='amm'
+    else
+        alias scala='echo "you should download ammonite!\n" && scala'
+    fi
+fi
 
 
 ################
@@ -74,10 +86,6 @@ alias vless='/usr/share/vim/vim73/macros/less.sh'
 alias todo='echo "TODO: $*" >> ~/.TODO'
 alias todos='less -p TODO ~/.TODO'
 alias squash='sed -lE "s/$/`printf \"\x1b\x5b\x4b\x0d\"`/" | tr -ud "\n" && echo ""'
-alias cxxd='cxxd -u -R 5'
-cpp () {
-    rsync -ah --progress "$1" "$2"
-}
 # Prefer neovim
 unalias vim &> /dev/null
 which vim &> /dev/null \
@@ -129,54 +137,35 @@ if which git &> /dev/null; then
 fi
 
 
-##########
-# Python #
-##########
-if [ -e ~/Library/Python/3.7/bin/ ]; then
-    export PATH=~/Library/Python/3.7/bin/:$PATH
-fi
-if [ -e ~/Library/Python/2.7/bin/ ]; then
-    export PATH=~/Library/Python/2.7/bin/:$PATH
-fi
-
-
-#########
-# Scala #
-#########
-if which scala &> /dev/null; then
-    if which amm &> /dev/null; then
-        alias scala='amm'
-    else
-        alias scala='echo "you should download ammonite!\n" && scala'
-    fi
-fi
-
-
-###########
-# Vagrant #
-###########
-if which vagrant &> /dev/null; then
-    vssh() {
-        vagrant ssh-config &> /dev/null \
-            || vagrant up
-        vagrant ssh
-    }
-    alias vh='vagrant halt'
-    alias vd='vagrant destroy'
-    [ -e ~/Documents/vagrant ] \
-        && cdv() { cd "${HOME}/Documents/vagrant/$@"; }
-fi
-
-
-###########
-# Folders #
-###########
-if [ -e ~/Documents/projects ]; then
-    cdp() { cd "${HOME}/Documents/projects/$@"; }
-    if [ -n "$ZSH_VERSION" ]; then
-        compctl -W "${HOME}/Documents/projects/$1" -/ cdp
-    fi
-fi
+###################
+# Pretty-Printing #
+###################
+which cxxd &> /dev/null \
+    && alias cxxd='cxxd -u -R 5'
+which pygmentize &> /dev/null \
+    && alias pcat='pygmentize -f terminal256 -O style=native -g'
+xmlshow() {
+    cat $@ \
+        | xmllint --format - \
+        | pcat
+}
+csvshow() {
+    cat $@ \
+        | sed -e 's/,,/, ,/g' \
+        | column -s, -t \
+        | less -rNS#5
+}
+tsvshow() {
+    cat $@ \
+        | column -s "	" -t \
+        | less -rNS#5
+}
+cdiff() {
+    diff $@ \
+        | sed -E "s/(^< .*$)/$RED\1$RESET/" \
+        | sed -E "s/(^> .*$)/$GREEN\1$RESET/" \
+        | sed -E "s/^---$/$BLUE---$RESET/"
+}
 
 
 #######
@@ -246,19 +235,3 @@ spec() {
 all2mp3() {
     ffmpeg -i "$1" -ab 320k -map_metadata 0 -id3v2_version 3 "${1}.mp3"
 }
-
-
-###########
-# Exports #
-###########
-export HISTCONTROL=ignorespace:ignoredups
-export HISTTIMEFORMAT='%F %T '
-which npm &> /dev/null \
-    && export NODE_PATH=$(npm root -g):$NODE_PATH
-
-
-# TODO: https://robots.thoughtbot.com/autosquashing-git-commits
-# TODO: http://atechnicaltravesty.blogspot.com/2011/05/custom-tab-complete-and-bash-functions.html
-# TODO info function
-# i() { which & type }
-
