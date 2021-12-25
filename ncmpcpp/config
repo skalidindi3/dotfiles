@@ -1,0 +1,30 @@
+# match mpd config
+mpd_host = 127.0.0.1
+mpd_port = 6600
+
+# protect host filesystem
+allow_for_physical_item_deletion = no
+lyrics_directory = /tmp/ncmpcpp_lyrics
+
+# interactivity
+mouse_list_scroll_whole_page = no
+lines_scrolled = 3
+playlist_disable_highlight_delay = 0
+
+# organization
+startup_screen = media_library
+media_library_primary_tag = "album_artist"
+ignore_leading_the = yes
+
+# STAGING
+progressbar_look = "▂▂▂"
+progressbar_color = "black"
+progressbar_elapsed_color = "yellow"
+
+#execute_on_song_change = /Users/chaitu/Documents/projects/swap/ncmpcpp-notify.sh "$(mpc --format '%file%' | head -1)"
+
+
+
+
+
+playlist_display_mode = "columns"

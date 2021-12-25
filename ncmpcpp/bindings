@@ -1,0 +1,425 @@
+# redundant with allow_for_physical_item_deletion = no, but paranoia
+def_key "delete"
+    require_screen "playlist"
+    delete_playlist_items
+
+
+# always return to library before quitting
+def_key "q"
+    show_media_library
+def_key "q"
+    quit
+
+
+# custom arrangement of panes
+def_key "1"
+    show_media_library
+def_key "2"
+    show_playlist_editor
+def_key "3"
+    show_playlist
+def_key "4"
+    show_outputs
+def_key "5"
+    show_search_engine
+def_key "6"
+    show_clock
+def_key "7"
+    show_clock
+def_key "8"
+    show_clock
+def_key "9"
+    show_clock
+def_key "0"
+    show_server_info
+
+
+# vim-like movement bindings
+def_key "h"
+    previous_column
+def_key "j"
+    scroll_down
+def_key "k"
+    scroll_up
+def_key "l"
+    next_column
+
+
+# other movement bindings
+def_key "mouse"
+    mouse_event
+def_key "ctrl-j"
+    page_down
+def_key "ctrl-k"
+    page_up
+
+
+# playback
+def_key "space"
+    pause
+def_key "s"
+    stop
+def_key "<"
+    previous
+def_key ">"
+    next
+def_key "="
+    volume_up
+def_key "+"
+    volume_up
+def_key "-"
+    volume_down
+def_key "_"
+    volume_down
+def_key "ctrl-v"
+    set_volume
+def_key "right"
+    seek_forward
+def_key "left"
+    seek_backward
+
+
+# vim-like search bindings
+def_key "n"
+    next_found_item
+def_key "N"
+    previous_found_item
+def_key "/"
+    require_screen "search_engine"
+    run_action
+def_key "enter"
+    require_screen "search_engine"
+    start_searching
+def_key "r"
+    require_screen "search_engine"
+    reset_search_engine
+
+
+# main playlist settings
+def_key "c"
+    require_screen "playlist"
+    clear_main_playlist
+def_key "S"
+    require_screen "playlist"
+    save_playlist
+def_key "R"
+    require_screen "playlist"
+    toggle_consume
+
+
+# lyrics acquisition & display
+def_key "L"
+    show_lyrics
+
+
+# re-establish defaults on other panes where necessary
+# NOTE: this is for keys mapped with require_screen
+def_key "/"
+    find_item_forward
+def_key "enter" # for adding selected items to playlist
+    run_action
+def_key "enter" # selecting audio_output
+    toggle_output
+def_key "enter"
+    play_item
+def_key "r"
+    toggle_repeat
+
+
+# desirable defaults
+def_key "a"
+    add_selected_items
+def_key "i"
+    show_song_info
+def_key "I"
+    show_artist_info
+
+
+# STAGING
+def_key "`" # add_random_items
+    add_random_items
+def_key "u" # update_database
+    update_database
+def_key "#" # toggle_bitrate_visibility
+    toggle_bitrate_visibility
+
+
+# TESTING
+def_key "x"
+    select_item
+def_key "X"
+    reverse_selection
+def_key "ctrl-x"
+    remove_selection
+def_key "J" # move_selected_items_down
+    move_selected_items_down
+def_key "K" # move_selected_items_up
+    move_selected_items_up
+def_key "!" # show_clock
+    run_external_command "clear"
+    run_external_command "ls"
+def_key "?" # show_help
+    show_help
+
+
+# disable all other functionality
+def_key "mouse" # mouse_event
+    dummy
+def_key "up" # scroll_up
+    dummy
+def_key "shift-up" # select_item & scroll_up
+    dummy
+def_key "down" # scroll_down
+    dummy
+def_key "shift-down" # select_item & scroll_down
+    dummy
+def_key "[" # scroll_up_album
+    dummy
+def_key "]" # scroll_down_album
+    dummy
+def_key "{" # scroll_up_artist
+    dummy
+def_key "}" # scroll_down_artist
+    dummy
+def_key "page_up" # page_up
+    dummy
+def_key "page_down" # page_down
+    dummy
+def_key "home" # move_home
+    dummy
+def_key "end" # move_end
+    dummy
+def_key "insert" # select_item
+    dummy
+def_key "enter" # enter_directory
+    dummy
+def_key "enter" # toggle_output
+    dummy
+def_key "enter" # run_action
+    dummy
+def_key "enter" # play_item
+    dummy
+def_key "space" # add_item_to_playlist
+    dummy
+def_key "space" # toggle_lyrics_update_on_song_change
+    dummy
+def_key "space" # toggle_visualization_type
+    dummy
+def_key "delete" # delete_playlist_items
+    dummy
+def_key "delete" # delete_browser_items
+    dummy
+def_key "delete" # delete_stored_playlist
+    dummy
+def_key "right" # next_column
+    dummy
+def_key "right" # slave_screen
+    dummy
+def_key "right" # volume_up
+    dummy
+def_key "+" # volume_up
+    dummy
+def_key "left" # previous_column
+    dummy
+def_key "left" # master_screen
+    dummy
+def_key "left" # volume_down
+    dummy
+def_key "-" # volume_down
+    dummy
+def_key ":" # execute_command
+    dummy
+def_key "tab" # next_screen
+    dummy
+def_key "shift-tab" # previous_screen
+    dummy
+def_key "f1" # show_help
+    dummy
+def_key "1" # show_playlist
+    dummy
+def_key "2" # show_browser
+    dummy
+def_key "2" # change_browse_mode
+    dummy
+def_key "3" # show_search_engine
+    dummy
+def_key "3" # reset_search_engine
+    dummy
+def_key "4" # show_media_library
+    dummy
+def_key "4" # toggle_media_library_columns_mode
+    dummy
+def_key "5" # show_playlist_editor
+    dummy
+def_key "6" # show_tag_editor
+    dummy
+def_key "7" # show_outputs
+    dummy
+def_key "8" # show_visualizer
+    dummy
+def_key "=" # show_clock
+    dummy
+def_key "@" # show_server_info
+    dummy
+def_key "s" # stop
+    dummy
+def_key "p" # pause
+    dummy
+def_key ">" # next
+    dummy
+def_key "<" # previous
+    dummy
+def_key "ctrl-h" # jump_to_parent_directory
+    dummy
+def_key "ctrl-h" # replay_song
+    dummy
+def_key "backspace" # jump_to_parent_directory
+    dummy
+def_key "backspace" # replay_song
+    dummy
+def_key "f" # seek_forward
+    dummy
+def_key "b" # seek_backward
+    dummy
+def_key "r" # toggle_repeat
+    dummy
+def_key "z" # toggle_random
+    dummy
+def_key "y" # save_tag_changes
+    dummy
+def_key "y" # start_searching
+    dummy
+def_key "y" # toggle_single
+    dummy
+def_key "R" # toggle_consume
+    dummy
+def_key "Y" # toggle_replay_gain_mode
+    dummy
+def_key "T" # toggle_add_mode
+    dummy
+def_key "|" # toggle_mouse
+    dummy
+def_key "#" # toggle_bitrate_visibility
+    dummy
+# def_key "Z" # shuffle
+#     dummy
+def_key "x" # toggle_crossfade
+    dummy
+def_key "X" # set_crossfade
+    dummy
+def_key "u" # update_database
+    dummy
+def_key "ctrl-s" # sort_playlist
+    dummy
+def_key "ctrl-s" # toggle_browser_sort_mode
+    dummy
+def_key "ctrl-s" # toggle_media_library_sort_mode
+    dummy
+def_key "ctrl-r" # reverse_playlist
+    dummy
+def_key "ctrl-f" # apply_filter
+    dummy
+def_key "ctrl-_" # select_found_items
+    dummy
+def_key "/" # find
+    dummy
+def_key "/" # find_item_forward
+    dummy
+def_key "?" # find
+    dummy
+def_key "?" # find_item_backward
+    dummy
+def_key "." # next_found_item
+    dummy
+def_key "," # previous_found_item
+    dummy
+def_key "w" # toggle_find_mode
+    dummy
+def_key "e" # edit_song
+    dummy
+def_key "e" # edit_library_tag
+    dummy
+def_key "e" # edit_library_album
+    dummy
+def_key "e" # edit_directory_name
+    dummy
+def_key "e" # edit_playlist_name
+    dummy
+def_key "e" # edit_lyrics
+    dummy
+def_key "i" # show_song_info
+    dummy
+def_key "I" # show_artist_info
+    dummy
+def_key "g" # jump_to_position_in_song
+    dummy
+def_key "l" # show_lyrics
+    dummy
+def_key "ctrl-v" # select_range
+    dummy
+def_key "v" # reverse_selection
+    dummy
+def_key "V" # remove_selection
+    dummy
+def_key "B" # select_album
+    dummy
+def_key "a" # add_selected_items
+    dummy
+def_key "c" # clear_playlist
+    dummy
+def_key "c" # clear_main_playlist
+    dummy
+def_key "C" # crop_playlist
+    dummy
+def_key "C" # crop_main_playlist
+    dummy
+def_key "m" # move_sort_order_up
+    dummy
+def_key "m" # move_selected_items_up
+    dummy
+def_key "n" # move_sort_order_down
+    dummy
+def_key "n" # move_selected_items_down
+    dummy
+def_key "M" # move_selected_items_to
+    dummy
+def_key "A" # add
+    dummy
+def_key "S" # save_playlist
+    dummy
+def_key "o" # jump_to_playing_song
+    dummy
+def_key "G" # jump_to_browser
+    dummy
+def_key "G" # jump_to_playlist_editor
+    dummy
+def_key "~" # jump_to_media_library
+    dummy
+def_key "E" # jump_to_tag_editor
+    dummy
+def_key "U" # toggle_playing_song_centering
+    dummy
+def_key "P" # toggle_display_mode
+    dummy
+def_key "\\" # toggle_interface
+    dummy
+def_key "!" # toggle_separators_between_albums
+    dummy
+def_key "L" # toggle_lyrics_fetcher
+    dummy
+def_key "F" # fetch_lyrics_in_background
+    dummy
+def_key "alt-l" # toggle_fetching_lyrics_in_background
+    dummy
+def_key "ctrl-l" # toggle_screen_lock
+    dummy
+def_key "`" # toggle_library_tag_type
+    dummy
+def_key "`" # refetch_lyrics
+    dummy
+def_key "`" # add_random_items
+    dummy
+def_key "ctrl-p" # set_selected_items_priority
+    dummy
+def_key "q" # quit
+    dummy

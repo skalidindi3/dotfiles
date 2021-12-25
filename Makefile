@@ -32,6 +32,23 @@ provision_neovim:
 		&& echo "~/.config/nvim/init.vim already exists!" \
 		|| ln -s $(abspath ./vim/.vimrc) ~/.config/nvim/init.vim
 
+.PHONY: provision_mpd
+provision_mpd:
+	@mkdir -p ~/.mpd
+	@[ -f ~/.mpd/mpd.conf ] \
+		&& echo "~/.mpd/mpd.conf already exists!" \
+		|| ln -s $(abspath ./mpd/mpd.conf) ~/.mpd/mpd.conf
+
+.PHONY: provision_ncmpcpp
+provision_ncmpcpp:
+	@mkdir -p ~/.config/ncmpcpp
+	@[ -f ~/.config/ncmpcpp/config ] \
+		&& echo "~/.config/ncmpcpp/config already exists!" \
+		|| ln -s $(abspath ./ncmpcpp/config) ~/.config/ncmpcpp/config
+	@[ -f ~/.config/ncmpcpp/bindings ] \
+		&& echo "~/.config/ncmpcpp/bindings already exists!" \
+		|| ln -s $(abspath ./ncmpcpp/bindings) ~/.config/ncmpcpp/bindings
+
 .PHONY: force_clean
 force_clean:
 	rm -f ~/.gitconfig ~/.bash_aliases ~/.zshrc ~/.tmux.conf
