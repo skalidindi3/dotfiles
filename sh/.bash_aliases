@@ -226,12 +226,22 @@ if [ 'Linux' = $(uname) ]; then
 fi
 
 
-#############
-# MP3 Utils #
-#############
+#########
+# Music #
+#########
+if [ -e ~/Music/managed/beets/config.yaml ]; then
+    export BEETSDIR=~/Music/managed/beets/
+fi
 spec() {
     sox "$@" -n spectrogram && open ./spectrogram.png
 }
-all2mp3() {
-    ffmpeg -i "$1" -ab 320k -map_metadata 0 -id3v2_version 3 "${1}.mp3"
+spec_m4a() {
+    rm -f /tmp/spec_m4a.wav
+    ffmpeg -hide_banner -loglevel warning -i "$@" -c:a pcm_s24le /tmp/spec_m4a.wav
+    sox /tmp/spec_m4a.wav -n spectrogram -o ./spectrogram.png && open ./spectrogram.png
+}
+spec_opus() {
+    rm -f /tmp/spec_opus.wav
+    ffmpeg -hide_banner -loglevel warning -i "$@" -c:a pcm_s24le /tmp/spec_opus.wav
+    sox /tmp/spec_opus.wav -n spectrogram -o ./spectrogram.png && open ./spectrogram.png
 }
