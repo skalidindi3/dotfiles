@@ -38,6 +38,10 @@ provision_mpd:
 	@[ -f ~/.mpd/mpd.conf ] \
 		&& echo "~/.mpd/mpd.conf already exists!" \
 		|| ln -s $(abspath ./mpd/mpd.conf) ~/.mpd/mpd.conf
+	@mkdir -p ~/.mpdscribble
+	@[ -f ~/.mpdscribble/mpdscribble.conf ] \
+		&& echo "~/.mpdscribble/mpdscribble.conf already exists!" \
+		|| ln -s $(abspath ./mpd/mpdscribble.conf) ~/.mpdscribble/mpdscribble.conf
 
 .PHONY: provision_ncmpcpp
 provision_ncmpcpp:
