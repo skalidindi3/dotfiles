@@ -3,6 +3,12 @@ export SHELL="`which zsh`"
 export TERM="xterm-256color"
 export EDITOR='nvim'
 
+export HISTFILE="$HOME/.cache/zsh/zsh_history"
+export HISTSIZE=1000
+export SAVEHIST=$HISTSIZE
+setopt INC_APPEND_HISTORY
+setopt HIST_IGNORE_DUPS
+
 # Key-bindings                                      # ensure that zsh+tmux combo keeps emacs bindings
 bindkey -e
 # OSX convenience                                   # iTerm2 default    # OSX default   # Keys
