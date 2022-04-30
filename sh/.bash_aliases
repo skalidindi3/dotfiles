@@ -232,6 +232,9 @@ fi
 if [ -e ~/Music/managed/beets/config.yaml ]; then
     export BEETSDIR=~/Music/managed/beets/
 fi
+if [ -e ~/Documents/android-platform-tools/adb ]; then
+    export PATH="$PATH:$HOME/Documents/android-platform-tools"
+fi
 spec() {
     sox "$@" -n spectrogram && open ./spectrogram.png
 }
