@@ -236,15 +236,31 @@ if [ -e ~/Documents/android-platform-tools/adb ]; then
     export PATH="$PATH:$HOME/Documents/android-platform-tools"
 fi
 spec() {
-    sox "$@" -n spectrogram && open ./spectrogram.png
+    # Generate Spectrogram
+    echo "$1" > /tmp/service_genspec.log
+    rm -f /tmp/spectrogram.wav
+    case "${1##*.}" in
+      mp3|flac|wav)
+        /opt/homebrew/bin/sox "$1" -n spectrogram -o /tmp/spectrogram.png && open /tmp/spectrogram.png
+        ;;
+      m4a|opus)
+        /opt/homebrew/bin/ffmpeg -hide_banner -loglevel warning -i "$1" -c:a pcm_s24le /tmp/spectrogram.wav
+        /opt/homebrew/bin/sox /tmp/spectrogram.wav -n spectrogram -o /tmp/spectrogram.png && open /tmp/spectrogram.png
+        ;;
+      *)
+        osascript -e "display notification \"sox: Unknown audio filetype\""
+        echo "sox: Unknown audio filetype for $1" >> /tmp/service_genspec.log
+        ;;
+    esac
 }
-spec_m4a() {
-    rm -f /tmp/spec_m4a.wav
-    ffmpeg -hide_banner -loglevel warning -i "$@" -c:a pcm_s24le /tmp/spec_m4a.wav
-    sox /tmp/spec_m4a.wav -n spectrogram -o ./spectrogram.png && open ./spectrogram.png
+extract_art() {
+    # Extract Art
+    echo "$1" > /tmp/service_extractart.log
+    rm -f /tmp/extractedart.png
+    /opt/homebrew/bin/ffmpeg -hide_banner -loglevel warning -i "$1" -map 0:v -map -0:V -c copy /tmp/extractedart.png && open /tmp/extractedart.png
 }
-spec_opus() {
-    rm -f /tmp/spec_opus.wav
-    ffmpeg -hide_banner -loglevel warning -i "$@" -c:a pcm_s24le /tmp/spec_opus.wav
-    sox /tmp/spec_opus.wav -n spectrogram -o ./spectrogram.png && open ./spectrogram.png
+ffprobe_report () {
+    # Report ffprobe
+    echo "$1" > /tmp/service_ffprobe.log
+    /opt/homebrew/bin/ffprobe "$1" &> /tmp/service_ffprobe.log && open /tmp/service_ffprobe.log
 }
