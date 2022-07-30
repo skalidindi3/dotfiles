@@ -55,5 +55,5 @@ provision_ncmpcpp:
 
 .PHONY: force_clean
 force_clean:
-	rm -f ~/.gitconfig ~/.bash_aliases ~/.zshrc ~/.tmux.conf
+	rm -f ~/.gitconfig ~/.bash_aliases ~/.zshrc ~/.tmux.conf ~/.config/nvim/init.vim
 
