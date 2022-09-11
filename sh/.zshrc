@@ -8,6 +8,7 @@ export HISTSIZE=1000
 export SAVEHIST=$HISTSIZE
 setopt INC_APPEND_HISTORY
 setopt HIST_IGNORE_DUPS
+setopt HIST_IGNORE_SPACE
 
 # Key-bindings                                      # ensure that zsh+tmux combo keeps emacs bindings
 bindkey -e
