@@ -75,6 +75,10 @@ fi
 ################
 # General 'nix #
 ################
+alias fcp="\\cp"
+alias cp="cp -i"
+alias fmv="\\mv"
+alias mv="mv -i"
 alias ..='cd ..'
 alias grep='grep --color=always'
 alias grepnc='grep --color=never'
