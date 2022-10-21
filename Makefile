@@ -1,5 +1,5 @@
 .PHONY: provision
-provision: provision_git provision_sh provision_tmux provision_neovim
+provision: provision_git provision_sh provision_tmux provision_neovim provision_mpd provision_ncmpcpp
 
 .PHONY: provision_git
 provision_git:
