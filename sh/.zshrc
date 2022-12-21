@@ -37,6 +37,10 @@ PROMPT+='%1~ '                                      # current dir name only, wit
 PROMPT+='ϟ '                                        # custom prompt symbol
 PROMPT+='%f%k'                                      # end foreground & background coloring
 
+# Report CPU usage for commands running longer than 30 seconds
+TIMEFMT='\n%J  %U user %S system %P cpu %*E total'
+REPORTTIME=30
+
 # Completion
 autoload -U compinit && compinit                    # fire up completion base module
 setopt complete_aliases                             # complete alisases
