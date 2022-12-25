@@ -41,7 +41,7 @@ PROMPT+='ϟ '                                        # custom prompt symbol
 PROMPT+='%f%k'                                      # end foreground & background coloring
 
 # Report CPU usage for commands running longer than 30 seconds
-TIMEFMT='\n%J  %U user %S system %P cpu %*E total'
+TIMEFMT=$'\n\n'"$fg[blue]%J$reset_color :: $fg[yellow]%U user, %S system, %P cpu, %*E total, %M KiB$reset_color"
 REPORTTIME=30
 
 # Completion
