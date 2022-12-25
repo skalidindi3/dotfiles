@@ -30,6 +30,9 @@ export WORDCHARS=${WORDCHARS:s#/#}                  # count '/' as delimiter
 export WORDCHARS=${WORDCHARS:s#-#}                  # count '-' as delimiter
 export WORDCHARS=${WORDCHARS:s#_#}                  # count '_' as delimiter
 
+# Enable zsh colors
+autoload -Uz colors && colors
+
 # Prompt setup
 setopt PROMPT_SUBST                                 # allow for prompt expansion
 PROMPT='%(?.%F{32}.%F{196})'                        # if last exit code == 0, set fg color blue (32), else red (196)
