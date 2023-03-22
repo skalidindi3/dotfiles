@@ -82,22 +82,13 @@ alias mv="mv -i"
 alias ..='cd ..'
 alias grep='grep --color=always'
 alias grepnc='grep --color=never'
-alias pls='sudo !!'
-alias j='jobs'
-alias more='more -r'
 alias less='less -cP "Press \"v\" to edit in vim, or \"s\" to save to file\.\.\."'
-alias vless='/usr/share/vim/vim73/macros/less.sh'
 alias todo='echo "TODO: $*" >> ~/.TODO'
 alias todos='less -p TODO ~/.TODO'
 alias squash='sed -lE "s/$/`printf \"\x1b\x5b\x4b\x0d\"`/" | tr -ud "\n" && echo ""'
 # Prefer neovim
-unalias vim &> /dev/null
-which vim &> /dev/null \
-    && alias ovim="`which vim`"
 which nvim &> /dev/null \
     && alias vim="`which nvim`"
-which nvim &> /dev/null \
-    && alias vimdiff="nvim -d"
 
 
 #######
