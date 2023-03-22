@@ -86,9 +86,13 @@ alias less='less -cP "Press \"v\" to edit in vim, or \"s\" to save to file\.\.\.
 alias todo='echo "TODO: $*" >> ~/.TODO'
 alias todos='less -p TODO ~/.TODO'
 alias squash='sed -lE "s/$/`printf \"\x1b\x5b\x4b\x0d\"`/" | tr -ud "\n" && echo ""'
-# Prefer neovim
 which nvim &> /dev/null \
     && alias vim="`which nvim`"
+alias rg="rg --color=always --no-heading --hidden -g '!.git/' --smart-case"
+rgf() {
+    rg --line-number "${*:-}" |
+      fzf --ansi --delimiter : --bind 'enter:become(nvim {1} +{2} +"set nofoldenable")'
+}
 
 
 #######

@@ -71,6 +71,12 @@ fi
 zstyle ':completion:*:*:kill:*' list-colors \
   '=(#b) #([0-9]#)*( *[a-z])*=34=31=33'             # set coloring for kill completion list
 
+# fzf
+if command -v which fzf &> /dev/null; then
+    source $(dirname $(dirname $(realpath $(which fzf))))/shell/key-bindings.zsh
+    source $(dirname $(dirname $(realpath $(which fzf))))/shell/completion.zsh
+fi
+
 # Antigen
 if [[ -f ~/dotfiles/antigen/antigen.zsh ]]; then
     source ~/dotfiles/antigen/antigen.zsh
