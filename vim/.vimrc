@@ -164,6 +164,7 @@ if exists(':Plug')
     Plug 'Xuyuanp/nerdtree-git-plugin'
     " Colors
     Plug 'arcticicestudio/nord-vim'
+    Plug 'cocopon/iceberg.vim'
     Plug 'one-dark/onedark.nvim'
     Plug 'rakr/vim-one'
     Plug 'romainl/Apprentice'
