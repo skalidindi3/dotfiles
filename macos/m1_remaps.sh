@@ -14,3 +14,5 @@ keyboard_remap() {
 keyboard_unmap() {
   hidutil property --set '{"UserKeyMapping":[]}'
 }
+
+# whitelist apps with `xattr -d -r com.apple.quarantine`
