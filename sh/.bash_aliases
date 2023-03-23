@@ -77,6 +77,8 @@ fi
 ################
 alias fcp="\\cp"
 alias cp="cp -i"
+alias rcp="rsync -aPhn"
+alias frcp="rsync -aPh"
 alias fmv="\\mv"
 alias mv="mv -i"
 alias ..='cd ..'
