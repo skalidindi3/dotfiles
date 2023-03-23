@@ -75,8 +75,13 @@ zstyle ':completion:*:*:kill:*' list-colors \
 # arcticicestudio/nord-vim
 export FZF_DEFAULT_OPTS='--color=bg+:#3B4252,bg:#2E3440,spinner:#81A1C1,hl:#616E88,fg:#D8DEE9,header:#616E88,info:#81A1C1,pointer:#81A1C1,marker:#81A1C1,fg+:#D8DEE9,prompt:#81A1C1,hl+:#81A1C1'
 if command -v which fzf &> /dev/null; then
-    source $(dirname $(dirname $(realpath $(which fzf))))/shell/key-bindings.zsh
-    source $(dirname $(dirname $(realpath $(which fzf))))/shell/completion.zsh
+    if [[ -f /usr/share/doc/fzf/examples/key-bindings.zsh ]]; then
+        source /usr/share/doc/fzf/examples/key-bindings.zsh
+        source /usr/share/doc/fzf/examples/completion.zsh
+    else
+        source $(dirname $(dirname $(realpath $(which fzf))))/shell/key-bindings.zsh
+        source $(dirname $(dirname $(realpath $(which fzf))))/shell/completion.zsh
+    fi
 fi
 
 # Antigen
