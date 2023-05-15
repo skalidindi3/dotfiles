@@ -57,6 +57,10 @@ if [ -e /opt/homebrew/bin/pyenv ]; then
     eval "$(pyenv init --path)"
     eval "$(pyenv init -)"
     export PATH="$HOME/.local/bin:$PATH"
+elif [ -e "$HOME/.pyenv" ]; then
+    export PYENV_ROOT="$HOME/.pyenv"
+    export PATH="$PYENV_ROOT/bin:$PATH"
+    eval "$(pyenv init -)"
 fi
 
 
