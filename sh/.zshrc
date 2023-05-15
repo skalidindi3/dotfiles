@@ -92,8 +92,8 @@ if [[ -f ~/dotfiles/antigen/antigen.zsh ]]; then
     antigen apply
 fi
 
-# Google
-if [[ -f ~/.googlerc ]]; then
-    source ~/.googlerc
+# Rivos
+if [[ -f ~/.rivosrc ]]; then
+    source ~/.rivosrc
 fi
 
