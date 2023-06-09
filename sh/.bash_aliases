@@ -76,13 +76,21 @@ if which scala &> /dev/null; then
 fi
 
 
+#########
+# rsync #
+#########
+# Clone timestamps:
+# - rsync -vrt --size-only src/ dst/
+# Ignore future timestamps at dst:
+# - rsync -u -t [flags] src/ dst/
+
 ################
 # General 'nix #
 ################
 alias fcp="\\cp"
 alias cp="cp -i"
-alias rcp="rsync -aPhn"
-alias frcp="rsync -aPh"
+alias rcp="rsync -naPhut"
+alias frcp="rsync -aPhut"
 alias fmv="\\mv"
 alias mv="mv -i"
 alias ..='cd ..'
