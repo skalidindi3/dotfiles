@@ -46,7 +46,6 @@ REPORTTIME=30
 
 # Completion
 autoload -U compinit && compinit                    # fire up completion base module
-setopt complete_aliases                             # complete alisases
 setopt always_to_end                                # when completing from middle of word, move cursor to the end
 setopt list_ambiguous                               # complete as much as possible (until it gets ambiguous)
 setopt glob_complete                                # expanding globs into completion list

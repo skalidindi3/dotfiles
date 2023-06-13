@@ -133,20 +133,6 @@ if which git &> /dev/null; then
     alias gitu='git shortlog | grep --color=no -E "^[^ ]" | sed -E "s/:$//"'
     alias gitcs='open https://github.com/tiimgreen/github-cheat-sheet'
     # https://hackernoon.com/lesser-known-git-commands-151a1918a60
-
-    # allow git completions for aliases
-    if [ -n "$ZSH_VERSION" ]; then
-        compdef _git gita=git-add
-        compdef _git gitb=git-branch
-        compdef _git gitc=git-commit
-        compdef _git gitd=git-diff
-        compdef _git gitds=git-diff
-        compdef _git gitdt=git-difftool
-        compdef _git gitl=git-log
-        compdef _git gitls=git-log
-        compdef _git gitco=git-checkout
-        compdef _git gitst=git-stash
-    fi
 fi
 
 
