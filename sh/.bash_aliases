@@ -258,8 +258,16 @@ extract_art() {
     rm -f /tmp/extractedart.png
     /opt/homebrew/bin/ffmpeg -hide_banner -loglevel warning -i "$1" -map 0:v -map -0:V -c copy /tmp/extractedart.png && open /tmp/extractedart.png
 }
-ffprobe_report () {
+ffprobe_report() {
     # Report ffprobe
     echo "$1" > /tmp/service_ffprobe.log
     /opt/homebrew/bin/ffprobe "$1" &> /tmp/service_ffprobe.log && open /tmp/service_ffprobe.log
+}
+
+
+ssh_audit() {
+    (
+        gunzip -c /var/log/system.log.*.gz | rg sshd
+        rg sshd /var/log/system.log
+    ) | sort
 }
