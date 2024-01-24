@@ -34,6 +34,11 @@ alias strip_colors="perl -pe 's/\e\[?.*?[\@-~]//g'"
 ###########
 # Folders #
 ###########
+if which zoxide &> /dev/null; then
+    if [ -n "$ZSH_VERSION" ]; then
+        eval "$(zoxide init zsh)"
+    fi
+fi
 if [ -e ~/Documents/projects ]; then
     cdp() { cd "${HOME}/Documents/projects/$@"; }
     if [ -n "$ZSH_VERSION" ]; then
@@ -83,6 +88,7 @@ fi
 # - rsync -vrt --size-only src/ dst/
 # Ignore future timestamps at dst:
 # - rsync -u -t [flags] src/ dst/
+
 
 ################
 # General 'nix #
