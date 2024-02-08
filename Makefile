@@ -21,9 +21,9 @@ provision_sh:
 
 .PHONY: provision_tmux
 provision_tmux:
-	@[ -f ~/.tmux.conf ] \
-		&& echo "~/.tmux.conf already exists!" \
-		|| ln -s $(abspath ./tmux/.tmux.conf) ~/.tmux.conf
+	@[ -f ~/.config/tmux/tmux.conf ] \
+		&& echo "~/.config/tmux/tmux.conf already exists!" \
+		|| ln -s $(abspath ./tmux/.tmux.conf) ~/.config/tmux/tmux.conf
 
 .PHONY: provision_neovim
 provision_neovim:
@@ -55,5 +55,5 @@ provision_ncmpcpp:
 
 .PHONY: force_clean
 force_clean:
-	rm -f ~/.gitconfig ~/.bash_aliases ~/.zshrc ~/.tmux.conf ~/.config/nvim/init.vim
+	rm -f ~/.gitconfig ~/.bash_aliases ~/.zshrc ~/.config/tmux/tmux.conf ~/.config/nvim/init.vim
 
