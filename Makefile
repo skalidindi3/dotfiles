@@ -21,6 +21,7 @@ provision_sh:
 
 .PHONY: provision_tmux
 provision_tmux:
+	@mkdir -p ~/.config/tmux
 	@[ -f ~/.config/tmux/tmux.conf ] \
 		&& echo "~/.config/tmux/tmux.conf already exists!" \
 		|| ln -s $(abspath ./tmux/.tmux.conf) ~/.config/tmux/tmux.conf
