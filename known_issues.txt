@@ -1,0 +1,3 @@
+mpd
+- https://github.com/MusicPlayerDaemon/MPD/issues/1879
+- `mpd --no-daemon` as a workaround

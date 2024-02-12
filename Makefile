@@ -35,14 +35,14 @@ provision_neovim:
 
 .PHONY: provision_mpd
 provision_mpd:
-	@mkdir -p ~/.mpd
-	@[ -f ~/.mpd/mpd.conf ] \
-		&& echo "~/.mpd/mpd.conf already exists!" \
-		|| ln -s $(abspath ./mpd/mpd.conf) ~/.mpd/mpd.conf
-	@mkdir -p ~/.mpdscribble
-	@[ -f ~/.mpdscribble/mpdscribble.conf ] \
-		&& echo "~/.mpdscribble/mpdscribble.conf already exists!" \
-		|| ln -s $(abspath ./mpd/mpdscribble.conf) ~/.mpdscribble/mpdscribble.conf
+	@mkdir -p ~/.config/mpd
+	@[ -f ~/.config/mpd/mpd.conf ] \
+		&& echo "~/.config/mpd/mpd.conf already exists!" \
+		|| ln -s $(abspath ./mpd/mpd.conf) ~/.config/mpd/mpd.conf
+	@mkdir -p ~/.config/mpdscribble
+	@[ -f ~/.config/mpdscribble/mpdscribble.conf ] \
+		&& echo "~/.config/mpdscribble/mpdscribble.conf already exists!" \
+		|| ln -s $(abspath ./mpd/mpdscribble.conf) ~/.config/mpdscribble/mpdscribble.conf
 
 .PHONY: provision_ncmpcpp
 provision_ncmpcpp:
