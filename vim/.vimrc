@@ -175,7 +175,6 @@ if exists(':Plug')
     Plug 'gabrielelana/vim-markdown'
     " Misc
     Plug 'sjl/gundo.vim'
-    Plug 'Yggdroot/indentLine'
     Plug 'terryma/vim-multiple-cursors'
     call plug#end()
 endif
