@@ -259,6 +259,14 @@ spec() {
         ;;
     esac
 }
+spec_diff() {
+    rm -f /tmp/spectrogram1.wav /tmp/spectrogram2.wav
+    /opt/homebrew/bin/ffmpeg -hide_banner -loglevel warning -i "$1" -c:a pcm_s24le /tmp/spectrogram1.wav
+    /opt/homebrew/bin/ffmpeg -hide_banner -loglevel warning -i "$2" -c:a pcm_s24le /tmp/spectrogram2.wav
+    /opt/homebrew/bin/sox /tmp/spectrogram1.wav -n spectrogram -o /tmp/spectrogram1.png
+    /opt/homebrew/bin/sox /tmp/spectrogram2.wav -n spectrogram -o /tmp/spectrogram2.png
+    diff /tmp/spectrogram1.png /tmp/spectrogram2.png
+}
 extract_art() {
     # Extract Art
     echo "$1" > /tmp/service_extractart.log
