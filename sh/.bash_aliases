@@ -94,7 +94,7 @@ fi
 # General 'nix #
 ################
 alias fcp="\\cp"
-alias cp="cp -i"
+alias cp="cp -i -p"
 alias rcp="rsync -naPhut"
 alias frcp="rsync -aPhut"
 alias fmv="\\mv"
