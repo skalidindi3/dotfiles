@@ -109,6 +109,7 @@ alias squash='sed -lE "s/$/`printf \"\x1b\x5b\x4b\x0d\"`/" | tr -ud "\n" && echo
 which nvim &> /dev/null \
     && alias vim="`which nvim`"
 alias rg="rg --color=always --no-heading --hidden -g '!.git/' --smart-case"
+alias rgnc="rg --color=never"
 rgf() {
     rg --line-number "${*:-}" |
       fzf --ansi --delimiter : --bind 'enter:become(nvim {1} +{2} +"set nofoldenable")'
