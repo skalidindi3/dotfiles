@@ -250,8 +250,8 @@ spec() {
         /opt/homebrew/bin/sox "$1" -n spectrogram -o /tmp/spectrogram.png && open /tmp/spectrogram.png
         ;;
       m4a|opus)
-        /opt/homebrew/bin/ffmpeg -hide_banner -loglevel warning -i "$1" -c:a pcm_s24le /tmp/spectrogram.wav
-        /opt/homebrew/bin/sox /tmp/spectrogram.wav -n spectrogram -o /tmp/spectrogram.png && open /tmp/spectrogram.png
+        /opt/homebrew/bin/ffmpeg -hide_banner -loglevel warning -i "$1" -c:a pcm_s24le /tmp/spectrogram.wav && \
+            /opt/homebrew/bin/sox /tmp/spectrogram.wav -n spectrogram -o /tmp/spectrogram.png && open /tmp/spectrogram.png
         ;;
       *)
         osascript -e "display notification \"sox: Unknown audio filetype\""
