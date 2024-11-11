@@ -4,7 +4,8 @@ export TERM="xterm-256color"
 export EDITOR='nvim'
 
 export HISTFILE="$HOME/.cache/zsh/zsh_history"
-export HISTSIZE=1000
+export HISTSIZE=100000
+export HISTFILESIZE=$HISTSIZE
 export SAVEHIST=$HISTSIZE
 setopt INC_APPEND_HISTORY
 setopt HIST_IGNORE_DUPS
