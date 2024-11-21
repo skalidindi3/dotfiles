@@ -170,6 +170,8 @@ if exists(':Plug')
     Plug 'romainl/Apprentice'
     Plug 'rakr/vim-two-firewatch'
     Plug 'dracula/vim'
+    Plug 'AlexvZyl/nordic.nvim'
+    Plug 'EdenEast/nightfox.nvim'
     " Syntax Highlighting
     Plug 'sheerun/vim-polyglot'
     Plug 'gabrielelana/vim-markdown'
