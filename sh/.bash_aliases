@@ -36,7 +36,7 @@ alias strip_colors="perl -pe 's/\e\[?.*?[\@-~]//g'"
 ###########
 if which zoxide &> /dev/null; then
     if [ -n "$ZSH_VERSION" ]; then
-        eval "$(zoxide init zsh)"
+        eval "$(zoxide init --cmd cd zsh)"
     fi
 fi
 if [ -e ~/Documents/projects ]; then
