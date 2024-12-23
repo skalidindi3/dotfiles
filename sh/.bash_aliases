@@ -180,7 +180,7 @@ cdiff() {
 if [ 'Darwin' = $(uname) ]; then
     # General
     alias ls='ls -GF'
-    alias lsr='CLICOLOR_FORCE=1 ls -altr | tail -r | head'
+    alias lsr='CLICOLOR_FORCE=1 ls -Alt | head'
 
     # App Aliases
     [ -e /Applications/VLC.app/Contents/MacOS/VLC ] \
