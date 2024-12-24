@@ -1,3 +1,8 @@
 mpd
 - https://github.com/MusicPlayerDaemon/MPD/issues/1879
 - `mpd --no-daemon` as a workaround
+
+custom .gitconfig usage:
+- `git config --local include.path ../.gitconfig`
+  - https://stackoverflow.com/questions/18329621/how-to-store-a-git-config-as-part-of-the-repository
+- https://stackoverflow.com/questions/6557467/can-git-ignore-a-specific-line/22171275#22171275

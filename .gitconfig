@@ -1,0 +1,2 @@
+[filter "mpdscribble_conf_login"]
+	clean = sed -E \"s/(username|password) = .*/\\1 =/\"
