@@ -1,2 +1,24 @@
-[filter "mpdscribble_conf_login"]
-	clean = sed -E \"s/(username|password) = .*/\\1 =/\"
+[user]
+	name = Sai Kalidindi
+	email = skalidindi3@gmail.com
+[core]
+	editor = nvim
+	pager = less -F -X
+[color]
+	ui = always
+	status = always
+	branch = always
+	interactive = always
+	diff = always
+[push]
+	default = simple
+[status]
+	submoduleSummary = true
+[merge]
+	tool = vimdiff3
+	conflictstyle = diff3
+[mergetool]
+	path = nvim
+	prompt = true
+[mergetool "vimdiff3"]
+	path = nvim
