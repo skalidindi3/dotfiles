@@ -3,6 +3,9 @@ provision:
 	stow .
 	# setup git filters
 	git config filter.mpdscribble_conf_login.clean 'sed -E "s/(username|password) = .*/\1 =/"'
+	# clone tmux package manager
+	git -C ~/.config/tmux/plugins/tpm pull \
+			|| git clone https://github.com/tmux-plugins/tpm ~/.config/tmux/plugins/tpm
 
 .PHONY: install_packages
 install_packages:
