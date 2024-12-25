@@ -84,12 +84,10 @@ if command -v which fzf &> /dev/null; then
     fi
 fi
 
-# Antigen
-if [[ -f ~/dotfiles/antigen/antigen.zsh ]]; then
-    source ~/dotfiles/antigen/antigen.zsh
-    antigen bundle zsh-users/zsh-syntax-highlighting
-    antigen bundle supercrabtree/k
-    antigen apply
+# antidote
+if [[ -f /opt/homebrew/opt/antidote/share/antidote/antidote.zsh ]]; then
+    source /opt/homebrew/opt/antidote/share/antidote/antidote.zsh
+    [[ -f ~/.zsh_plugins.txt ]] && antidote load
 fi
 
 # Rivos
