@@ -21,6 +21,7 @@ ifeq ($(shell uname -s),Darwin)
 		rsync \
 		ripgrep \
 		fzf \
+		antidote \
 		zoxide \
 		tree \
 		moreutils \
