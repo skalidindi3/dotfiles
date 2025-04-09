@@ -94,8 +94,3 @@ if [[ -f /usr/share/zsh-antidote/antidote.zsh ]]; then
     [[ -f ~/.zsh_plugins.txt ]] && antidote load
 fi
 
-# Rivos
-if [[ -f ~/.rivosrc ]]; then
-    source ~/.rivosrc
-fi
-
