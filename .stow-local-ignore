@@ -3,5 +3,4 @@
 .gitmodules
 Makefile
 extras
-antigen
 known_issues.txt
