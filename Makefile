@@ -31,6 +31,28 @@ ifeq ($(shell uname -s),Darwin)
 		duf \
 		jq
 		# NOTE: moreutils for vidir
+else
+ifeq ($(shell uname -s),Linux)
+	sudo apt install \
+		stow \
+		git \
+		neovim \
+		tmux \
+		curl \
+		wget \
+		rsync \
+		ripgrep \
+		fzf \
+		zsh-antidote \
+		zoxide \
+		tree \
+		moreutils \
+		fd-find \
+		htop \
+		duf \
+		jq
+		#dust
+endif
 endif
 
 .PHONY: install_extra

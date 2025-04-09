@@ -89,6 +89,10 @@ if [[ -f /opt/homebrew/opt/antidote/share/antidote/antidote.zsh ]]; then
     source /opt/homebrew/opt/antidote/share/antidote/antidote.zsh
     [[ -f ~/.zsh_plugins.txt ]] && antidote load
 fi
+if [[ -f /usr/share/zsh-antidote/antidote.zsh ]]; then
+    source /usr/share/zsh-antidote/antidote.zsh
+    [[ -f ~/.zsh_plugins.txt ]] && antidote load
+fi
 
 # Rivos
 if [[ -f ~/.rivosrc ]]; then
