@@ -6,3 +6,16 @@ custom .gitconfig usage:
 - `git config filter.mpdscribble_conf_login.clean 'sed -E "s/(username|password) = .*/\1 =/"'`
   - https://stackoverflow.com/questions/18329621/how-to-store-a-git-config-as-part-of-the-repository
 - https://stackoverflow.com/questions/6557467/can-git-ignore-a-specific-line/22171275#22171275
+
+
+
+TODOs:
+- https://github.com/catppuccin/tmux
+- https://github.com/niksingh710/minimal-tmux-status
+- https://github.com/rose-pine/tmux
+- https://github.com/o0th/tmux-nova
+- https://github.com/NHDaly/tmux-better-mouse-mode
+- https://github.com/lost-melody/tmux-command-palette
+- https://github.com/fcsonline/tmux-thumbs
+- https://github.com/yardnsm/tmux-1password
+- https://github.com/mapio/tmux-tail-f
