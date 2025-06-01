@@ -26,6 +26,41 @@ show_colors() {
     echo -e "\033[0;33mYELLOW\t\033[1;33mLIGHT_YELLOW"
     echo -e "\033[1;30mGRAY\t\033[0;37mLIGHT_GRAY"
     echo -e "\033[0mRESET"
+
+    for x in {0..5}; do
+        echo --- 
+        for z in 0 10 60 70; do
+            for y in {30..37}; do
+                y=$((y + z))
+                printf '\e[%d;%dm%-12s\e[0m' "$x" "$y" "$(printf ' \\e[%d;%dm] ' "$x" "$y")" && printf ' '
+            done
+            printf '\n'
+        done
+    done
+
+    # colors256
+    local c i j
+
+    printf "Standard 16 colors\n"
+    for ((c = 0; c < 17; c++)); do
+        printf "|%s%3d%s" "$(tput setaf "$c")" "$c" "$(tput sgr0)"
+    done
+    printf "|\n\n"
+
+    printf "Colors 16 to 231 for 256 colors\n"
+    for ((c = 16, i = j = 0; c < 232; c++, i++)); do
+        printf "|"
+        ((i > 5 && (i = 0, ++j))) && printf " |"
+        ((j > 5 && (j = 0, 1)))   && printf "\b \n|"
+        printf "%s%3d%s" "$(tput setaf "$c")" "$c" "$(tput sgr0)"
+    done
+    printf "|\n\n"
+
+    printf "Greyscale 232 to 255 for 256 colors\n"
+    for ((; c < 256; c++)); do
+        printf "|%s%3d%s" "$(tput setaf "$c")" "$c" "$(tput sgr0)"
+    done
+    printf "|\n"
 }
 # Remove colors
 alias strip_colors="perl -pe 's/\e\[?.*?[\@-~]//g'"
