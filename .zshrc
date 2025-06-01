@@ -36,7 +36,8 @@ autoload -Uz colors && colors
 
 # Prompt setup
 setopt PROMPT_SUBST                                 # allow for prompt expansion
-PROMPT='%(?.%F{32}.%F{196})'                        # if last exit code == 0, set fg color blue (32), else red (196)
+PROMPT='%F{180}$( [[ -z "$HISTFILE" ]] && echo "(nohist) " )'
+PROMPT+='%(?.%F{32}.%F{196})'                       # if last exit code == 0, set fg color blue (32), else red (196)
 PROMPT+='%1~ '                                      # current dir name only, with home as '~'
 PROMPT+='ϟ '                                        # custom prompt symbol
 PROMPT+='%f%k'                                      # end foreground & background coloring
