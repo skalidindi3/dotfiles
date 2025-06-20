@@ -1,1 +1,3 @@
 zdharma-continuum/fast-syntax-highlighting kind:defer
+
+Aloxaf/fzf-tab kind:defer
