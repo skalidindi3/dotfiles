@@ -93,14 +93,9 @@ fi
 ##########
 # Python #
 ##########
-if [ -e /opt/homebrew/bin/pyenv ]; then
-    eval "$(pyenv init --path)"
-    eval "$(pyenv init -)"
-    export PATH="$HOME/.local/bin:$PATH"
-elif [ -e "$HOME/.pyenv" ]; then
-    export PYENV_ROOT="$HOME/.pyenv"
-    export PATH="$PYENV_ROOT/bin:$PATH"
-    eval "$(pyenv init -)"
+if [ -e $HOME/.local/bin/uv ]; then
+    export PATH="$(dirname $($HOME/.local/bin/uv run which python)):$PATH"
+    alias ipython='uvx --with $(\ls -m ~/.cache/uv/wheels-v5/pypi | tr -d " " | tr -d "\n") ipython'
 fi
 
 
