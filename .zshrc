@@ -47,6 +47,7 @@ TIMEFMT=$'\n\n'"$fg[blue]%J$reset_color :: $fg[yellow]%U user, %S system, %P cpu
 REPORTTIME=30
 
 # Completion
+FPATH="$HOME/.config/zsh/completions/:$FPATH"
 autoload -U compinit && compinit                    # fire up completion base module
 setopt always_to_end                                # when completing from middle of word, move cursor to the end
 setopt list_ambiguous                               # complete as much as possible (until it gets ambiguous)
