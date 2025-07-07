@@ -94,7 +94,8 @@ fi
 # Python #
 ##########
 if [ -e $HOME/.local/bin/uv ]; then
-    export PATH="$(dirname $($HOME/.local/bin/uv run which python)):$PATH"
+    export PATH="$HOME/.local/bin:$PATH"
+    export PATH="$(dirname $(uv run which python)):$PATH"
     alias ipython='uvx --with $(\ls -m ~/.cache/uv/wheels-v5/pypi | tr -d " " | tr -d "\n") ipython'
 fi
 
