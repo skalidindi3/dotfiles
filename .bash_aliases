@@ -100,15 +100,6 @@ if [ -e $HOME/.local/bin/uv ]; then
 fi
 
 
-#########
-# rsync #
-#########
-# Clone timestamps:
-# - rsync -vrt --size-only src/ dst/
-# Ignore future timestamps at dst:
-# - rsync -u -t [flags] src/ dst/
-
-
 ################
 # General 'nix #
 ################
