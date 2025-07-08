@@ -65,6 +65,11 @@ zstyle ':completion:*:processes' \
 if [[ -f ~/.bash_aliases ]]; then
     source ~/.bash_aliases
 fi
+if [[ -d ~/dotfiles/private/sourceable ]]; then
+    for extra_env in ~/dotfiles/private/sourceable/*; do
+        source $extra_env
+    done
+fi
 
 # Completion Coloring
 if [[ -n $LS_COLORS ]]; then                        # use `ls` coloring for path completion list
