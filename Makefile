@@ -1,6 +1,6 @@
 .PHONY: provision
 provision:
-	stow .
+	stow --no-folding .
 	# setup git filters
 	git config filter.mpdscribble_conf_login.clean 'sed -E "s/(username|password) = .*/\1 =/"'
 	# clone tmux package manager
@@ -66,6 +66,14 @@ ifeq ($(shell uname -s),Darwin)
 		exiftool \
 		android-platform-tools
 endif
+
+.PHONY: adopt
+adopt:
+	stow --no-folding --adopt -nv .
+
+.PHONY: adopt_unsafe
+adopt_unsafe:
+	stow --no-folding --adopt -v .
 
 .PHONY: clean
 clean:
