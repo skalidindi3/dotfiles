@@ -1,155 +1,15 @@
 " vim:foldenable:foldmethod=marker:foldlevel=0
 
-" vim {{{
-set nocompatible                                    " vi who?
-set lazyredraw                                      " take it easy
-silent! set ff=unix                                 " always unix line endings (skip for RO)
-set backspace=eol,start,indent                      " allow backspace over line-endings
-set splitbelow                                      " horizontal split creates new pane below active
-set splitright                                      " vertical split creates new pane right of active
-" }}}
 
-" Keys (Remaps) {{{
-" you know what i mean
-cnoremap Wq wq
-cnoremap Qa qa
-cnoremap Cq cq
-" expect consistency
-nnoremap Y y$
-vnoremap p pgvy
-" navigate lines visually
-nnoremap j gj
-nnoremap k gk
-vnoremap j gj
-vnoremap k gk
-" faster extremes
-nnoremap H ^
-vnoremap H ^
-nnoremap L $
-vnoremap L $
-nnoremap J G
-vnoremap J G
-nnoremap K gg
-vnoremap K gg
-nnoremap <C-j> <PageDown>
-nnoremap <C-k> <PageUp>
-" smarter visual shifting
-vnoremap < <gv
-vnoremap > >gv
-" folding
-nnoremap <space> za
-nnoremap - zc
-nnoremap = zo
-nnoremap _ zM
-nnoremap + zR
-" ex mode is annoying
-nnoremap Q <Nop>
-" }}}
 
-" Keys (Shortcuts) {{{
-" leader-based macros
-let mapleader = ','
-nnoremap <leader>/ :noh<CR>
-nnoremap <leader><leader> :tab split<CR>
-nnoremap <leader>P :set paste!<CR>:set paste?<CR>
-nnoremap <leader>sw :call HighlightCursorWord()<CR>
-nnoremap <leader>n :tabnext<CR>
-nnoremap <leader>p :tabprevious<CR>
-nnoremap <silent> <leader>dk :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<' . synIDattr(synID(line("."),col("."),0),"name") . "> lo<" . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
-nnoremap <leader>rv :so $MYVIMRC<CR>
-nnoremap <leader>ev :tabnew $MYVIMRC<CR>
-" }}}
 
-" Keys (Testing My Neuroplasticity) {{{
-noremap <Up> <Nop>
-noremap <Down> <Nop>
-noremap <Left> <Nop>
-noremap <Right> <Nop>
-" }}}
 
-" Basic Display {{{
-set showmode                                        " explicit visual/insert/etc
-set number                                          " show line numbers
-set ruler                                           " show cursor coordinates
-set showcmd                                         " in visual mode, show selection stats
-set list listchars=                                 " allow list mode so we can set listchars formatting
-set listchars+=trail:•                              " show trailing spaces as "•"
-augroup CursorLineOnlyInActiveWindow
-    autocmd!
-    autocmd VimEnter,WinEnter,BufWinEnter * setlocal cursorline
-    autocmd WinLeave * setlocal nocursorline
-augroup END
-" }}}
 
-" Status Line {{{
-set laststatus=2                                    " always show statusline
-set wildmenu                                        " show autocomplete menu for commands
-set statusline=                                     " init statusline
-set statusline+=%f\ -\ %y                           " filename - [filetype]
-set statusline+=%m                                  " file modified flag
-set statusline+=%=                                  " text-align right remainder
-set statusline+=[%c\ :\ %l/%L\ (%p%%)]              " [x : y/Y (%)]
-" }}}
 
-" Indentation (TODO lang specific) {{{
-set autoindent                                      " copy indentation from previous line
-set tabstop=4                                       " size of <TAB>
-set softtabstop=4                                   " backspace works on size of <TAB>
-set expandtab                                       " convert <TAB> to spaces
-set shiftwidth=4                                    " shifts quantized to 4 spaces
-set listchars+=tab:»»                               " show tabs expanded as "»"*tabwidth
-" }}}
 
-" Searching {{{
-set hlsearch                                        " highlight searches
-set incsearch                                       " realtime show next match
-set wrapscan                                        " wrap around
-function! HighlightCursorWord()
-    silent! exe printf('match IncSearch /\<%s\>/', expand('<cword>'))
-endfunction
-" }}}
 
-" Mouse {{{
-if has("mouse")
-    if has("mouse_sgr")
-        set ttymouse=sgr                            " avoid mouse not working past certain column
-    else
-        if !has('nvim')
-            set ttymouse=xterm2                     " allow split dragging
-        endif
-    end
-    set mouse=a                                     " allow mouse in all modes
-endif
-" }}}
-
-" Code Folding {{{
-set foldmethod=indent                               " automatically fold by indent level
-set nofoldenable                                    " but don't fold by default
-set foldminlines=0                                  " fold single-line nests too
-" }}}
 
 " Plug {{{
-" Helper function to get Plug straight from vim
-function! DownloadPlug()
-    if has('nvim')
-        silent !curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs
-        \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-    else
-        silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
-        \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-    endif
-    echom "Restart vim to use plugins"
-endfunction
-
-" Load appropriate version of Plug
-if has('nvim')
-    let plug_path = '~/.config/nvim/plugged'
-else
-    let plug_path = '~/.vim/plugged'
-endif
-if !empty(glob(substitute(plug_path, 'plugged', 'autoload', '') . '/plug.vim'))
-    call plug#begin(plug_path)
-endif
 
 " Load modules if Plug is loaded
 if exists(':Plug')
@@ -291,39 +151,7 @@ elseif (has("termguicolors"))
 endif
 " }}}
 
-" Google {{{
-if filereadable('/usr/share/vim/google/google.vim')
-    source /usr/share/vim/google/google.vim
 
-    Glug codefmt
-    Glug codefmt-google
-    Glug googlestyle
-    augroup autoformat_settings
-        autocmd!
-
-        " Google C/C++ sytle is a 2-space tab
-        autocmd BufRead,BufNewFile /google/**/*.{c,cc,cpp,h,hh,hpp,proto} set tabstop=2
-        autocmd BufRead,BufNewFile /google/**/*.{c,cc,cpp,h,hh,hpp,proto} set softtabstop=2
-        autocmd BufRead,BufNewFile /google/**/*.{c,cc,cpp,h,hh,hpp,proto} set shiftwidth=2
-
-        " auto-format google code
-        autocmd BufRead,BufNewFile /google/**/*.{c,cc,cpp,h,hh,hpp,proto} AutoFormatBuffer clang-format
-        autocmd BufRead,BufNewFile /google/**/BUILD AutoFormatBuffer buildifier
-        autocmd BufRead,BufNewFile /google/**/*.bzl AutoFormatBuffer buildifier
-        autocmd BufRead,BufNewFile /google/**/*.md AutoFormatBuffer mdformat
-        autocmd BufRead,BufNewFile /google/**/*.py AutoFormatBuffer pyformat
-        autocmd BufRead,BufNewFile /google/**/*.textproto AutoFormatBuffer text-proto-format
-    augroup END
-
-
-    nnoremap <leader>g :NoAutoFormatBuffer<CR>
-    nnoremap <leader>G :AutoFormatBuffer<CR>
-endif
-" }}}
-
-" File-specific {{{
-set modeline                                        " allow file-specific options
-" }}}
 
 " TODOs {{{
 
