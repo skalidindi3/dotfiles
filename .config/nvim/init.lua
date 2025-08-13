@@ -37,11 +37,11 @@ vim.opt.foldenable = false     -- but don't fold by default
 vim.opt.foldminlines = 0       -- fold single-line nests too
 vim.opt.foldlevel = 99         -- start with all folds open
 
-vim.opt.statuscolumn = [[%{(foldlevel(v:lnum) && foldlevel(v:lnum) > foldlevel(v:lnum - 1)) ? (foldclosed(v:lnum) == -1 ? '⌄' : '›') : ' '}]] -- Folds
-    .. ' ' -- Spacer
-    .. '%=%{v:virtnum < 1 ? (v:relnum ? v:relnum : v:lnum) : " "}' -- Line number
-    .. '%s' -- Sign
-    .. '%{&signcolumn == "no" ? " " : ""}' -- Extra space if sign column is not enabled
+-- vim.opt.statuscolumn = [[%{(foldlevel(v:lnum) && foldlevel(v:lnum) > foldlevel(v:lnum - 1)) ? (foldclosed(v:lnum) == -1 ? '⌄' : '›') : ' '}]] -- Folds
+--     .. ' ' -- Spacer
+--     .. '%=%{v:virtnum < 1 ? (v:relnum ? v:relnum : v:lnum) : " "}' -- Line number
+--     .. '%s' -- Sign
+--     .. '%{&signcolumn == "no" ? " " : ""}' -- Extra space if sign column is not enabled
 -- -- TODO: revisit the statusline
 -- vim.opt.laststatus = 2     -- always show statusline
 -- vim.opt.statusline = table.concat({
