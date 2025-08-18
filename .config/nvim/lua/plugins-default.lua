@@ -53,8 +53,9 @@ function M.get_plugins()
                 vim.g.VM_default_mappings = 0
                 vim.g.VM_mouse_mappings = 0
                 vim.g.VM_maps = {
-                    ['Find Under']         = '<C-d>',   -- normal mode
-                    ['Find Subword Under'] = '<C-d>',   -- visual mode
+                    ['Find Under']          = '<C-d>',  -- normal mode
+                    ['Find Subword Under']  = '<C-d>',  -- visual mode
+                    ['Switch Mode']         = 'v',      -- toggle back to normal mode
                 }
             end,
         },
