@@ -46,7 +46,11 @@ install_plugins()
 -- TODO: nvim as MANPAGER
 -- TODO: extra plugins
 -- https://dotfyle.com/neovim/plugins/trending
+
+-- some filebrowser
+-- git awareness
 --
+-- kylechui/nvim-surround
 --
 -- https://blog.pabuisson.com/2022/08/neovim-modern-features-treesitter-and-lsp/
 -- - https://www.youtube.com/watch?v=w7i4amO_zaE

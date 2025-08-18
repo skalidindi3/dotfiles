@@ -1,6 +1,10 @@
 " vim:foldenable:foldmethod=marker:foldlevel=0
 
 
+" strip whitespace fn
+" 'mileszs/ack.vim'
+" tabular
+" http://tnerual.eriogerg.free.fr/vimqrc.html
 
 
 
@@ -164,22 +168,9 @@ endif
 " http://stackoverflow.com/questions/24716804/inline-comments-in-vimrc-mappings
 " "|" separates commands in vim, so use to comment remaps
 
-" strip whitespace fn
 
 " More Plugins
-" geoffharcourt/one-dark.vim
-" sheerun/vim-polyglot
-" tpope/vim-surround
-" lightline.vim
 " tcomment / NERD_commenter
-" 'pangloss/vim-javascript'
-" 'mileszs/ack.vim'
-" 'derekwyatt/vim-scala' ?
-" YouCompleteMe / neocomplete
-" vim-lldb / Conque-GDB
-" http://tnerual.eriogerg.free.fr/vimqrc.html
-" tabular
-" wesQ3/vim-windowswap
 
 " http://vimcolors.com/93/lizard/dark
 " http://vimcolors.com/61/flatlandia/dark
