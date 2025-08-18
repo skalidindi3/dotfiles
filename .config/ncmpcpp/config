@@ -12,7 +12,7 @@ lines_scrolled = 3
 playlist_disable_highlight_delay = 0
 
 # organization
-startup_screen = media_library
+startup_screen = playlist
 media_library_primary_tag = "album_artist"
 ignore_leading_the = yes
 
