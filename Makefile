@@ -75,6 +75,11 @@ adopt:
 adopt_unsafe:
 	stow --no-folding --adopt -v .
 
+.PHONY: run_mpd
+run_mpd:
+	pgrep -x mpd || mpd ~/.config/mpd/mpd.conf
+	pgrep -x mpdscribble || mpdscribble --conf ~/.config/mpdscribble/mpdscribble.conf
+
 .PHONY: clean
 clean:
 	stow --delete .
