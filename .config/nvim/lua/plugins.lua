@@ -43,7 +43,6 @@ end
 install_plugins()
 
 
--- TODO: nvim as MANPAGER
 -- TODO: extra plugins
 -- https://dotfyle.com/neovim/plugins/trending
 

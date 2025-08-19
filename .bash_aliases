@@ -1,4 +1,14 @@
 ##########
+# Editor #
+##########
+if which nvim &> /dev/null; then
+    alias vim="`type -p nvim | awk '{ print $3 }'`" \
+    alias nvim="NVIM_IDE=1 `type -p nvim | awk '{ print $3 }'`"
+    export MANPAGER='nvim +Man!'
+fi
+
+
+##########
 # Colors #
 ##########
 # Color Codes
@@ -116,9 +126,6 @@ alias less='less -cP "Press \"v\" to edit in vim, or \"s\" to save to file\.\.\.
 alias todo='echo "TODO: $*" >> ~/.TODO'
 alias todos='less -p TODO ~/.TODO'
 alias squash='sed -lE "s/$/`printf \"\x1b\x5b\x4b\x0d\"`/" | tr -ud "\n" && echo ""'
-which nvim &> /dev/null \
-    && alias vim="`type -p nvim | awk '{ print $3 }'`" \
-    && alias nvim="NVIM_IDE=1 `type -p nvim | awk '{ print $3 }'`"
 alias rg="rg --color=always --no-heading --hidden -g '!.git/' --smart-case"
 alias rgnc="rg --color=never"
 rgf() {
