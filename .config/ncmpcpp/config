@@ -21,10 +21,7 @@ progressbar_look = "▂▂▂"
 progressbar_color = "black"
 progressbar_elapsed_color = "yellow"
 
-#execute_on_song_change = /Users/chaitu/Documents/projects/swap/ncmpcpp-notify.sh "$(mpc --format '%file%' | head -1)"
-
-
-
-
-
 playlist_display_mode = "columns"
+
+# force update the tmux status bar when the song changes
+execute_on_song_change = tmux set -g status-interval 1

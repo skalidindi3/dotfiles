@@ -110,8 +110,10 @@ def_key "N"
 # {{{
 def_key "space"
     pause
+    run_external_command "tmux set -g status-interval 1" # force update tmux statusbar
 def_key "s"
     stop
+    run_external_command "tmux set -g status-interval 1" # force update tmux statusbar
 def_key "<"
     previous
 def_key ">"
@@ -176,6 +178,7 @@ def_key "enter" # selecting audio_output
     toggle_output
 def_key "enter"
     play_item
+    run_external_command "tmux set -g status-interval 1" # force update tmux statusbar
 def_key "r"
     toggle_repeat
 # }}}
