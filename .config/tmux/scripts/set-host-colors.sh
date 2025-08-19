@@ -1,4 +1,4 @@
-#!/usr/bin/env zsh
+#!/bin/zsh
 
 OS=$(uname -s)
 if [ $OS = "Darwin" ]; then
@@ -7,21 +7,24 @@ elif [ $OS = "Linux" ]; then
     LOCALHOSTNAME=$(hostname)
 fi
 
-if [ ${LOCALHOSTNAME: -3} = "-m1" ]; then       # home laptop == "blue"
-    HOST_TMUX_COLOR="#81a2be"
-elif [ ${LOCALHOSTNAME: -5} = "-mini" ]; then   # home server == "cyan"
-    HOST_TMUX_COLOR="#5e8d87"
+if [ ${LOCALHOSTNAME: -3} = "-m1" ]; then       # home laptop == "green"
+    tmux set -g @host_color \
+        "$(tmux show-option -gqv @nordic_green_bright)"
+    tmux set -g @host_color_alt \
+        "$(tmux show-option -gqv @nordic_red_bright)"
+elif [ ${LOCALHOSTNAME: -5} = "-mini" ]; then   # home server == "blue"
+    tmux set -g @host_color \
+        "$(tmux show-option -gqv @nordic_blue1)"
+    tmux set -g @host_color_alt \
+        "$(tmux show-option -gqv @nordic_orange_bright)"
 elif [ ${LOCALHOSTNAME: -5} = "-lini" ]; then   # home server == "purple"
-    HOST_TMUX_COLOR="#b294bb"
-elif [ ${LOCALHOSTNAME: -3} = "-m2" ]; then     # work laptop == "red"
-    HOST_TMUX_COLOR="#cc6666"
-else                                # other == "green" (non-default)
-    HOST_TMUX_COLOR="#b5bd68"
+    tmux set -g @host_color \
+        "$(tmux show-option -gqv @nordic_magenta_bright)"
+    tmux set -g @host_color_alt \
+        "$(tmux show-option -gqv @nordic_yellow_bright)"
+else                                            # other == "red"
+    tmux set -g @host_color \
+        "$(tmux show-option -gqv @nordic_red_dim)"
+    tmux set -g @host_color_alt \
+        "$(tmux show-option -gqv @nordic_red)"
 fi
-# NOTE: from https://terminal.sexy/
-# OTHER #f0c674 == "yellow"
-# NOTE: #8fbcbb == ~nord blue
-
-tmux set -g status-style fg=black,bold,"bg=${HOST_TMUX_COLOR}"
-tmux set -g window-status-current-style "fg=${HOST_TMUX_COLOR}",bold,bg=black
-tmux set -g pane-active-border-style "fg=${HOST_TMUX_COLOR}",bg=black
