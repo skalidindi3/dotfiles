@@ -11,9 +11,19 @@ function M.get_plugins()
             priority = 1000,    -- force loading first
             config = function()
                 require('nordic').load({
-                    after_palette = function(palette)
-                        palette.bg_fold = palette.gray0
-                        palette.fg_fold = palette.yellow.base
+                    -- NOTE: after_palette overrides C.<color>
+                    -- NOTE: on_highlight overrides G.<color>
+                    on_highlight = function(highlights, palette)
+                        -- neo-tree
+                        highlights.TreeFolderIcon = { fg = palette.gray5 }
+                        highlights.TreeFileIcon = { fg = palette.gray5 }
+                        highlights.TreeGitStaged = { fg = palette.green.base }
+                        highlights.NeoTreeGitModified = { fg = palette.orange.bright }
+                        highlights.NeoTreeGitUnstaged = { fg = palette.yellow.bright }
+                        highlights.NeoTreeModified = { fg = palette.yellow.bright }
+                        -- indent-blankline
+                        highlights.IblIndent = { fg = palette.gray2 }
+                        highlights.IblScope = { fg = palette.blue0 }
                     end,
                 })
             end,
@@ -27,22 +37,14 @@ function M.get_plugins()
             "nvim-lualine/lualine.nvim",
             opts = {
                 options = {
+                    -- NOTE: can customize by passing a theme object (see lualine examples/)
                     theme = 'nordic',
-                    -- TODO: customize nordic colorscheme
                     icons_enabled = false,
                     component_separators = '|',
                     section_separators = '',
                 },
-                sections = {
-                    lualine_c = {'filename', 'filesize'},
-                    -- TODO: add mark for saved/unsaved buffer
-                    -- Unicode Character “✔” (U+2714)
-                    -- Unicode Character “✘” (U+2718)
-                    -- Unicode Character “✗” (U+2717)
-                },
-                inactive_sections = {
-                    lualine_x = {},
-                },
+                sections = { lualine_c = {'filename', 'filesize'} },
+                inactive_sections = { lualine_x = {} },
             },
         },
 
