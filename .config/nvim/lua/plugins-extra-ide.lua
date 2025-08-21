@@ -18,34 +18,6 @@ function M.get_plugins()
         },
 
         {
-            "luukvbaal/statuscol.nvim",
-            config = function()
-                local builtin = require("statuscol.builtin")
-                require("statuscol").setup({
-                    foldfunc = "builtin",
-                    setopt = true,
-                    relculright = false,
-                    segments = {
-                        { text = { builtin.foldfunc }, click = "v:lua.ScFa" },
-                        { text = { "%s" } },
-                        { text = { builtin.lnumfunc, " " } },
-                    },
-                })
-            end,
-        },
-
-        {
-            "kevinhwang91/nvim-ufo",
-            dependencies = { "kevinhwang91/promise-async" },
-            config = function()
-                vim.o.foldcolumn = '1' -- '0' is not bad
-                vim.o.fillchars = [[eob: ,fold: ,foldopen:►,foldsep: ,foldclose:▼]]
-                vim.o.foldlevelstart = 99
-                vim.o.foldenable = true
-            end,
-        },
-
-        {
             "folke/todo-comments.nvim",
             dependencies = { "nvim-lua/plenary.nvim" },
             opts = {
