@@ -47,6 +47,15 @@ function M.get_plugins()
         },
 
         {
+            "lewis6991/gitsigns.nvim",
+            --opts = {
+            --    numhl = true,
+            --    linehl = true,
+            --    word_diff = true,
+            --},
+        },
+
+        {
             "nvim-neo-tree/neo-tree.nvim",
             branch = "v3.x",
             dependencies = {

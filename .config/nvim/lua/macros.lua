@@ -28,3 +28,33 @@ keyset('n', '<leader>ev', function()
 end, { desc = "Edit configuration" })
 
 
+
+-- user commands
+vim.api.nvim_create_user_command(
+    "GitsignsToggleAll",
+    function()
+        -- skip toggle_signs
+        vim.cmd("Gitsigns toggle_numhl")
+        vim.cmd("Gitsigns toggle_linehl")
+        vim.cmd("Gitsigns toggle_word_diff")
+        vim.cmd("Gitsigns toggle_deleted")
+        vim.notify("Toggled git visuals", vim.log.levels.INFO)
+    end,
+    { nargs = 0, desc = "Toggle all extra gitsigns visuals" }
+)
+vim.api.nvim_create_user_command(
+    "Gitaa",
+    function() vim.cmd("Gitsigns stage_hunk") end,
+    { nargs = 0, desc = "Stage the current buffer" }
+)
+vim.api.nvim_create_user_command(
+    "Gita",
+    function() vim.cmd("Gitsigns stage_hunk") end,
+    { nargs = 0, desc = "Stage the selected hunk" }
+)
+vim.api.nvim_create_user_command(
+    "Gitr",
+    function() vim.cmd("Gitsigns undo_stage_hunk") end,
+    { nargs = 0, desc = "Unstage the selected hunk" }
+)
+
