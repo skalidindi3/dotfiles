@@ -122,6 +122,11 @@ function M.get_plugins()
                 config_to_override.default_component_configs.git_status.symbols.modified = ""
             end,
         },
+
+        {
+            "OXY2DEV/markview.nvim",
+            opts = {},
+        },
     }
 end
 
