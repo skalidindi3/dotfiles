@@ -17,6 +17,7 @@ function M.get_plugins()
             --end,
         },
 
+        -- better highlighting for TODO/WARN/FIX, etc
         {
             "folke/todo-comments.nvim",
             dependencies = { "nvim-lua/plenary.nvim" },

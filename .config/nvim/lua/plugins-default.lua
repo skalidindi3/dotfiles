@@ -49,6 +49,7 @@ function M.get_plugins()
         },
 
         -- multiple cursors support
+        -- TODO: read https://medium.com/@schtoeffel/you-don-t-need-more-than-one-cursor-in-vim-2c44117d51db
         {
             "mg979/vim-visual-multi",
             init = function()

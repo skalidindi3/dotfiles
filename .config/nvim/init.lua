@@ -50,6 +50,6 @@ vim.api.nvim_create_autocmd({ "WinLeave" }, {
   callback = function() vim.opt_local.cursorline = false end,
 })
 
+require("plugins")
 require("remaps")
 require("macros")
-require("plugins")
