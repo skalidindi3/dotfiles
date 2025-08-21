@@ -63,6 +63,13 @@ function M.get_plugins()
             end,
         },
 
+        -- enable surround semantics
+        {
+            "echasnovski/mini.surround",
+            version = "*",
+            opts = {},
+        },
+
         -- visible indent lines
         {
             "lukas-reineke/indent-blankline.nvim",
