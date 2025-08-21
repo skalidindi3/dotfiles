@@ -7,9 +7,9 @@ keyset('n', '<leader>p', ':tabprevious<CR>', { desc = "tab previous" })
 keyset('n', '<leader><leader>', ':tab split<CR>', { desc = "fullscreen pane into new tab" })
 
 -- system clipboard management
-keyset({ 'n', 'v' }, '<leader>y', '"+y', { desc = "copy to system clipboard" })
-keyset({ 'n', 'v' }, '<leader>p', '"+p', { desc = "paste from system clipboard" })
-keyset({ 'n', 'v' }, '<leader>P', '"+P', { desc = "paste from system clipboard" })
+keyset({ 'n', 'v' }, '<leader>yy', '"+y', { desc = "copy to system clipboard" })
+keyset({ 'n', 'v' }, '<leader>pp', '"+p', { desc = "paste from system clipboard" })
+keyset({ 'n', 'v' }, '<leader>PP', '"+P', { desc = "paste from system clipboard behind cursor" })
 
 -- shortcuts
 keyset('n', '<leader>/', ':noh<CR>', { silent = false, desc = "clear search highlight" })
