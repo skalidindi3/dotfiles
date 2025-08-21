@@ -1,5 +1,7 @@
 #!/bin/zsh
 
+# inspired by janoamaral/tokyo-night-tmux
+
 mpc_output=$(mpc)
 mpc_exit=$?
 
