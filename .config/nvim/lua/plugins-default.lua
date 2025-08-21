@@ -81,6 +81,21 @@ function M.get_plugins()
                 indent = { char = "▏" },
             },
         },
+
+        -- syntax highlighting for log files
+        {
+            'fei6409/log-highlight.nvim',
+            opts = {
+                extension = 'log',
+                filename = { 'syslog' },
+                pattern = {
+                    '%/var%/log%/.*',
+                    'console%-ramoops.*',
+                    'log.*%.txt',
+                    'logcat.*',
+                },
+            },
+        },
     }
 end
 
