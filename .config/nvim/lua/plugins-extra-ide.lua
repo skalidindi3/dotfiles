@@ -27,37 +27,19 @@ function M.get_plugins()
             },
         },
 
+        -- minimal vim.notify
         {
-            "folke/noice.nvim",
-            event = "VeryLazy",
+            "j-hui/fidget.nvim",
             opts = {
-                cmdline = {
-                    format = {
-                        cmdline = { icon = ">" },
-                        search_down = { icon = "🔍⌄" },
-                        search_up = { icon = "🔍⌃" },
-                        filter = { icon = "$" },
-                        lua = { icon = "☾" },
-                        help = { icon = "?" },
+                notification = {
+                    override_vim_notify = true,
+                    view = {
+                        stack_upwards = false,
                     },
-                },
-                format = {
-                    level = {
-                        icons = {
-                          error = "✖",
-                          warn = "▼",
-                          info = "●",
-                        },
-                    },
-                },
-                popupmenu = {
-                    kind_icons = false,
-                },
-                inc_rename = {
-                    cmdline = {
-                        format = {
-                            IncRename = { icon = "⟳" },
-                        },
+                    window = {
+                        x_padding = 1,
+                        y_padding = 0,
+                        align = "top",
                     },
                 },
             },
