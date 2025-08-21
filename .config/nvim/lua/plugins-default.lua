@@ -66,7 +66,12 @@ function M.get_plugins()
         {
             "lukas-reineke/indent-blankline.nvim",
             main = "ibl",
-            opts = {},
+            opts = {
+                -- PERF: issues/632
+                scope = { include = { node_type = { ["*"] = { "*" } } } },
+                -- see alternatives in doc/indent_blankline.txt
+                indent = { char = "▏" },
+            },
         },
     }
 end
