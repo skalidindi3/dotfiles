@@ -48,6 +48,9 @@ install_plugins()
 
 -- some filebrowser
 -- git awareness
+-- fuzzy find for commands
+-- - FeiyouG/commander.nvim
+-- - mrjones2014/legendary.nvim
 --
 -- kylechui/nvim-surround
 --
@@ -70,6 +73,8 @@ install_plugins()
 -- - "*" search word under cursor / or visual block
 -- - g as the global command
 --   - https://www.youtube.com/watch?v=1M-XDGc20ns
+-- - :verbose nmap <leader>G
+--   - shows mapping and where it comes from (in this case, for <leader>G)
 -- - VimodeDisable for fading windows?
 -- folke/flash.nvim
 -- folke/twilight.nvim

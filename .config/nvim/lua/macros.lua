@@ -17,9 +17,13 @@ keyset('n', "<leader>gr", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]]
 keyset('v', "<leader>gr", [["ry:%s/\<<C-r>r\>/<C-r>r/gI<Left><Left><Left>]], { silent = false, desc = "global replace selection" })
 keyset('n', '<leader>c', ':NoiceDismiss<CR>', { silent = false, desc = "clear notifications" })
 
--- toggles
+-- primary toggles
+keyset('n', '<C-t>', ':VimadeDisable<CR>:Neotree toggle<CR>', { silent = false, desc = "toggle Neotree" })
+keyset('n', '<C-f>', ':VimadeToggle<CR>', { silent = false, desc = "toggle inactive pane fading" })
+keyset('n', '<C-g>', ':GitsignsToggleAll<CR>', { silent = false, desc = "toggle all extra gitsigns visuals" })
+
+-- leader toggles
 keyset('n', '<leader>P', ':set paste!<CR>:set paste?<CR>', { silent = false, desc = "toggle paste mode" })
-keyset('n', '<leader>F', ':VimadeToggle<CR>', { silent = false, desc = "toggle inactive pane fading" })
 keyset('n', '<leader>I', ':IBLToggle<CR>', { silent = false, desc = 'toggle indent lines visibility' })
 
 -- file quick access
