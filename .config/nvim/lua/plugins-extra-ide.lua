@@ -11,10 +11,6 @@ function M.get_plugins()
                 recipe = {'default', {animate = false}},
                 fadelevel = 0.25,
             },
-            --config = function()
-            --    -- disable at startup
-            --    vim.cmd("VimadeDisable")
-            --end,
         },
 
         -- better highlighting for TODO/WARN/FIX, etc
@@ -46,14 +42,7 @@ function M.get_plugins()
             },
         },
 
-        {
-            "lewis6991/gitsigns.nvim",
-            --opts = {
-            --    numhl = true,
-            --    linehl = true,
-            --    word_diff = true,
-            --},
-        },
+        { "lewis6991/gitsigns.nvim" },
 
         {
             "nvim-neo-tree/neo-tree.nvim",
@@ -134,8 +123,46 @@ function M.get_plugins()
 
         {
             "OXY2DEV/markview.nvim",
+            lazy = false,
+            priority = 49,
             opts = {},
         },
+
+        {
+            'nvim-treesitter/nvim-treesitter',
+            dependencies = { "OXY2DEV/markview.nvim" },
+            lazy = false,
+            branch = 'master',  -- 'main' documentation lacking
+            build = ':TSUpdate',
+            config = function()
+                local treesitter = require("nvim-treesitter.configs")
+                treesitter.setup({
+                    sync_install = false,
+                    auto_install = true,
+                    indent = { enable = true },
+                    highlight = {
+                        enable = true,
+                        additional_vim_regex_highlighting = false,
+                    },
+                    ensure_installed = {
+                        "lua",
+                        "c", "cpp", "asm", "disassembly", "objdump",
+                        "python",
+                        "markdown",
+                        "bash", "diff", "tmux",
+                        "json", "jq",
+                        "yaml", "dockerfile", "caddy",
+                        "html", "css", "javascript", "sql",
+                        -- "udev", "ini", "csv", "tsv",
+                        -- "cmake", "cuda", "arduino",
+                        -- "vim", "vimdoc", "help" :: vim specific
+                    },
+                })
+            end
+        },
+        -- nvim-treesitter/nvim-treesitter-context
+        -- nvim-treesitter/nvim-treesitter-textobjects
+        -- nvim-treesitter/nvim-treesitter-refactor (jump to definition)
     }
 end
 

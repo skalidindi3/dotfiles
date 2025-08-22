@@ -46,13 +46,12 @@ install_plugins()
 -- TODO: extra plugins
 -- https://dotfyle.com/neovim/plugins/trending
 
--- some filebrowser
--- git awareness
+-- treesitter compatible colorschemes
+-- https://github.com/nvim-treesitter/nvim-treesitter/wiki/Colorschemes
+
 -- fuzzy find for commands
 -- - FeiyouG/commander.nvim
 -- - mrjones2014/legendary.nvim
---
--- kylechui/nvim-surround
 --
 -- https://blog.pabuisson.com/2022/08/neovim-modern-features-treesitter-and-lsp/
 -- - https://www.youtube.com/watch?v=w7i4amO_zaE
@@ -67,23 +66,16 @@ install_plugins()
 -- dstein64/vim-startuptime
 -- - https://lazy.folke.io/spec/examples
 --
--- fei6409/log-highlight.nvim
--- folke/snacks.nvim/blob/main/docs/indent.md
 -- folke/which-key.nvim
 -- - "*" search word under cursor / or visual block
 -- - g as the global command
 --   - https://www.youtube.com/watch?v=1M-XDGc20ns
 -- - :verbose nmap <leader>G
 --   - shows mapping and where it comes from (in this case, for <leader>G)
+-- - :Fidget history
+--   - shows notification history
+-- - :messages
+--   - shows command output history (like startup errors)
 -- - VimodeDisable for fading windows?
 -- folke/flash.nvim
--- folke/twilight.nvim
 -- b0o/incline.nvim
--- OXY2DEV/markview.nvim
-
-
-
-
--- mg979/vim-visual-multi
--- - https://www.youtube.com/watch?v=LhcnGU-COpo
--- - lazy = false
