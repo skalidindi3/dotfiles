@@ -3,7 +3,8 @@
 cat <<EOF
 # general tmux
 C-b C-r - reload config
-C-b s   - easy session switching (:choose-tree)
+C-b s   - session switching (:choose-tree)
+C-b q   - pane switching
 
 # popups
 C-b i   - ipython
