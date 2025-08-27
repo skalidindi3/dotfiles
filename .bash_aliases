@@ -268,7 +268,7 @@ spec() {
         /opt/homebrew/bin/sox "$1" -n spectrogram -o /tmp/spectrogram.png && open /tmp/spectrogram.png
         ;;
       m4a|opus)
-        /opt/homebrew/bin/ffmpeg -hide_banner -loglevel warning -i "$1" -c:a pcm_s24le /tmp/spectrogram.wav && \
+        /opt/homebrew/bin/ffmpeg -hide_banner -loglevel quiet -i "$1" -c:a pcm_s24le /tmp/spectrogram.wav && \
             /opt/homebrew/bin/sox /tmp/spectrogram.wav -n spectrogram -o /tmp/spectrogram.png && open /tmp/spectrogram.png
         ;;
       *)
@@ -279,8 +279,8 @@ spec() {
 }
 spec_diff() {
     rm -f /tmp/spectrogram1.wav /tmp/spectrogram2.wav
-    /opt/homebrew/bin/ffmpeg -hide_banner -loglevel warning -i "$1" -c:a pcm_s24le /tmp/spectrogram1.wav
-    /opt/homebrew/bin/ffmpeg -hide_banner -loglevel warning -i "$2" -c:a pcm_s24le /tmp/spectrogram2.wav
+    /opt/homebrew/bin/ffmpeg -hide_banner -loglevel quiet -i "$1" -c:a pcm_s24le /tmp/spectrogram1.wav
+    /opt/homebrew/bin/ffmpeg -hide_banner -loglevel quiet -i "$2" -c:a pcm_s24le /tmp/spectrogram2.wav
     /opt/homebrew/bin/sox /tmp/spectrogram1.wav -n spectrogram -o /tmp/spectrogram1.png
     /opt/homebrew/bin/sox /tmp/spectrogram2.wav -n spectrogram -o /tmp/spectrogram2.png
     diff /tmp/spectrogram1.png /tmp/spectrogram2.png
@@ -289,7 +289,7 @@ extract_art() {
     # Extract Art
     echo "$1" > /tmp/service_extractart.log
     rm -f /tmp/extractedart.png
-    /opt/homebrew/bin/ffmpeg -hide_banner -loglevel warning -i "$1" -map 0:v -map -0:V -c copy /tmp/extractedart.png && open /tmp/extractedart.png
+    /opt/homebrew/bin/ffmpeg -hide_banner -loglevel quiet -i "$1" -map 0:v -map -0:V -c copy /tmp/extractedart.png && open /tmp/extractedart.png
 }
 ffprobe_report() {
     # Report ffprobe
