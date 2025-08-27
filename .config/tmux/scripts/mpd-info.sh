@@ -6,20 +6,24 @@ mpc_output=$(mpc)
 mpc_exit=$?
 
 if (( mpc_exit == 0 )); then
-    # NOTE: 57 --> 60 chars max, -2 for utf prefix, -1 for ... suffix
+    # NOTE: 56 --> 60 chars max, -3 for icon prefix, -1 for ... suffix
     now_playing=$(echo "$mpc_output" \
         | head -n 1 \
-        | awk '{print (length($0) > 57) ? substr($0, 1, 57) "…" : $0}')
+        | awk '{print (length($0) > 56) ? substr($0, 1, 56) "…" : $0 " "}')
+
+    percentage=$(echo "$mpc_output" | head -2 | grep -o '[0-9]\+%' | sed 's/%//')
+    elapsed_in_num_chars=$(echo "${#now_playing} * $percentage / 100" | bc)
+    now_playing="${now_playing[0,elapsed_in_num_chars]}#[noreverse,nobold]${now_playing[elapsed_in_num_chars+1,-1]}"
 
     if [[ $mpc_output == *"[playing]"* ]]; then
-        formatting="#[fg=#{@nordic_green_bright}]"
-        formatting+="⏵︎ "
+        formatting="#[fg=#{@nordic_green_bright},reverse,bold]"
+        formatting+=" ⏵︎ "
     elif [[ $mpc_output == *"[paused]"* ]]; then
-        formatting="#[fg=#{@nordic_yellow_bright}]"
-        formatting+="⏸︎ "
+        formatting="#[fg=#{@nordic_yellow_bright},reverse,bold]"
+        formatting+=" ⏸︎ "
     else
         formatting="#[fg=#{@nordic_red_bright}]"
-        formatting+="⏹ "
+        formatting+=" ⏹ "
         volume="$(echo "$now_playing" | awk '{ print $1, $2 }')"
         now_playing="no audio // ${volume}"
     fi
