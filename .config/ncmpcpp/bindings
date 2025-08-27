@@ -149,7 +149,7 @@ def_key "d"
 def_key "3"
     require_screen "playlist"
     jump_to_playing_song
-def_key "S"
+def_key "ctrl-s"
     require_screen "playlist"
     save_playlist
 def_key "ctrl-c"
@@ -269,9 +269,22 @@ def_key "shift-page_up"
 def_key "?" # show_help
     show_help
 
-#def_key "!" # show_clock
-#    run_external_command "clear"
-#    run_external_command "ls"
+def_key "I"
+    require_screen "playlist"
+    run_external_command "tmux capture-pane -e -p | grep -F -e $'\x1b[7m' -e $'\x1b[1;7m' > /tmp/ncmpcpp-highlighted.txt"
+    run_external_console_command "/Users/chaitu/dotfiles/.config/ncmpcpp/scripts/ffprobe-selection.py -i"
+def_key "A"
+    require_screen "playlist"
+    run_external_command "tmux capture-pane -e -p | grep -F -e $'\x1b[7m' -e $'\x1b[1;7m' > /tmp/ncmpcpp-highlighted.txt"
+    run_external_command "/Users/chaitu/dotfiles/.config/ncmpcpp/scripts/ffprobe-selection.py -a"
+def_key "P"
+    require_screen "playlist"
+    run_external_command "tmux capture-pane -e -p | grep -F -e $'\x1b[7m' -e $'\x1b[1;7m' > /tmp/ncmpcpp-highlighted.txt"
+    run_external_command "/Users/chaitu/dotfiles/.config/ncmpcpp/scripts/ffprobe-selection.py -p"
+def_key "S"
+    require_screen "playlist"
+    run_external_command "tmux capture-pane -e -p | grep -F -e $'\x1b[7m' -e $'\x1b[1;7m' > /tmp/ncmpcpp-highlighted.txt"
+    run_external_command "/Users/chaitu/dotfiles/.config/ncmpcpp/scripts/ffprobe-selection.py -s"
 
 
 # disable all other functionality
