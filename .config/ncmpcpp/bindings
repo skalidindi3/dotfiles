@@ -23,7 +23,7 @@ def_key "3"
 def_key "4"
     show_search_engine
 def_key "5"
-    show_clock
+    show_visualizer
 def_key "6"
     show_clock
 def_key "7"
@@ -34,6 +34,8 @@ def_key "9"
     show_outputs
 def_key "0"
     show_server_info
+def_key "ctrl-w"
+    toggle_screen_lock
 # }}}
 
 # vim-like movement bindings
@@ -132,6 +134,8 @@ def_key "right"
     seek_forward
 def_key "left"
     seek_backward
+def_key "tab"
+    toggle_visualization_type
 # }}}
 
 # main playlist settings
