@@ -65,6 +65,7 @@ ifeq ($(shell uname -s),Darwin)
 		ncmpcpp \
 		exiftool \
 		android-platform-tools
+	uv tool install --from git+https://github.com/skalidindi3/osxmpdkeys osxmpdkeys
 endif
 
 .PHONY: adopt
@@ -79,6 +80,7 @@ adopt_unsafe:
 run_mpd:
 	pgrep -x mpd || mpd ~/.config/mpd/mpd.conf
 	pgrep -x mpdscribble || mpdscribble --conf ~/.config/mpdscribble/mpdscribble.conf
+	pgrep -f mpdkeys || nohup mpdkeys &>/dev/null &
 
 .PHONY: clean
 clean:
