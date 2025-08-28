@@ -25,4 +25,17 @@ return {
             { "<leader>v", mode = { "n", "o" }, function() require("flash").treesitter() end, desc = "treesitter visual selection" },
         },
     },
+
+    -- show register contents
+    {
+        "tversteeg/registers.nvim",
+        opts = {
+            show = '"*+/.1234567890',
+            -- " unnamed register
+            -- * system clipboard
+            -- + system clipboard (X11)
+            -- / last search pattern
+            -- . last inserted test
+        },
+    },
 }
