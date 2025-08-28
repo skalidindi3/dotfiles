@@ -110,6 +110,9 @@ return {
                     virtual_text = not vim.diagnostic.config().virtual_text,
                 })
             end, { desc = "Edit configuration" })
+            -- TODO: move into plugins.macros
+            -- https://blog.pabuisson.com/2022/08/neovim-modern-features-treesitter-and-lsp/
+            -- TODO: document :Inspect / :InspectTree
         end,
     },
     -- :LspInfo ( = :checkhealth vim.lsp )
