@@ -113,4 +113,32 @@ return {
     },
     -- :LspInfo ( = :checkhealth vim.lsp )
     -- :LspLog
+
+    {
+        "stevearc/conform.nvim",
+        opts = {
+            notify_on_error = true,
+            format_on_save = false,
+            formatters_by_ft = {
+                lua = { "stylua" },
+                python = {
+                    "ruff_fix", -- autofix lint errors
+                    "ruff_format",
+                    "ruff_organize_imports",
+                },
+            },
+            formatters = {
+                stylua = {
+                    append_args = {
+                        "--indent-type",
+                        "Spaces",
+                        "--indent-width",
+                        "4",
+                        "--quote-style",
+                        "AutoPreferDouble"
+                    },
+                },
+            },
+        },
+    },
 }
