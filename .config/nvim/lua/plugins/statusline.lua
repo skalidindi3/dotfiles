@@ -11,7 +11,7 @@ return {
                 component_separators = "|",
                 section_separators = "",
             },
-            sections = { lualine_c = {"filename", "filesize"} },
+            sections = { lualine_c = { "filename", "filesize" } },
             inactive_sections = { lualine_x = {} },
         },
     },

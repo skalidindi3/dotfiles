@@ -1,5 +1,7 @@
 -- neovim general options --
 
+-- stylua: ignore start
+
 -- display
 vim.opt.lazyredraw = false
 vim.opt.number = true
@@ -36,17 +38,23 @@ vim.opt.foldlevel = 99          -- start with all folds open
 -- visual indicators
 vim.opt.list = true             -- enable list mode to show special characters
 vim.opt.listchars = {
-  trail = "•",
-  tab = "»»",
+    trail = "•",
+    tab = "»»",
 }
+
+-- stylua: ignore end
 
 -- highlight cursor line only for active pane
 vim.api.nvim_create_augroup("CursorLineOnlyInActiveWindow", { clear = true })
 vim.api.nvim_create_autocmd({ "VimEnter", "WinEnter", "BufWinEnter" }, {
-  group = "CursorLineOnlyInActiveWindow",
-  callback = function() vim.opt_local.cursorline = true end,
+    group = "CursorLineOnlyInActiveWindow",
+    callback = function()
+        vim.opt_local.cursorline = true
+    end,
 })
 vim.api.nvim_create_autocmd({ "WinLeave" }, {
-  group = "CursorLineOnlyInActiveWindow",
-  callback = function() vim.opt_local.cursorline = false end,
+    group = "CursorLineOnlyInActiveWindow",
+    callback = function()
+        vim.opt_local.cursorline = false
+    end,
 })

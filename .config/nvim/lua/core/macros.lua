@@ -15,8 +15,18 @@ keyset("n", "<leader>P", "<cmd>set paste!<CR><cmd>set paste?<CR>", { silent = fa
 
 -- search & replace
 keyset("n", "<leader>/", "<cmd>noh<CR>", { silent = false, desc = "clear search highlight" })
-keyset("n", "<leader>gr", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]], { silent = false, desc = "global replace cursor word" })
-keyset("v", "<leader>gr", [["ry:%s/\<<C-r>r\>/<C-r>r/gI<Left><Left><Left>]], { silent = false, desc = "global replace selection" })
+keyset(
+    "n",
+    "<leader>gr",
+    [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]],
+    { silent = false, desc = "global replace cursor word" }
+)
+keyset(
+    "v",
+    "<leader>gr",
+    [["ry:%s/\<<C-r>r\>/<C-r>r/gI<Left><Left><Left>]],
+    { silent = false, desc = "global replace selection" }
+)
 
 -- TODO: reevaluate this
 -- quick access

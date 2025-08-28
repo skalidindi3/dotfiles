@@ -41,7 +41,7 @@ return {
                         use_snacks_image = true,
                         use_image_nvim = true,
                         title = "Neo-tree Preview",
-                    }
+                    },
                 },
 
                 -- rotate through sources

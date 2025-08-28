@@ -8,9 +8,9 @@ return {
         lazy = false,
         config = function()
             require("nordic").load({
-            -- NOTE: after_palette overrides C.<color>
-            -- NOTE: on_highlight overrides G.<color>
-            on_highlight = function(highlights, palette)
+                -- NOTE: after_palette overrides C.<color>
+                -- NOTE: on_highlight overrides G.<color>
+                on_highlight = function(highlights, palette)
                     -- neo-tree
                     highlights.TreeFolderIcon = { fg = palette.gray5 }
                     highlights.TreeFileIcon = { fg = palette.gray5 }

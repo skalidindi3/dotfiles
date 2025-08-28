@@ -1,6 +1,7 @@
 -- define user commands for plugins --
 
 -- gitsigns
+-- stylua: ignore start
 vim.api.nvim_create_user_command(
     "GitsignsToggleAll",
     function()
@@ -28,3 +29,4 @@ vim.api.nvim_create_user_command(
     function() vim.cmd("Gitsigns undo_stage_hunk") end,
     { nargs = 0, desc = "unstage the selected hunk" }
 )
+-- stylua: ignore end

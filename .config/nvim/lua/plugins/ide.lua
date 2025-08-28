@@ -6,7 +6,7 @@ return {
         "nvim-treesitter/nvim-treesitter",
         dependencies = { "OXY2DEV/markview.nvim" },
         lazy = false,
-        branch = "master",  -- "main" documentation lacking
+        branch = "master", -- NOTE: "main" documentation lacking
         build = ":TSUpdate",
         config = function()
             local treesitter = require("nvim-treesitter.configs")
@@ -18,6 +18,7 @@ return {
                     enable = true,
                     additional_vim_regex_highlighting = false,
                 },
+                -- stylua: ignore
                 ensure_installed = {
                     "lua",
                     "c", "cpp", "asm", "disassembly", "objdump",
@@ -32,7 +33,7 @@ return {
                     -- "vim", "vimdoc", "help" :: vim specific
                 },
             })
-        end
+        end,
     },
     -- nvim-treesitter/nvim-treesitter-context
     -- nvim-treesitter/nvim-treesitter-textobjects
@@ -81,8 +82,8 @@ return {
             require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
 
             for server, cfg in pairs(servers) do
-                  vim.lsp.config(server, cfg)
-                  vim.lsp.enable(server)
+                vim.lsp.config(server, cfg)
+                vim.lsp.enable(server)
             end
 
             -- TODO: move elsewhere
@@ -95,19 +96,19 @@ return {
                 virtual_text = true, --not vim.diagnostic.config().virtual_text,
                 signs = {
                     text = {
-                        [vim.diagnostic.severity.ERROR] = '✘',
-                        [vim.diagnostic.severity.WARN] = '',
-                        [vim.diagnostic.severity.HINT] = '⚑',
-                        [vim.diagnostic.severity.INFO] = '',
+                        [vim.diagnostic.severity.ERROR] = "✘",
+                        [vim.diagnostic.severity.WARN] = "",
+                        [vim.diagnostic.severity.HINT] = "⚑",
+                        [vim.diagnostic.severity.INFO] = "",
                     },
                 },
             })
             require("common")
-            keyset('n', '<leader>d', function()
-                vim.diagnostic.config {
-                   virtual_lines = not vim.diagnostic.config().virtual_lines,
-                   virtual_text = not vim.diagnostic.config().virtual_text,
-                }
+            keyset("n", "<leader>d", function()
+                vim.diagnostic.config({
+                    virtual_lines = not vim.diagnostic.config().virtual_lines,
+                    virtual_text = not vim.diagnostic.config().virtual_text,
+                })
             end, { desc = "Edit configuration" })
         end,
     },
@@ -135,7 +136,7 @@ return {
                         "--indent-width",
                         "4",
                         "--quote-style",
-                        "AutoPreferDouble"
+                        "AutoPreferDouble",
                     },
                 },
             },

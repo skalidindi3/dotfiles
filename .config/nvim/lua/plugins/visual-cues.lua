@@ -26,7 +26,7 @@ return {
         "TaDaa/vimade",
         opts = {
             -- terminal emulator already animates cursor
-            recipe = {"default", { animate = false } },
+            recipe = { "default", { animate = false } },
             fadelevel = 0.25,
         },
     },
