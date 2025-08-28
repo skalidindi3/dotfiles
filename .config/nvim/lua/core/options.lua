@@ -19,7 +19,7 @@ vim.opt.wrapscan = true         -- wrap around
 vim.opt.inccommand = "split"    -- live preview substitutions
 
 -- tab usage
-kTabSize = 4
+local kTabSize = 4
 vim.opt.expandtab = true        -- convert <TAB> to spaces
 vim.opt.tabstop = kTabSize      -- size of <TAB> and expanded spaces
 vim.opt.shiftwidth = kTabSize   -- size of shifts in visual mode

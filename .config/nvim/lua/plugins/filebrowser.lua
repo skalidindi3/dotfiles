@@ -10,7 +10,7 @@ return {
         },
         lazy = false,
         config = function()
-            window_mappings = {
+            local window_mappings = {
                 -- basic
                 ["?"] = "show_help",
                 ["q"] = "close_window",
@@ -23,6 +23,8 @@ return {
                 ["<space>"] = "toggle_node",
                 ["M"] = "close_all_nodes",
                 ["R"] = "expand_all_nodes",
+                ["_"] = "close_all_nodes",
+                ["+"] = "expand_all_nodes",
 
                 -- access
                 ["<cr>"] = "open",
@@ -45,14 +47,16 @@ return {
                 -- rotate through sources
                 ["<leader>p"] = "prev_source",
                 ["<leader>n"] = "next_source",
+                ["<"] = "prev_source",
+                [">"] = "next_source",
             }
-            fs_window_mappings = {
+            local fs_window_mappings = {
                 -- filesystem interaction
                 ["H"] = "toggle_hidden",
                 ["<bs>"] = "navigate_up",
                 ["."] = "set_root",
             }
-            buffers_window_mappings = {
+            local buffers_window_mappings = {
                 -- filesystem interaction
                 ["<bs>"] = "navigate_up",
                 ["."] = "set_root",
