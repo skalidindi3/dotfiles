@@ -68,12 +68,12 @@ return {
                         },
                     },
                 },
-                ruff = {},
-                --pyrefly
+                ty = {},
             }
 
             local extra_tools = {
-              "stylua", -- Used to format Lua code
+                "stylua",
+                "ruff",
             }
 
             local ensure_installed = vim.tbl_keys(servers or {})
