@@ -19,11 +19,6 @@ return {
                 },
             },
         },
-        -- stylua: ignore
-        keys = {
-            { "<leader>j", mode = { "n", "o" }, function() require("flash").jump() end, desc = "quick jump" },
-            { "<leader>v", mode = { "n", "o" }, function() require("flash").treesitter() end, desc = "treesitter visual selection" },
-        },
     },
 
     -- show register contents

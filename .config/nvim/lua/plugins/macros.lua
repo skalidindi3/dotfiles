@@ -6,3 +6,6 @@ keyset("n", "<C-t>", "<cmd>Neotree toggle<CR><cmd>VimadeDisable<CR>", { silent =
 keyset("n", "<C-p>", "<cmd>VimadeToggle<CR>", { silent = false, desc = "toggle inactive pane fading" })
 keyset("n", "<C-g>", "<cmd>GitsignsToggleAll<CR>", { silent = false, desc = "toggle all extra gitsigns visuals" })
 keyset("n", "<C-f>", "<cmd>lua require('conform').format()<CR>", { silent = false, desc = "run conform format" })
+
+keyset({ "n", "o" }, "<leader>j", require("flash").jump, { desc = "quick jump" })
+keyset({ "n", "o" }, "<leader>v", require("flash").treesitter, { desc = "treesitter visual selection" })

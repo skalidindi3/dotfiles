@@ -8,10 +8,6 @@ require("core.options")
 require("core.remaps")
 require("core.macros")
 
--- plugin config
-require("plugins.commands")
-require("plugins.macros")
-
 -- set up plugins
 require("plugins.bootstrap")
 local plugin_lists = {
@@ -28,6 +24,9 @@ local plugin_lists = {
 local all_plugins = flatten2d(plugin_lists)
 require("lazy").setup({ all_plugins })
 
+-- plugin config
+require("plugins.commands")
+require("plugins.macros")
 
 
 
