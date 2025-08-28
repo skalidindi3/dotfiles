@@ -3,11 +3,11 @@
 return {
     -- incremental parser
     {
-        'nvim-treesitter/nvim-treesitter',
+        "nvim-treesitter/nvim-treesitter",
         dependencies = { "OXY2DEV/markview.nvim" },
         lazy = false,
-        branch = 'master',  -- 'main' documentation lacking
-        build = ':TSUpdate',
+        branch = "master",  -- "main" documentation lacking
+        build = ":TSUpdate",
         config = function()
             local treesitter = require("nvim-treesitter.configs")
             treesitter.setup({
@@ -38,14 +38,58 @@ return {
     -- nvim-treesitter/nvim-treesitter-textobjects
     -- nvim-treesitter/nvim-treesitter-refactor (jump to definition)
 
-    -- https://medium.com/@jogarcia/autoload-lsps-in-neovim-with-mason-f14154f51019
+    -- inspired by hendrikmi/neovim-kickstart-config
+    -- NOTE: the above has info for using hrsh7th/cmp-nvim-lsp
     {
-        "mason-org/mason-lspconfig.nvim",
+        "neovim/nvim-lspconfig",
         dependencies = {
-            "neovim/nvim-lspconfig",
-            "mason-org/mason.nvim",
+            -- auto install LSPs to stdpath for nvim
+            -- NOTE: must be loaded before dependants
+            { "mason-org/mason.nvim", config = true },
+            -- auto install tools (linters, formatters, etc) to stdpath for nvim
+            "WhoIsSethDaniel/mason-tool-installer.nvim",
+            -- translate lsp names to package names
+            -- NOTE: skipping config to use vim.lsp.config/vim.lsp.enable explicitly
+            "mason-org/mason-lspconfig.nvim",
         },
         config = function()
+            -- NOTE: can also override start command and filetypes
+            local servers = {
+                lua_ls = {
+                    settings = {
+                        Lua = {
+                            runtime = { version = "LuaJIT" },
+                            diagnostics = { globals = { "vim" } },
+                            workspace = {
+                                checkThirdParty = false,
+                                library = vim.api.nvim_get_runtime_file("", true),
+                            },
+                            telemetry = { enable = false },
+                        },
+                    },
+                },
+                ruff = {},
+                --pyrefly
+            }
+
+            local extra_tools = {
+              "stylua", -- Used to format Lua code
+            }
+
+            local ensure_installed = vim.tbl_keys(servers or {})
+            vim.list_extend(ensure_installed, extra_tools)
+            require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
+
+            for server, cfg in pairs(servers) do
+                  vim.lsp.config(server, cfg)
+                  vim.lsp.enable(server)
+            end
+
+            -- TODO: move elsewhere
+            -- TODO: iterate with https://github.com/rachartier/tiny-inline-diagnostic.nvim
+            -- https://gpanders.com/blog/whats-new-in-neovim-0-11/#virtual-text-handler-changed-from-opt-out-to-opt-in
+            -- https://www.reddit.com/r/neovim/comments/1jo9oe9/i_set_up_my_config_to_use_virtual_lines_for/
+            -- https://www.youtube.com/watch?v=bTWWFQZqzyI
             vim.diagnostic.config {
                virtual_lines = false, --not vim.diagnostic.config().virtual_lines,
                virtual_text = true, --not vim.diagnostic.config().virtual_text,
@@ -57,47 +101,6 @@ return {
                    virtual_text = not vim.diagnostic.config().virtual_text,
                 }
             end, { desc = "Edit configuration" })
-            -- https://gpanders.com/blog/whats-new-in-neovim-0-11/#virtual-text-handler-changed-from-opt-out-to-opt-in
-            -- https://www.reddit.com/r/neovim/comments/1jo9oe9/i_set_up_my_config_to_use_virtual_lines_for/
-            -- TODO: iterate with https://github.com/rachartier/tiny-inline-diagnostic.nvim
-            -- https://www.youtube.com/watch?v=bTWWFQZqzyI
-            require('mason').setup({})
-            local lspconfig = require('lspconfig')
-            require('mason-lspconfig').setup({
-                ensure_installed = {
-                    "lua_ls",
-                    "clang-format",
-                    "ruff",
-                    "pyrefly",
-                },
-                handlers = {
-                    -- custom setups
-                    ['lua_ls'] = function()
-                        lspconfig.lua_ls.setup({
-                            settings = {
-                                Lua = {
-                                    workspace = {
-                                        -- Make the server aware of Neovim runtime files
-                                        library = {
-                                            "lua",
-                                            "${3rd}/luv/library",
-                                        },
-                                        checkThirdParty = false,
-                                    },
-                                    diagnostics = { globals = { 'vim' } },
-                                    runtime = { version = 'LuaJIT' },
-                                    telemetry = { enable = false },
-                                },
-                            },
-                        })
-                    end,
-
-                    -- default setup for LSPs
-                    function(server_name)
-                        require("lspconfig")[server_name].setup({})
-                    end,
-                },
-            })
         end,
     },
     -- :checkhealth vim.lsp
