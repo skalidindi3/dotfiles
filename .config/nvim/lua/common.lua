@@ -9,6 +9,14 @@ function keyset(mode, lhs, rhs, opts)
   vim.keymap.set(mode, lhs, rhs, options)
 end
 
+function flatten2d(list2d)
+    local flattened = {}
+    for _, list1d in ipairs(list2d) do
+        vim.list_extend(flattened, list1d)
+    end
+    return flattened
+end
+
 -- debug helpers to use from vim lua command line
 function DebugList(arr)
     for i, v in ipairs(arr)

@@ -1,6 +1,8 @@
 -- vim:foldenable:foldmethod=marker:foldlevel=0
 -- neovim top-level config --
 
+require("common")
+
 -- general config
 require("core.options")
 require("core.remaps")
@@ -23,14 +25,7 @@ local plugin_lists = {
     require('plugins.filebrowser'),
     require('plugins.ide'),
 }
--- merge plugin lists
-local all_plugins = {}
-for i, plugin_list in ipairs(plugin_lists) do
-    for j, plugin in ipairs(plugin_list) do
-        table.insert(all_plugins, plugin)
-    end
-end
--- TODO: add flatten_list to common and use here
+local all_plugins = flatten2d(plugin_lists)
 require('lazy').setup({ all_plugins })
 
 
