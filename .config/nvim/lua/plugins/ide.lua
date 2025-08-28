@@ -90,10 +90,18 @@ return {
             -- https://gpanders.com/blog/whats-new-in-neovim-0-11/#virtual-text-handler-changed-from-opt-out-to-opt-in
             -- https://www.reddit.com/r/neovim/comments/1jo9oe9/i_set_up_my_config_to_use_virtual_lines_for/
             -- https://www.youtube.com/watch?v=bTWWFQZqzyI
-            vim.diagnostic.config {
-               virtual_lines = false, --not vim.diagnostic.config().virtual_lines,
-               virtual_text = true, --not vim.diagnostic.config().virtual_text,
-            }
+            vim.diagnostic.config({
+                virtual_lines = false, --not vim.diagnostic.config().virtual_lines,
+                virtual_text = true, --not vim.diagnostic.config().virtual_text,
+                signs = {
+                    text = {
+                        [vim.diagnostic.severity.ERROR] = '✘',
+                        [vim.diagnostic.severity.WARN] = '',
+                        [vim.diagnostic.severity.HINT] = '⚑',
+                        [vim.diagnostic.severity.INFO] = '',
+                    },
+                },
+            })
             require("common")
             keyset('n', '<leader>d', function()
                 vim.diagnostic.config {
@@ -103,5 +111,6 @@ return {
             end, { desc = "Edit configuration" })
         end,
     },
-    -- :checkhealth vim.lsp
+    -- :LspInfo ( = :checkhealth vim.lsp )
+    -- :LspLog
 }
