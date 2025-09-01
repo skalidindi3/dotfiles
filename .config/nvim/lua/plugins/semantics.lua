@@ -33,4 +33,15 @@ return {
             -- . last inserted test
         },
     },
+
+    {
+        "camspiers/snap",
+        config = function ()
+            -- Basic example config
+            local snap = require"snap"
+            snap.maps{
+                { "<Leader><Leader>.", snap.config.vimgrep { producer = "ripgrep.vimgrep" } },
+            }
+        end
+    }
 }
