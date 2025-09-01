@@ -92,8 +92,6 @@ return {
             -- https://www.reddit.com/r/neovim/comments/1jo9oe9/i_set_up_my_config_to_use_virtual_lines_for/
             -- https://www.youtube.com/watch?v=bTWWFQZqzyI
             vim.diagnostic.config({
-                virtual_lines = false, --not vim.diagnostic.config().virtual_lines,
-                virtual_text = true, --not vim.diagnostic.config().virtual_text,
                 signs = {
                     text = {
                         [vim.diagnostic.severity.ERROR] = "✘",
@@ -103,13 +101,6 @@ return {
                     },
                 },
             })
-            require("common")
-            keyset("n", "<leader>d", function()
-                vim.diagnostic.config({
-                    virtual_lines = not vim.diagnostic.config().virtual_lines,
-                    virtual_text = not vim.diagnostic.config().virtual_text,
-                })
-            end, { desc = "Edit configuration" })
             -- TODO: move into plugins.macros
             -- https://blog.pabuisson.com/2022/08/neovim-modern-features-treesitter-and-lsp/
             -- TODO: document :Inspect / :InspectTree
