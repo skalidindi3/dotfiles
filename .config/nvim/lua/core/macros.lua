@@ -27,9 +27,3 @@ keyset(
     [["ry:%s/\<<C-r>r\>/<C-r>r/gI<Left><Left><Left>]],
     { silent = false, desc = "global replace selection" }
 )
-
--- TODO: reevaluate this
--- quick access
-keyset("n", "<leader>ev", function()
-    vim.cmd("tabnew " .. vim.fn.stdpath("config") .. "/init.lua")
-end, { desc = "Edit configuration" })
