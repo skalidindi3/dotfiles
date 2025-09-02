@@ -1,4 +1,3 @@
--- vim:foldenable:foldmethod=marker:foldlevel=0
 -- neovim top-level config --
 
 require("common")
@@ -23,6 +22,7 @@ local plugin_lists = {
     require("plugins.notifications"),
     require("plugins.filebrowser"),
     require("plugins.ide"),
+    require("plugins.ai"),
 }
 local all_plugins = flatten2d(plugin_lists)
 require("lazy").setup({ all_plugins })
