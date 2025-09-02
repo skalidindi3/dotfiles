@@ -18,3 +18,19 @@ function flatten2d(list2d)
     end
     return flattened
 end
+
+function ListDifference(B, A)
+    -- convert A to a set
+    local A_set = {}
+    for _, value in ipairs(A) do
+        A_set[value] = true
+    end
+    -- conditionally create B - A
+    local BmA = {}
+    for _, value in ipairs(B) do
+        if not A_set[value] then
+            table.insert(BmA, value)
+        end
+    end
+    return BmA
+end

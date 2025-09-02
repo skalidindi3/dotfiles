@@ -26,6 +26,42 @@ return {
         end,
     },
 
-    -- alternate colorscheme
+    -- low contrast
+    { "kdheepak/monochrome.nvim" },
+    { "slugbyte/lackluster.nvim" },
+    -- color bias
+    { "everviolet/nvim" },
+    { "rmehri01/onenord.nvim" },
+    { "alexmozaidze/palenight.nvim" },
+    { "neanias/everforest-nvim" },
+    -- multi-set
     { "folke/tokyonight.nvim" },
+    { "EdenEast/nightfox.nvim" },
+    { "thesimonho/kanagawa-paper.nvim" },
+
+    {
+        "zaldih/themery.nvim",
+        cmd = "Themery",
+        config = function()
+            local all_colorschemes = vim.fn.getcompletion("", "color")
+            local plugin_exclude = {
+                "dayfox", -- only light theme worth using, but ignore here
+                "dawnfox",
+                "evergarden",
+                "evergarden-summer",
+                "kanagawa-paper",
+                "kanagawa-paper-canvas",
+                "lackluster",
+                "lackluster-hack",
+                "onenord-light",
+                "tokyonight",
+                "tokyonight-day",
+            }
+            local plugin_colorschemes = ListDifference(all_colorschemes, _G.core_colorschemes)
+            plugin_colorschemes = ListDifference(plugin_colorschemes, plugin_exclude)
+            require("themery").setup({ themes = plugin_colorschemes })
+        end,
+    },
 }
+
+-- TODO: different colorscheme for diffs?
