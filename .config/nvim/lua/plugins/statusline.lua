@@ -16,3 +16,5 @@ return {
         },
     },
 }
+
+-- TODO: akinsho/bufferline.nvim just for tab highlighting?
