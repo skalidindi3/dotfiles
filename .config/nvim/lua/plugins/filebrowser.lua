@@ -79,6 +79,19 @@ return {
             config_to_override.default_component_configs.modified.symbol = ""
             config_to_override.default_component_configs.git_status.symbols.added = ""
             config_to_override.default_component_configs.git_status.symbols.modified = ""
+
+            require("neo-tree").setup({
+                event_handlers = {
+                    {
+                        -- keep focus on tree window when opening panes & tabs
+                        event = "file_opened",
+                        handler = function(_)
+                            -- reopen the tree and focus back on it
+                            require("neo-tree.command").execute({ action = "focus", source = "filesystem" })
+                        end,
+                    },
+                },
+            })
         end,
     },
 }

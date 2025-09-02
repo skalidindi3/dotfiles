@@ -2,8 +2,8 @@
 
 require("common")
 
-keyset("n", "<C-t>", "<cmd>Neotree toggle<CR><cmd>VimadeDisable<CR>", { silent = false, desc = "toggle Neotree" })
-keyset("n", "<C-t><C-t>", "<cmd>FuzzyFiles<CR>", { silent = false, desc = "fuzzy finder for files" })
+keyset("n", "<C-t><C-t>", "<cmd>Neotree toggle<CR><cmd>VimadeDisable<CR>", { silent = false, desc = "toggle Neotree" })
+keyset("n", "<C-t><C-f>", "<cmd>FuzzyFiles<CR>", { silent = false, desc = "fuzzy finder for files" })
 keyset("n", "<C-t><C-r>", "<cmd>FuzzyRipgrep<CR>", { silent = false, desc = "fuzzy finder for files" })
 keyset("n", "<C-p>", "<cmd>VimadeToggle<CR>", { silent = false, desc = "toggle inactive pane fading" })
 keyset("n", "<C-g>", "<cmd>GitsignsToggleAll<CR>", { silent = false, desc = "toggle all extra gitsigns visuals" })
