@@ -24,8 +24,9 @@ local plugin_lists = {
     require("plugins.ide"),
     require("plugins.ai"),
 }
-local all_plugins = flatten2d(plugin_lists)
-require("lazy").setup({ all_plugins })
+-- cache plugin list before setup
+_G.all_plugins = flatten2d(plugin_lists)
+require("lazy").setup({ _G.all_plugins })
 -- TODO: goolord/alpha-nvim start logo
 
 -- plugin config
