@@ -21,6 +21,16 @@ return {
                     -- indent-blankline
                     highlights.IblIndent = { fg = palette.gray2 }
                     highlights.IblScope = { fg = palette.blue0 }
+                    -- csv view
+                    highlights.CsvViewCol0 = { fg = palette.red.bright }
+                    highlights.CsvViewCol1 = { fg = palette.orange.bright }
+                    highlights.CsvViewCol2 = { fg = palette.yellow.bright }
+                    highlights.CsvViewCol3 = { fg = palette.green.bright }
+                    highlights.CsvViewCol4 = { fg = palette.cyan.bright }
+                    highlights.CsvViewCol5 = { fg = palette.blue1 }
+                    highlights.CsvViewCol6 = { fg = palette.magenta.bright }
+                    --highlights.CsvViewCol7 = { fg = palette.orange.bright }
+                    --highlights.CsvViewCol8 = { fg = palette.orange.bright }
                 end,
             })
         end,
@@ -30,10 +40,10 @@ return {
     { "kdheepak/monochrome.nvim" },
     { "slugbyte/lackluster.nvim" },
     -- color bias
-    { "everviolet/nvim" },
+    { "everviolet/nvim" , name = "evergarden-nvim" },
+    { "neanias/everforest-nvim" },
     { "rmehri01/onenord.nvim" },
     { "alexmozaidze/palenight.nvim" },
-    { "neanias/everforest-nvim" },
     -- multi-set
     { "folke/tokyonight.nvim" },
     { "EdenEast/nightfox.nvim" },

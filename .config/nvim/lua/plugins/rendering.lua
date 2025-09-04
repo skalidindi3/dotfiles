@@ -45,6 +45,24 @@ return {
         },
     },
 
+    -- better csv/tsv rendering
+    {
+        "hat0uma/csvview.nvim",
+        config = function()
+            vim.api.nvim_create_autocmd("FileType", {
+                pattern = "csv",
+                callback = function()
+                    vim.cmd("CsvViewEnable")
+                    print("did it")
+                end,
+            })
+            require("csvview").setup({
+                parser = { comments = { "#", "//" } },
+                view = { display_mode = "border" },
+            })
+        end,
+    },
+
     -- fade inactive panes
     {
         "TaDaa/vimade",
