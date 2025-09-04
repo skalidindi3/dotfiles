@@ -43,7 +43,6 @@ keyset("n", "<C-j>", "<PageDown>")
 keyset("n", "<C-k>", "<PageUp>")
 
 -- code folding
-keyset("n", "<space>", "za")
 keyset("n", "-", "zc")
 keyset("n", "=", "zo")
 keyset("n", "_", "zM")

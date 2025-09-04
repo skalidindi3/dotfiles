@@ -20,11 +20,12 @@ return {
                 ["i"] = "show_file_details",
 
                 -- folding
-                ["<space>"] = "toggle_node",
-                ["M"] = "close_all_nodes",
-                ["R"] = "expand_all_nodes",
+                ["-"] = "close_node",
+                ["="] = "toggle_node",
                 ["_"] = "close_all_nodes",
                 ["+"] = "expand_all_nodes",
+                ["M"] = "close_all_nodes",
+                ["R"] = "expand_all_nodes",
 
                 -- access
                 ["<cr>"] = "open",

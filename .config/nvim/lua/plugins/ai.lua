@@ -9,11 +9,11 @@ function SetupFidgetNotifications()
     vim.api.nvim_create_autocmd("User", {
         pattern = "CodeCompanionRequestStarted",
         group = group,
-        callback = function(e)
-            handles[e.data.id] = progress.handle.create({
+        callback = function(request)
+            handles[request.data.id] = progress.handle.create({
                 title = "CodeCompanion",
-                message = "Thinking...",
-                lsp_client = { name = e.data.adapter.formatted_name },
+                message = " Sending...",
+                lsp_client = { name = request.data.adapter.formatted_name },
             })
         end,
     })
@@ -21,13 +21,18 @@ function SetupFidgetNotifications()
     vim.api.nvim_create_autocmd("User", {
         pattern = "CodeCompanionRequestFinished",
         group = group,
-        callback = function(e)
-            local handle = handles[e.data.id]
+        callback = function(request)
+            local handle = handles[request.data.id]
             if handle then
-                -- TODO: distinguish notify errors
-                handle.message = e.data.status == "success" and "Done" or "Failed"
+                if request.data.status == "success" then
+                    handle.message = " Completed"
+                elseif request.data.status == "error" then
+                    handle.message = " Error"
+                else
+                    handle.message = "󰜺 Cancelled"
+                end
                 handle:finish()
-                handles[e.data.id] = nil
+                handles[request.data.id] = nil
             end
         end,
     })
@@ -61,6 +66,35 @@ return {
             SetupFidgetNotifications()
 
             local cc_adapters = require("codecompanion.adapters")
+            local ollama_setup = function()
+                return cc_adapters.extend("ollama", {
+                    env = { url = "https://ollama.int.saiaiai.com" },
+                    parameters = { sync = true },
+                })
+            end
+            local gemini_setup = function()
+                return cc_adapters.extend("gemini", {
+                    env = { api_key = vim.fn.getenv("GEMINI_API_KEY") },
+                    schema = {
+                        model = { default = "gemini-2.5-flash" },
+                    },
+                })
+            end
+            local gemini_cli_setup = function()
+                return cc_adapters.extend("gemini_cli", {
+                    env = { api_key = vim.fn.getenv("GEMINI_API_KEY") },
+                    defaults = { auth_method = "gemini-api-key" },
+                    commands = {
+                        default = {
+                            "gemini",
+                            "--experimental-acp",
+                            "-m",
+                            "gemini-2.5-flash",
+                        },
+                    },
+                })
+            end
+
             require("codecompanion").setup({
                 opts = { log_level = "DEBUG" },
                 strategies = {
@@ -70,36 +104,11 @@ return {
                 },
                 adapters = {
                     http = {
-                        ollama = function()
-                            return cc_adapters.extend("ollama", {
-                                env = { url = "https://ollama.int.saiaiai.com" },
-                                parameters = { sync = true },
-                            })
-                        end,
-                        gemini = function()
-                            return cc_adapters.extend("gemini", {
-                                env = { api_key = vim.fn.getenv("GEMINI_API_KEY") },
-                                schema = {
-                                    model = { default = "gemini-2.5-flash" },
-                                },
-                            })
-                        end,
+                        ollama = ollama_setup,
+                        gemini = gemini_setup,
                     },
                     acp = {
-                        gemini_cli = function()
-                            return cc_adapters.extend("gemini_cli", {
-                                env = { api_key = vim.fn.getenv("GEMINI_API_KEY") },
-                                defaults = { auth_method = "gemini-api-key" },
-                                commands = {
-                                    default = {
-                                        "gemini",
-                                        "--experimental-acp",
-                                        "-m",
-                                        "gemini-2.5-flash",
-                                    },
-                                },
-                            })
-                        end,
+                        gemini_cli = gemini_cli_setup,
                     },
                 },
             })

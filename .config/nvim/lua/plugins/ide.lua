@@ -23,7 +23,7 @@ return {
                     "lua",
                     "c", "cpp", "asm", "disassembly", "objdump",
                     "python",
-                    "markdown",
+                    "markdown", "markdown_inline",
                     "bash", "diff", "tmux",
                     "json", "jq",
                     "yaml", "dockerfile", "caddy",

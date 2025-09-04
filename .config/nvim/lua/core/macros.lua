@@ -27,3 +27,9 @@ keyset(
     [["ry:%s/\<<C-r>r\>/<C-r>r/gI<Left><Left><Left>]],
     { silent = false, desc = "global replace selection" }
 )
+
+-- non-LSP whitespace handling
+vim.api.nvim_create_user_command("StripTrailingWhitespace", function()
+    vim.cmd([[%s/\s\+$//e]])
+    vim.notify("Stripped whitespace", vim.log.levels.INFO)
+end, { nargs = 0, desc = "strip whitespace for the current buffer" })
