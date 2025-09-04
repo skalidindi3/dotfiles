@@ -15,7 +15,7 @@ require("plugins.bootstrap")
 local plugin_lists = {
     require("plugins.colorschemes"),
     require("plugins.statusline"),
-    require("plugins.multicursor"),
+    require("plugins.selection"),
     require("plugins.semantics"),
     require("plugins.visual-cues"),
     require("plugins.rendering"),
