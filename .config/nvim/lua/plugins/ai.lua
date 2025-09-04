@@ -45,6 +45,7 @@ return {
             "nvim-lua/plenary.nvim",
             "nvim-treesitter/nvim-treesitter",
             "j-hui/fidget.nvim",
+            "nvim-telescope/telescope.nvim",
             {
                 "saghen/blink.cmp",
                 lazy = false,
@@ -104,10 +105,12 @@ return {
                 },
                 adapters = {
                     http = {
+                        opts = { show_defaults = false },
                         ollama = ollama_setup,
                         gemini = gemini_setup,
                     },
                     acp = {
+                        opts = { show_defaults = false },
                         gemini_cli = gemini_cli_setup,
                     },
                 },
