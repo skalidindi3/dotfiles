@@ -179,6 +179,12 @@ end
 --     " t                 - prefix for "till next"
 --     " zz                - center screen on line
 -- " }
+-- Registers:
+-- - " unnamed register
+-- - * system clipboard
+-- - + system clipboard (X11)
+-- - / last search pattern
+-- - . last inserted test
 -- TODO: tips
 -- - :Inspect / :InspectTree
 -- - :LspInfo ( = :checkhealth vim.lsp ) / :LspLog

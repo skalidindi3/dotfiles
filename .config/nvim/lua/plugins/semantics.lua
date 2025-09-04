@@ -1,4 +1,4 @@
--- extra vim semantics --
+-- extra semantics for getting to & interacting with vim text objects --
 
 return {
     -- enable surround semantics
@@ -18,19 +18,6 @@ return {
                     enabled = false,
                 },
             },
-        },
-    },
-
-    -- show register contents
-    {
-        "tversteeg/registers.nvim",
-        opts = {
-            show = '"*+/.1234567890',
-            -- " unnamed register
-            -- * system clipboard
-            -- + system clipboard (X11)
-            -- / last search pattern
-            -- . last inserted test
         },
     },
 }
