@@ -1,4 +1,4 @@
--- notifications --
+-- file tree navigation --
 
 return {
     {
