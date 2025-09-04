@@ -40,6 +40,22 @@ return {
             "nvim-lua/plenary.nvim",
             "nvim-treesitter/nvim-treesitter",
             "j-hui/fidget.nvim",
+            {
+                "saghen/blink.cmp",
+                lazy = false,
+                version = "*",
+                opts = {
+                    keymap = {
+                        preset = "enter",
+                        ["<S-Tab>"] = { "select_prev", "fallback" },
+                        ["<Tab>"] = { "select_next", "fallback" },
+                    },
+                    cmdline = { sources = { "cmdline" } },
+                    sources = {
+                        default = { "lsp", "path", "buffer", "codecompanion" },
+                    },
+                },
+            },
         },
         config = function()
             SetupFidgetNotifications()
