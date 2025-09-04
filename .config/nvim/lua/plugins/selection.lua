@@ -16,7 +16,7 @@ return {
         end,
     },
 
-    -- fuzzy finder and picker
+    -- extensible fuzzy finder & picker
     {
         "nvim-telescope/telescope.nvim",
         tag = "0.1.8",
@@ -26,13 +26,13 @@ return {
             require("telescope").setup({
                 defaults = {
                     mappings = {
-                        i = {
-                            ["<C-s>"] = actions.select_horizontal,
-                        },
-                        n = {
-                            ["<C-s>"] = actions.select_horizontal,
-                        },
+                        i = { ["<C-s>"] = actions.select_horizontal },
+                        n = { ["<C-s>"] = actions.select_horizontal },
                     },
+                },
+                pickers = {
+                    -- live preview colorschemes
+                    colorscheme = { enable_preview = true },
                 },
             })
         end,
