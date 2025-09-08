@@ -52,11 +52,25 @@ return {
                 version = "*",
                 opts = {
                     keymap = {
-                        preset = "enter",
-                        ["<S-Tab>"] = { "select_prev", "fallback" },
+                        preset = "none",
+                        ["<C-space>"] = { "show", "show_documentation", "hide_documentation" },
+                        ["<CR>"] = { "select_and_accept", "fallback" },
                         ["<Tab>"] = { "select_next", "fallback" },
+                        ["<S-Tab>"] = { "select_prev", "fallback" },
+                        ["<Esc>"] = { "hide", "fallback" },
                     },
-                    cmdline = { sources = { "cmdline" } },
+                    cmdline = {
+                        keymap = {
+                            preset = "none",
+                            ["<C-space>"] = { "show", "show_documentation", "hide_documentation" },
+                            ["<Tab>"] = { "show", "select_next", "fallback" },
+                            ["<S-Tab>"] = { "select_prev", "fallback" },
+                            ["<Down>"] = { "select_next", "fallback" },
+                            ["<Up>"] = { "select_prev", "fallback" },
+                            ["<CR>"] = { "accept_and_enter", "fallback" },
+                            ["<Esc>"] = { "hide", "fallback" },
+                        },
+                    },
                     sources = {
                         default = { "lsp", "path", "buffer", "codecompanion" },
                     },
@@ -65,6 +79,14 @@ return {
         },
         config = function()
             SetupFidgetNotifications()
+
+            table.insert(_G.user_doc_mappings, {
+                mode = "i",
+                noremap = 1,
+                buffer = 0,
+                lhs = "<C-Space>",
+                desc = "[Blink]: show completion menu, show/hide documentation",
+            })
 
             local cc_adapters = require("codecompanion.adapters")
             local ollama_setup = function()

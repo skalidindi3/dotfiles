@@ -33,6 +33,9 @@ function GetAllCurrentMappings(sort_table)
         mode_mappings_list[#mode_mappings_list + 1] = vim.api.nvim_get_keymap(mode)
         mode_mappings_list[#mode_mappings_list + 1] = vim.api.nvim_buf_get_keymap(0, mode)
     end
+    if _G.user_doc_mappings ~= nil then
+        mode_mappings_list[#mode_mappings_list + 1] = _G.user_doc_mappings
+    end
 
     local all_mappings = {}
     local mode_mappings = vim.iter(mode_mappings_list):flatten():totable()
