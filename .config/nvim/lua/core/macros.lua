@@ -1,6 +1,6 @@
 -- set leader-based macros --
 
-require("common")
+require("core.util")
 
 -- tab management
 keyset("n", "<leader>n", "<cmd>tabnext<CR>", { desc = "[Core]: tab next" })
@@ -27,9 +27,3 @@ keyset(
     [["ry:%s/\<<C-r>r\>/<C-r>r/gI<Left><Left><Left>]],
     { silent = false, desc = "[Core]: global replace selection" }
 )
-
--- non-LSP whitespace handling
-vim.api.nvim_create_user_command("StripTrailingWhitespace", function()
-    vim.cmd([[%s/\s\+$//e]])
-    vim.notify("Stripped whitespace", vim.log.levels.INFO)
-end, { nargs = 0, desc = "[Core]: strip whitespace for the current buffer" })

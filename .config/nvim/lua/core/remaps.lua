@@ -1,6 +1,6 @@
 -- set common key remaps --
 
-require("common")
+require("core.util")
 
 -- set leaders
 vim.g.mapleader = ","

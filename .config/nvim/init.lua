@@ -1,11 +1,11 @@
 -- neovim top-level config --
 
-require("common")
-
 -- general config
 require("core.options")
+require("core.util")
 require("core.remaps")
 require("core.macros")
+require("core.commands")
 
 -- cache default setup info
 _G.core_colorschemes = vim.fn.getcompletion("", "color")

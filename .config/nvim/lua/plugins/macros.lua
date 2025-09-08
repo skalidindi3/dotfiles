@@ -1,6 +1,6 @@
 -- set key mappings & macros for plugins --
 
-require("common")
+require("core.util")
 
 local tb = require("telescope.builtin")
 

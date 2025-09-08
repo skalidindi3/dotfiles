@@ -2,15 +2,6 @@
 
 -- NOTE: from vim lua command line, use print(vim.inspect(object))
 
-vim.api.nvim_create_user_command("DumpIntoBuffer", function(opts)
-    local result = load("return " .. opts.args)()
-    -- NOTE: can't format with conform/treesitter in an anonymous buffer
-    local note = "-- NOTE: save to temp lua file to format with conform"
-    local lines = vim.split(note .. "local dump = " .. vim.inspect(result), "\n")
-    vim.api.nvim_buf_set_lines(0, -1, -1, false, lines)
-    vim.cmd([[%s/\(<function \d>\)/"\1"/g]]) -- wrap fns as strings
-end, { nargs = 1 })
-
 -- helper for remapping the default keymap
 function keyset(mode, lhs, rhs, opts)
     local options = { noremap = true, silent = true }
@@ -51,6 +42,8 @@ end
 -- " Reminders {
 --     " <C-w>r            - swap panes
 --     " viw               - visual select inner word
+--     " diW               - delete inside until whitespace
+--     " vap               - select around paragraph (function)
 --     " A                 - start typing at end of line
 --     " O                 - start new line above cursor
 --     " :echo has("lua")  - check for depenedency
@@ -82,3 +75,6 @@ end
 -- - rmagatti/goto-preview
 -- - use Telecope help to find help docstrings
 --   - vim internal flatten --> now deprecated for iter.flatten
+-- - :TodoTelescope keywords=TODO,FIX cwd=.config
+-- - normal mode :.lua to execute current line in lua
+-- - visual mode :lua to execute selection with lua interpreter
