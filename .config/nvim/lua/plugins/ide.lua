@@ -91,16 +91,6 @@ return {
             -- https://gpanders.com/blog/whats-new-in-neovim-0-11/#virtual-text-handler-changed-from-opt-out-to-opt-in
             -- https://www.reddit.com/r/neovim/comments/1jo9oe9/i_set_up_my_config_to_use_virtual_lines_for/
             -- https://www.youtube.com/watch?v=bTWWFQZqzyI
-            vim.diagnostic.config({
-                signs = {
-                    text = {
-                        [vim.diagnostic.severity.ERROR] = "✘",
-                        [vim.diagnostic.severity.WARN] = "",
-                        [vim.diagnostic.severity.HINT] = "⚑",
-                        [vim.diagnostic.severity.INFO] = "",
-                    },
-                },
-            })
             -- TODO: move into plugins.macros
             -- https://blog.pabuisson.com/2022/08/neovim-modern-features-treesitter-and-lsp/
         end,

@@ -35,6 +35,8 @@ return {
                 pickers = {
                     -- live preview colorschemes
                     colorscheme = { enable_preview = true },
+                    quickfix = { theme = "ivy" },
+                    treesitter = { theme = "ivy" },
                 },
             })
             require("telescope").load_extension("ui-select")
