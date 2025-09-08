@@ -19,7 +19,6 @@ return {
     -- extensible fuzzy finder & picker
     {
         "nvim-telescope/telescope.nvim",
-        tag = "0.1.8",
         dependencies = {
             "nvim-lua/plenary.nvim",
             "nvim-telescope/telescope-ui-select.nvim",
@@ -39,6 +38,8 @@ return {
                 },
             })
             require("telescope").load_extension("ui-select")
+            require("plugins.telescope.custom_keymaps")
+            require("plugins.telescope.live_ripgrep")
         end,
     },
 }
