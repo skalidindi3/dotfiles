@@ -81,6 +81,14 @@ return {
                     },
                 })
             end
+            local gemini_pro_setup = function()
+                return cc_adapters.extend("gemini", {
+                    env = { api_key = vim.fn.getenv("GEMINI_API_KEY") },
+                    schema = {
+                        model = { default = "gemini-2.5-pro" },
+                    },
+                })
+            end
             local gemini_cli_setup = function()
                 return cc_adapters.extend("gemini_cli", {
                     env = { api_key = vim.fn.getenv("GEMINI_API_KEY") },
@@ -91,6 +99,20 @@ return {
                             "--experimental-acp",
                             "-m",
                             "gemini-2.5-flash",
+                        },
+                    },
+                })
+            end
+            local gemini_pro_cli_setup = function()
+                return cc_adapters.extend("gemini_cli", {
+                    env = { api_key = vim.fn.getenv("GEMINI_API_KEY") },
+                    defaults = { auth_method = "gemini-api-key" },
+                    commands = {
+                        default = {
+                            "gemini",
+                            "--experimental-acp",
+                            "-m",
+                            "gemini-2.5-pro",
                         },
                     },
                 })
@@ -108,10 +130,12 @@ return {
                         opts = { show_defaults = false },
                         ollama = ollama_setup,
                         gemini = gemini_setup,
+                        gemini_pro = gemini_pro_setup,
                     },
                     acp = {
                         opts = { show_defaults = false },
                         gemini_cli = gemini_cli_setup,
+                        gemini_pro_cli = gemini_pro_cli_setup,
                     },
                 },
             })
