@@ -24,7 +24,7 @@ local plugin_lists = {
     require("plugins.ai"),
 }
 -- cache plugin list before setup
-_G.all_plugins = flatten2d(plugin_lists)
+_G.all_plugins = vim.iter(plugin_lists):flatten():totable()
 require("lazy").setup({ _G.all_plugins })
 -- TODO: goolord/alpha-nvim start logo
 
