@@ -69,8 +69,9 @@ return {
         opts = {
             -- terminal emulator already animates cursor
             recipe = { "default", { animate = false } },
-            fadelevel = 0.25,
+            fadelevel = 0.4,
         },
+        cmd = { "VimadeToggle", "VimadeEnable", "VimadeBufEnable", "VimadeWinEnable" },
     },
 
     -- syntax highlighting for log files
