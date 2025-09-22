@@ -14,6 +14,7 @@ import json
 import os
 import re
 import subprocess
+import sys
 from functools import cached_property
 from pathlib import Path
 
@@ -24,7 +25,7 @@ from chafa.loader import Loader
 
 
 def escape(infostr):
-    return infostr.rstrip().replace('\x0f', '').replace("'", "\\'").replace('"', '\\"').replace('(', '\\(').replace(')', '\\)').replace('!', '\\!')
+    return infostr.rstrip().replace('\x0f', '').replace("'", "\\'").replace('"', '\\"').replace('(', '\\(').replace(')', '\\)').replace('!', '\\!').replace('[', '\\[').replace(']', '\\]')
 
 
 BOLD = "\x1b[1m"
@@ -101,7 +102,11 @@ class BeetsSong:
 
     @cached_property
     def info(self):
-        return json.loads(subprocess.check_output(self.beet_export_cmd, shell=True).rstrip().decode('utf-8'))[0]
+        try:
+            return json.loads(subprocess.check_output(self.beet_export_cmd, shell=True).rstrip().decode('utf-8'))[0]
+        except IndexError:
+            print(f"Failed to execute `{self.beet_export_cmd}`")
+            sys.exit(1)
 
     @cached_property
     def samplerate(self):
@@ -182,15 +187,6 @@ class BeetsSong:
             '[out]',
             f'{spectrogram_path}.png',
         ])
-        #subprocess.run([
-        #    'sox',
-        #    f'{spectrogram_path}.wav',
-        #    '-n',
-        #    'spectrogram',
-        #    '-o',
-        #    f'{spectrogram_path}.png',
-        #    '-r'
-        #])
 
     def ascii_spectrogram(self, height=24, width=80, spectrogram_path='/tmp/ncmpcpp_spectrogram'):
         self.generate_spectrogram(spectrogram_path=spectrogram_path)
@@ -226,11 +222,6 @@ class BeetsSong:
         return SoxStats(stats.stderr)
 
     def display_alt(self):
-        output = self.ascii_spectrogram()
-        output_lines = output.split("\n")
-        output_hi = "\n".join(output_lines[:(len(output_lines)+1)//2])
-        output_lo = "\n".join(output_lines[len(output_lines)//2:])
-        stats = self.sox_stats()
         print("\n".join([
             BOLD + 'Song info (advanced)' + RESET,
             f'{"─" * int(os.environ["COLUMNS"])}',
@@ -249,6 +240,17 @@ class BeetsSong:
             '',
             BOLD + 'Spectrogram (downsampled)' + RESET,
             f'{"─" * int(os.environ["COLUMNS"])}',
+        ]))
+
+        print("generating...", end="", flush=True)
+        output = self.ascii_spectrogram()
+        output_lines = output.split("\n")
+        output_hi = "\n".join(output_lines[:(len(output_lines)+1)//2])
+        output_lo = "\n".join(output_lines[len(output_lines)//2:])
+        stats = self.sox_stats()
+        print("\r", end="")
+
+        print("\n".join([
             f'{BLUE}[channel L]{RESET} :: (RMS Level = {GREEN}{stats.rms_lev_db_l}dB{RESET}) :: (RMS Peak = {GREEN}{stats.rms_pk_db_l}dB{RESET})',
             output_hi,
             '',
