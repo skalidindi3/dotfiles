@@ -29,6 +29,8 @@ end
 
 -- TODO: curated cheatsheet
 -- - "*" search word under cursor / or visual block
+-- - "#" search word under cursor / or visual block (backwords)
+-- - g* / g# to include partial matches
 -- - g as the global command
 --   - https://www.youtube.com/watch?v=1M-XDGc20ns
 -- - :verbose nmap <leader>G
@@ -41,19 +43,39 @@ end
 -- " http://tnerual.eriogerg.free.fr/vimqrc.html
 -- " Reminders {
 --     " <C-w>r            - swap panes
+--     " V                 - visual select LINES
 --     " viw               - visual select inner word
 --     " diW               - delete inside until whitespace
 --     " vap               - select around paragraph (function)
+--     " vip               - select inside paragraph (any contiguous text?)
 --     " A                 - start typing at end of line
 --     " O                 - start new line above cursor
 --     " :echo has("lua")  - check for depenedency
 --     " "*p               - paste from system clipboard
 --     " e                 - end of word
+--     " E                 - end of word (whitespace)
 --     " ge                - end of previous word
 --     " f                 - prefix for "find next"
 --     " t                 - prefix for "till next"
 --     " zz                - center screen on line
+--     " 10o0.             - make 10 lines starting with "0."
+--     " g<C-a>            - (for selection) increment proportionally
+--     " <C-j>             - (insert mode) newline
+--     " <C-w>             - (insert mode) delete previous word
+--     " <C-o>             - (insert mode) switch to normal mode for a single command
+--     " m<alphanum>       - mark line (jump with telescope), lowercase local to buffer, uppercase global
+--     " '<alphanum>       - jump to mark (special marks exist, like w/ special registers)
+--     " :w !<shell cmd>   - (normal or visual) pipe to shell comamand
+--     " gv                - reselect last selection
+--     " =                 - re-indent (works with visual, # lines, etc)
+--     " %                 - toggle between nearest pairs (braces, blocks, etc)
+--     " gx                - open URL under cursor
+--     " gf                - open file under cursor (as a buffer)
 -- " }
+-- b/B as (/{ brace shortcuts for textobjects
+-- in visual block mode, can still do $/L to get to end, and then A for appending to those lines
+-- mksession exists
+-- :g/:v commands: https://www.youtube.com/watch?v=PDYpP22wAow
 -- Registers:
 -- - " unnamed register
 -- - * system clipboard
