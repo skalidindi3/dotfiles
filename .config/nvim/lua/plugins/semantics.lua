@@ -8,6 +8,14 @@ return {
         opts = {},
     },
 
+    -- enable comment test objects (ac, ic, aC)
+    {
+        "glts/vim-textobj-comment",
+        dependencies = {
+            "kana/vim-textobj-user",
+        },
+    },
+
     -- enable jumping & treesitter visual selection
     {
         "folke/flash.nvim",

@@ -60,6 +60,7 @@ end
 -- - + system clipboard (X11)
 -- - / last search pattern
 -- - . last inserted test
+-- - ac, ic, aC text objects from plugin
 -- TODO: tips
 -- - :Inspect / :InspectTree
 -- - :LspInfo ( = :checkhealth vim.lsp ) / :LspLog
