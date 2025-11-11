@@ -29,6 +29,7 @@ return {
 
                 -- access
                 ["<cr>"] = "open",
+                ["x"] = "open_split",
                 ["s"] = "open_split",
                 ["v"] = "open_vsplit",
                 ["t"] = "open_tabnew",
