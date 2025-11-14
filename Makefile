@@ -14,6 +14,7 @@ ifeq ($(shell uname -s),Darwin)
 	brew install \
 		stow \
 		git \
+		lazygit \
 		neovim \
 		tmux \
 		curl \
@@ -36,8 +37,10 @@ ifeq ($(shell uname -s),Linux)
 	sudo apt install \
 		stow \
 		git \
+		lazygit \
 		neovim \
 		tmux \
+		build-essential \
 		curl \
 		wget \
 		rsync \
