@@ -2,8 +2,8 @@
 # Editor #
 ##########
 if which nvim &> /dev/null; then
-    alias vim="`type -p nvim | awk '{ print $3 }'`" \
-    alias nvim="NVIM_IDE=1 `type -p nvim | awk '{ print $3 }'`"
+    alias vi=nvim
+    alias vim=nvim
     export MANPAGER='nvim +Man!'
 fi
 
