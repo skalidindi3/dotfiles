@@ -5,8 +5,13 @@
 # ssh_check=$(pstree -s $client_pid | grep sshd &> /dev/null)
 # ssh_connected=$?
 
+if [[ $(uname) == Linux ]]; then
+    pty_strip=5  # NOTE: to remove "/dev/" prefix from linux
+else
+    pty_strip=8  # NOTE: to remove "/dev/tty" prefix from macOS
+fi
 client_pty=$(tmux display-message -p '#{client_tty}')
-remote_controls_tmux_pty_check=$(w | grep ${client_pty:5})  # NOTE: strips "/dev/" prefix
+remote_controls_tmux_pty_check=$(w | grep ${client_pty:$pty_strip})
 remote_controls_tmux_pty=$?
 
 if (( remote_controls_tmux_pty == 0 )); then
