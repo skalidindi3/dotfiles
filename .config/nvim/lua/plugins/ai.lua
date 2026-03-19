@@ -47,6 +47,8 @@ return {
             "j-hui/fidget.nvim",
             "nvim-telescope/telescope.nvim",
             {
+                -- TODO: move to separate section
+                -- TAB completion
                 "saghen/blink.cmp",
                 lazy = false,
                 version = "*",
@@ -56,19 +58,25 @@ return {
                         ["<C-space>"] = { "show", "show_documentation", "hide_documentation" },
                         ["<CR>"] = { "select_and_accept", "fallback" },
                         ["<Tab>"] = { "select_next", "fallback" },
+                        ["<Down>"] = { "select_next", "fallback" },
                         ["<S-Tab>"] = { "select_prev", "fallback" },
+                        ["<Up>"] = { "select_prev", "fallback" },
                         ["<Esc>"] = { "hide", "fallback" },
                     },
                     cmdline = {
                         keymap = {
-                            preset = "none",
-                            ["<C-space>"] = { "show", "show_documentation", "hide_documentation" },
-                            ["<Tab>"] = { "show", "select_next", "fallback" },
-                            ["<S-Tab>"] = { "select_prev", "fallback" },
-                            ["<Down>"] = { "select_next", "fallback" },
-                            ["<Up>"] = { "select_prev", "fallback" },
-                            ["<CR>"] = { "accept_and_enter", "fallback" },
-                            ["<Esc>"] = { "hide", "fallback" },
+                            preset = "inherit",
+                            ["<Tab>"] = { "show_and_insert_or_accept_single", "select_next", "fallback" },
+                            ["<Right>"] = { "accept", "fallback" },
+                            ["<Esc>"] = {
+                                function(cmp)
+                                    if cmp.is_menu_visible() then
+                                        cmp.cancel()
+                                    else
+                                        vim.api.nvim_input("<C-c>")
+                                    end
+                                end,
+                            },
                         },
                     },
                     sources = {
