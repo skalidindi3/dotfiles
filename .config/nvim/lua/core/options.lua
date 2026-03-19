@@ -68,3 +68,7 @@ vim.api.nvim_create_autocmd({ "WinLeave" }, {
         vim.opt_local.cursorline = false
     end,
 })
+
+-- handle .cbz like .zip
+vim.g.zipPlugin_ext = (vim.g.zipPlugin_ext or "*.zip") .. ",*.cbz"
+vim.filetype.add({ extension = { cbz = "zip" } })
