@@ -112,10 +112,10 @@ def_key "N"
 # {{{
 def_key "space"
     pause
-    run_external_command "tmux refresh-client -S" # force update tmux statusbar
+    run_external_command "tmux list-clients -F '#{client_name}' | xargs -n 1 tmux refresh-client -S -t" # force update tmux statusbar for all clients
 def_key "s"
     stop
-    run_external_command "tmux refresh-client -S" # force update tmux statusbar
+    run_external_command "tmux list-clients -F '#{client_name}' | xargs -n 1 tmux refresh-client -S -t" # force update tmux statusbar for all clients
 def_key "<"
     previous
 def_key ">"
@@ -182,7 +182,7 @@ def_key "enter" # selecting audio_output
     toggle_output
 def_key "enter"
     play_item
-    run_external_command "tmux refresh-client -S" # force update tmux statusbar
+    run_external_command "tmux list-clients -F '#{client_name}' | xargs -n 1 tmux refresh-client -S -t" # force update tmux statusbar for all clients
 def_key "r"
     toggle_repeat
 # }}}
