@@ -55,7 +55,7 @@ class SoxStats:
 class BeetsSong:
 
     @staticmethod
-    def from_file(filepath='/tmp/ncmpcpp-highlighted.txt'):
+    def from_highlighted(filepath='/tmp/ncmpcpp-highlighted.txt'):
         ansi_code_pattern = r'\x1b\[[0-9;]*m'
         with open(filepath, 'r') as f:
             ncmpcpp_line = f.readline().rstrip()
@@ -66,23 +66,31 @@ class BeetsSong:
             fields.append('')
         if len(fields) == 4:
             fields.insert(3, '')
-        return BeetsSong(*fields)
 
-    def __init__(self, artist, track, title, album, length):
-        self.artist = escape(artist)
-        self.track = track.rstrip()
-        self.title = escape(title)
-        self.album = escape(album)
-        self.length = length.rstrip()
+        def compose_query(artist, track, title, album, _length):
+            return ' '.join([
+                f'artist::^"{escape(artist)}"',
+                f'track:"{track.rstrip()}"',  # FIX: handle " | " ? from compilations? like jay z girls
+                f'album::^"{escape(album)}"',
+                f'title::^"{escape(title)}"',
+            ])
 
-    @cached_property
-    def beet_query(self):
-        return ' '.join([
-            f'artist::^"{self.artist}"',
-            f'album::^"{self.album}"',
-            f'title::^"{self.title}"',
-            f'track:"{self.track}"',
-        ])
+        return BeetsSong(compose_query(*fields))
+
+    @staticmethod
+    def from_song_info(filepath='/tmp/ncmpcpp-song-info.txt'):
+        ansi_code_pattern = r'\x1b\[[0-9;]*m'
+        with open(filepath, 'r') as f:
+            filename_line = f.readline().rstrip()
+            directory_line = f.readline().rstrip()
+
+        filename = re.split(ansi_code_pattern, filename_line)[-2]
+        directory = re.split(ansi_code_pattern, directory_line)[-2]
+        query = f'path::"{directory}/{filename}"'
+        return BeetsSong(query)
+
+    def __init__(self, query):
+        self.beet_query = query
 
     @cached_property
     def beet_list_cmd(self):
@@ -222,6 +230,8 @@ class BeetsSong:
         return SoxStats(stats.stderr)
 
     def display_alt(self):
+        seconds = int(self.info["length"])
+        length = f"{int(seconds/60):d}:{int((seconds+.5)%60):02d}"
         print("\n".join([
             BOLD + 'Song info (advanced)' + RESET,
             f'{"─" * int(os.environ["COLUMNS"])}',
@@ -233,7 +243,7 @@ class BeetsSong:
             f'{GRAY}Title     : {GREEN}{self.info["title"] or "<empty>"}{RESET}',
             f'{GRAY}Artist    : {GREEN}{self.info["artist"] or "<empty>"}{RESET}',
             f'{GRAY}Album     : {GREEN}{self.info["album"] or "<empty>"}{RESET}',
-            f'{GRAY}Length    : {GREEN}{self.length}{RESET}',
+            f'{GRAY}Length    : {GREEN}{length}{RESET}',
             f'{GRAY}Disc      : {GREEN}{self.info["disc"] or "<empty>"} / {self.info["disctotal"] or "<empty>"}{RESET}',
             f'{GRAY}Track     : {GREEN}{self.info["track"] or "<empty>"} / {self.info["tracktotal"] or "<empty>"}{RESET}',
             f'{GRAY}Date      : {GREEN}{self.info["date"] or "<empty>"}{RESET}',
@@ -261,6 +271,12 @@ class BeetsSong:
 
 
 parser = argparse.ArgumentParser()
+parser.add_argument("--from-highlighted",
+                    action="store_true",
+                    help="parse from highlighted track in ncmpcpp playlist tab")
+parser.add_argument("--from-song-info",
+                    action="store_true",
+                    help="parse from ncmpcpp song info popup")
 parser.add_argument("-i",
                     "--info",
                     action="store_true",
@@ -279,7 +295,13 @@ parser.add_argument("-s",
                     help="open spectrogram")
 args = parser.parse_args()
 
-beets_song = BeetsSong.from_file()
+if args.from_highlighted:
+    beets_song = BeetsSong.from_highlighted()
+elif args.from_song_info:
+    beets_song = BeetsSong.from_song_info()
+else:
+    assert False
+
 if args.info:
     subprocess.run(['clear'])
     beets_song.display_alt()
