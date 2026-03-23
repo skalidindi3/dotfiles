@@ -29,7 +29,7 @@ def_key "6"
 def_key "7"
     show_clock
 def_key "8"
-    show_browser
+    show_clock
 def_key "9"
     show_outputs
 def_key "0"
