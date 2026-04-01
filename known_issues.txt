@@ -10,12 +10,16 @@ custom .gitconfig usage:
 
 
 TODOs:
-- https://github.com/catppuccin/tmux
-- https://github.com/niksingh710/minimal-tmux-status
+- switch linux to homebrew (other than build-essential)
+- switch Makefile to anisble
+    - install packages
+        - lazygit
+        - lazydocker ? (server vs edge)
+    - setup neovim
+    - setup tmux
+    - launch mpd* daemons
+    - start tailscale
 - https://github.com/rose-pine/tmux
-- https://github.com/o0th/tmux-nova
-- https://github.com/NHDaly/tmux-better-mouse-mode
 - https://github.com/lost-melody/tmux-command-palette
 - https://github.com/fcsonline/tmux-thumbs
-- https://github.com/yardnsm/tmux-1password
 - https://github.com/mapio/tmux-tail-f
