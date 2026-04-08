@@ -207,27 +207,10 @@ if [ 'Darwin' = $(uname) ]; then
     # App Aliases
     [ -e /Applications/VLC.app/Contents/MacOS/VLC ] \
         && alias vlc='/Applications/VLC.app/Contents/MacOS/VLC'
-    [ -e /Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl ] \
-        && alias sublime='/Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl'
 
     # Peripherals
     lockscreen() {
         exec /System/Library/CoreServices/"Menu Extras"/User.menu/Contents/Resources/CGSession -suspend &
-    }
-    alias lock='lockscreen'
-    vol() {
-        if [[ -n $1 ]]; then
-            osascript -e 'set volume output muted false'
-            osascript -e "set volume output volume $1"
-        elif [[ `osascript -e 'output muted of (get volume settings)'` = 'true' ]]; then
-            echo "muted"
-        else
-            osascript -e "output volume of (get volume settings)"
-        fi
-    }
-    mute() {
-        osascript -e 'set volume output muted true'
-        echo "muted"
     }
 fi
 
@@ -238,19 +221,6 @@ fi
 if [ 'Linux' = $(uname) ]; then
     alias ls='ls --color=always'
     alias lsr='CLICOLOR_FORCE=1 ls -altr | tac | head'
-
-    # Peripherals
-    vol() {
-        if [[ -n $1 ]]; then
-            amixer -q set Master unmute
-            amixer set Master "$1"% | grep -E "\[on\]"
-        else
-            amixer get Master | grep -E "\[off\]|\[on\]"
-        fi
-    }
-    mute() {
-        amixer set Master mute | grep -E "\[off\]"
-    }
 fi
 
 
