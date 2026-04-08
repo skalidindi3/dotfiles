@@ -132,6 +132,10 @@ rgf() {
     rg --line-number "${*:-}" |
       fzf --ansi --delimiter : --bind 'enter:become(nvim {1} +{2} +"set nofoldenable")'
 }
+if which lsd &> /dev/null; then
+    alias lsl="lsd -al"
+    alias tree="lsd --tree"
+fi
 
 
 #######

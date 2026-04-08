@@ -1,0 +1,7 @@
+date: "+%Y-%m-%d %H:%M:%S"
+literal: true
+icons:
+  when: never
+color:
+  when: auto
+  theme: custom

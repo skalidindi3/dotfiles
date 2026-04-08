@@ -1,0 +1,19 @@
+permission:
+  read: 2
+  write: 3
+  exec: 1
+
+user: 12
+group: 4
+
+size:
+  small: 2
+  medium: 3
+  large: 1
+
+date:
+  hour-old: 248
+  day-old: 244
+  older: 240
+
+tree-edge: 245
