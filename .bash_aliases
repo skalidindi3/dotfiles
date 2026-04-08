@@ -272,6 +272,15 @@ ffprobe_report() {
 }
 
 
+#########
+# Video #
+#########
+ass2srt() {
+    mv "$1" "${1/mkv/orig.mkv}"
+    ffmpeg -i "${1/mkv/orig.mkv}" -c copy -c:s srt "$1"
+}
+
+
 ssh_audit() {
     (
         gunzip -c /var/log/system.log.*.gz | rg sshd
