@@ -17,8 +17,6 @@ keyset("n", "<C-p>", "<cmd>VimadeToggle<CR>", { desc = "[Vimade]: toggle inactiv
 keyset("n", "<C-g><C-g>", "<cmd>GitsignsToggleAll<CR>", { desc = "[Gitsigns]: toggle all extra gitsigns visuals" })
 keyset("n", "<C-g><C-b>", "<cmd>Gitsigns blame<CR>", { desc = "[Gitsigns]: open git blame pane" })
 keyset("n", "<C-f>", "<cmd>FormatBuffer<CR>", { desc = "[Conform]: run conform format" })
-keyset("n", "<C-c><C-c>", "<cmd>CodeCompanionChat Toggle<CR>", { desc = "[CodeCompanion]: toggle ai chat" })
-keyset("n", "<C-c><C-i>", "<cmd>CodeCompanion<CR>", { desc = "[CodeCompanion]: start ai cmd" })
 
 keyset("n", "<leader>d", "<cmd>DiagnosticsVisualsNext<CR>", { desc = "[LSP]: rotate diagnostic visuals" })
 keyset({ "n", "v", "o" }, "<leader>j", require("flash").jump, { desc = "[Flash]: quick jump" })

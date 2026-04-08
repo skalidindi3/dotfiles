@@ -96,6 +96,7 @@ return {
         end,
     },
 
+    -- linting & formatting
     {
         "stevearc/conform.nvim",
         opts = {
@@ -120,6 +121,45 @@ return {
                         "AutoPreferDouble",
                     },
                 },
+            },
+        },
+    },
+
+
+    -- TAB completion
+    {
+        "saghen/blink.cmp",
+        lazy = false,
+        version = "*",
+        opts = {
+            keymap = {
+                preset = "none",
+                ["<C-space>"] = { "show", "show_documentation", "hide_documentation" },
+                ["<CR>"] = { "select_and_accept", "fallback" },
+                ["<Tab>"] = { "select_next", "fallback" },
+                ["<Down>"] = { "select_next", "fallback" },
+                ["<S-Tab>"] = { "select_prev", "fallback" },
+                ["<Up>"] = { "select_prev", "fallback" },
+                ["<Esc>"] = { "hide", "fallback" },
+            },
+            cmdline = {
+                keymap = {
+                    preset = "inherit",
+                    ["<Tab>"] = { "show_and_insert_or_accept_single", "select_next", "fallback" },
+                    ["<Right>"] = { "accept", "fallback" },
+                    ["<Esc>"] = {
+                        function(cmp)
+                            if cmp.is_menu_visible() then
+                                cmp.cancel()
+                            else
+                                vim.api.nvim_input("<C-c>")
+                            end
+                        end,
+                    },
+                },
+            },
+            sources = {
+                default = { "lsp", "path", "buffer" },
             },
         },
     },
