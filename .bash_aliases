@@ -145,8 +145,10 @@ rgf() {
       fzf --ansi --delimiter : --bind 'enter:become(nvim {1} +{2} +"set nofoldenable")'
 }
 if which lsd &> /dev/null; then
-    alias lsl="lsd -al"
-    alias tree="lsd --tree"
+    alias lsl="lsd -I \.git -al --group-directories-first"
+    alias ll=lsl
+    alias lsr="lsd -I \.git -Alt --color always | head"
+    alias tree="lsd -I \.git --tree"
 fi
 
 
@@ -214,7 +216,7 @@ cdiff() {
 if [ 'Darwin' = $(uname) ]; then
     # General
     alias ls='ls -GF'
-    alias lsr='CLICOLOR_FORCE=1 ls -Alt | head'
+    alias lsr &> /dev/null || alias lsr='CLICOLOR_FORCE=1 ls -Alt | head'
 
     # App Aliases
     [ -e /Applications/VLC.app/Contents/MacOS/VLC ] \
@@ -232,7 +234,7 @@ fi
 #########
 if [ 'Linux' = $(uname) ]; then
     alias ls='ls --color=always'
-    alias lsr='CLICOLOR_FORCE=1 ls -altr | tac | head'
+    alias lsr &> /dev/null || alias lsr='CLICOLOR_FORCE=1 ls -altr | tac | head'
 fi
 
 
