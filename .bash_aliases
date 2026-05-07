@@ -100,6 +100,18 @@ if [ -e /opt/homebrew/bin/brew ]; then
 fi
 
 
+########
+# mise #
+########
+if which mise &> /dev/null; then
+    if [ -n "$ZSH_VERSION" ]; then
+        eval "$(mise activate zsh)"
+    else
+        eval "$(mise activate bash)"
+    fi
+fi
+
+
 ##########
 # Python #
 ##########
