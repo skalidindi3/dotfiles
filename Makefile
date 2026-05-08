@@ -31,6 +31,7 @@ install_packages:
 		htop \
 		duf \
 		jq \
+		qrencode \
 		mise
 		# NOTE: moreutils for vidir
 
