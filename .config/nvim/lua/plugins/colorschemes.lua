@@ -36,6 +36,8 @@ return {
         end,
     },
 
+    -- NEW: ayu
+    { "shatur/neovim-ayu" },
     -- low contrast
     { "kdheepak/monochrome.nvim" },
     { "slugbyte/lackluster.nvim" },
