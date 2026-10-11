@@ -70,8 +70,9 @@ vim.api.nvim_create_autocmd({ "WinLeave" }, {
 })
 
 -- handle .cbz like .zip
-vim.g.zipPlugin_ext = (vim.g.zipPlugin_ext or "*.zip") .. ",*.cbz"
+vim.g.zipPlugin_ext = (vim.g.zipPlugin_ext or "*.zip") .. ",*.cbz" .. ",*.epub"
 vim.filetype.add({ extension = { cbz = "zip" } })
+vim.filetype.add({ extension = { epub = "zip" } })
 
 -- handle Caddyfile
 vim.filetype.add({
