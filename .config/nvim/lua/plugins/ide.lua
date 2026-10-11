@@ -185,7 +185,6 @@ return {
         },
     },
 
-
     -- TAB completion
     {
         "saghen/blink.cmp",
@@ -223,4 +222,6 @@ return {
             },
         },
     },
+
+    { "folke/which-key.nvim" },
 }
