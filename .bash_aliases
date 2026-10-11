@@ -291,6 +291,10 @@ ass2srt() {
     mv "$1" "${1/mkv/orig.mkv}"
     ffmpeg -i "${1/mkv/orig.mkv}" -c copy -c:s srt "$1"
 }
+ac32aac() {
+    mv "$1" "${1/mkv/orig.mkv}"
+    ffmpeg -i "${1/mkv/orig.mkv}" -map 0 -c:v copy -c:s copy -c:a aac -ac 2 -b:a 224k "$1"
+}
 
 
 ssh_audit() {
