@@ -10,6 +10,7 @@ custom .gitconfig usage:
 
 
 TODOs:
+- use mise to install uv, go
 - switch linux to homebrew (other than build-essential)
 - switch Makefile to anisble
     - install packages
@@ -23,3 +24,10 @@ TODOs:
 - https://github.com/lost-melody/tmux-command-palette
 - https://github.com/fcsonline/tmux-thumbs
 - https://github.com/mapio/tmux-tail-f
+
+- https://github.com/mcchrish/vim-no-color-collections
+- https://github.com/metalelf0/base16-black-metal-scheme
+- https://github.com/dchinmay2/alabaster.nvim
+- https://github.com/mcauley-penney/ice-cave.nvim
+- https://github.com/gmr458/cold.nvim
+- https://github.com/aktersnurra/no-clown-fiesta.nvim
