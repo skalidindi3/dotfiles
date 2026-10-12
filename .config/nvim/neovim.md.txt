@@ -1,0 +1,194 @@
+
+
+| k | d |
+
+
+Vim follows a nearly linguistic syntax: [count][operator][count][motion]
+
+# Basic Usage
+
+## Movement
+
+| keys | description |
+| --- | --- |
+| e | "end": place cursor at the end of the current word |
+| ge | "end": place cursor at the end of the previous word |
+| E | "end": place cursor before the next whitespace |
+| `zz` | `center screen on line` |
+| `%` | `toggle between nearest pairs (braces, blocks, etc)` |
+
+h/j/k/l  - left/down/up/right
+gg or G  - top or bottom of file
+( or )   - jumps to the previous/next sentence
+{ or }   - jumps to the previous/next paragraph
+ctrl ^   - toggle current and previous file
+
+## Modify Text (Normal -> Insert)
+
+| keys | description |
+| --- | --- |
+| a | "after": enter insert mode after current character |
+| i | "insert": enter insert mode at current character |
+| A | "after": enter insert mode at end of current line |
+| I | "insert": enter insert mode at start of current line |
+| O | create new line above current line |
+
+## Selection
+
+| keys | description |
+| --- | --- |
+| v | visual select |
+| \<C-v> | block visual select |
+| `V` | `visual select lines` |
+| `gv` | `reselect last selection` |
+
+## Textobjects & Motions
+
+| keys | description |
+| --- | --- |
+| iw | "inner word" |
+| `iW` | `"inner word" until whitespace` |
+| `ap` | `"around paragraph"` |
+
+b/B as (/{ brace shortcuts for textobjects
+
+- ac, ic, aC text objects from plugin
+
+## Example Combos
+
+| keys | description |
+| --- | --- |
+| viwp | paste over (replacing) current word |
+
+in visual block mode, can still do $/L to get to end, and then A for appending to those lines
+
+#### NOTE: (TODO) use `e` when using surround semantics to avoid trailing space
+
+#### NOTE: (TODO) use ib/i"/i' textobjects outside the closure, but before it on the same line
+
+---
+
+# Search
+
+## Generic Search
+
+| keys | description |
+| --- | --- |
+| / | forward |
+| `?` | `reverse` |
+| n | next match |
+| N | prev match |
+| f[count][char] | "find": place cursor on next (* [count]) [char] |
+| t[count][char] | "till": place cursor before next (* [count]) [char] |
+
+## Search Selected
+
+Search the word under the cursor or the visual selection
+
+| keys | description |
+| --- | --- |
+| * | forward |
+| `#` | `reverse` |
+| `g*` | `forward, including partial matches` |
+| `g#` | `reverse, including partial matches` |
+
+# Registers
+
+NOTE: best with which-key (force for this)
+"[register][action]
+
+- " unnamed register
+- * system clipboard
+- + system clipboard (X11)
+- / last search pattern
+- . last inserted test
+
+---
+
+# Window Management
+
+## Panes
+
+| keys | description |
+| --- | --- |
+| `<C-w>r` | `swap panes` |
+
+---
+
+# "Global" Commands
+
+| keys | description |
+| --- | --- |
+| `gf` | `open file under cursor as a buffer` |
+| `gx` | `open URL under cursor as a buffer` |
+
+
+
+:g/:v commands:
+- https://www.youtube.com/watch?v=1M-XDGc20ns
+- https://www.youtube.com/watch?v=PDYpP22wAow
+- https://www.youtube.com/watch?v=7D1k1l-Q8rA
+
+## Sequences
+
+    " 10o0.             - make 10 lines starting with "0."
+    " g<C-a>            - (for selection) increment proportionally
+
+
+
+## TODO
+
+- :Fidget history
+  - shows notification history
+- :messages
+  - shows command output history (like startup errors)
+
+- :verbose nmap <leader>G
+  - shows mapping and where it comes from (in this case, for <leader>G)
+- VimodeDisable for fading windows?
+" http://tnerual.eriogerg.free.fr/vimqrc.html
+" Reminders {
+    " :echo has("lua")  - check for depenedency
+    " "*p               - paste from system clipboard
+
+    " <C-j>             - (insert mode) newline
+    " <C-w>             - (insert mode) delete previous word
+    " <C-o>             - (insert mode) switch to normal mode for a single command
+    " m<alphanum>       - mark line (jump with telescope), lowercase local to buffer, uppercase global
+    " '<alphanum>       - jump to mark (special marks exist, like w/ special registers)
+    " :w !<shell cmd>   - (normal or visual) pipe to shell comamand
+    " =                 - re-indent (works with visual, # lines, etc)
+" }
+
+
+
+mksession/mkview exists
+
+
+
+
+TODO: tips
+- :Inspect / :InspectTree
+- :LspInfo ( = :checkhealth vim.lsp ) / :LspLog
+- ,v treesitter select & gc for comment block
+
+- visual select & s/search/replace/g inside selection
+  - useful for unmatched tabsize
+
+- (normal) <C-w>d opens a floating window showing the diagnostics in the line under the cursor
+- (normal) [d and ]d can be used to move the cursor to the previous and next diagnostic of the current file
+
+- trouble.nvim
+  - bassamsdata/namu.nvim ? might be redundant
+
+- https://vonheikemen.github.io/devlog/tools/neovim-lsp-client-guide/
+  - extended LSP usage and key mappings
+
+- rmagatti/goto-preview
+
+- use Telecope help to find help docstrings
+  - vim internal flatten --> now deprecated for iter.flatten
+- :TodoTelescope keywords=TODO,FIX cwd=.config
+
+- normal mode :.lua to execute current line in lua
+- visual mode :lua to execute selection with lua interpreter

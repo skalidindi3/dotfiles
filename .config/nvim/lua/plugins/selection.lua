@@ -40,6 +40,7 @@ return {
                 },
             })
             require("telescope").load_extension("ui-select")
+            require("plugins.telescope.custom_keymaps")
             require("plugins.telescope.live_ripgrep")
         end,
     },

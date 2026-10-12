@@ -9,6 +9,7 @@ require("core.commands")
 
 -- cache default setup info
 _G.core_colorschemes = vim.fn.getcompletion("", "color")
+_G.user_doc_mappings = {}
 
 -- set up plugins
 require("plugins.bootstrap")
