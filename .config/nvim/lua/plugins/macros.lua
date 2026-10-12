@@ -15,7 +15,9 @@ keyset("n", "<C-t><C-m>", tb.marks, { desc = "[Telescope]: fuzzy finder for mark
 keyset("n", "<C-p>", "<cmd>VimadeToggle<CR>", { desc = "[Vimade]: toggle inactive pane fading/dimming" })
 keyset("n", "<C-g><C-g>", "<cmd>GitsignsToggleAll<CR>", { desc = "[Gitsigns]: toggle all extra gitsigns visuals" })
 keyset("n", "<C-g><C-b>", "<cmd>Gitsigns blame<CR>", { desc = "[Gitsigns]: open git blame pane" })
+keyset("n", "<C-f>", "<cmd>FormatBuffer<CR>", { desc = "[Conform]: run conform format" })
 
+keyset("n", "<leader>d", "<cmd>DiagnosticsVisualsNext<CR>", { desc = "[LSP]: rotate diagnostic visuals" })
 keyset({ "n", "v", "o" }, "<leader>j", require("flash").jump, { desc = "[Flash]: quick jump" })
 keyset({ "n", "o" }, "<leader>v", require("flash").treesitter, { desc = "[Flash]: treesitter visual selection" })
 keyset("n", "<leader>en", function()
