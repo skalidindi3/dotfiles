@@ -13,15 +13,24 @@ playlist_disable_highlight_delay = 0
 
 # organization
 startup_screen = playlist
-media_library_primary_tag = "album_artist"
+playlist_display_mode = columns
+media_library_primary_tag = album_artist
 ignore_leading_the = yes
 
-# STAGING
-progressbar_look = "▂▂▂"
-progressbar_color = "black"
-progressbar_elapsed_color = "yellow"
+# progressbar
+progressbar_look = ▂▂▂
+progressbar_color = black
+progressbar_elapsed_color = green
 
-playlist_display_mode = "columns"
+# visualizer
+visualizer_data_source = /tmp/mpd.fifo
+visualizer_output_name = visualizer
+visualizer_in_stereo = no
+visualizer_look = "◈|"
+visualizer_type = spectrum
+visualizer_spectrum_smooth_look = no
+# NOTE: options are spectrum, wave, wave_filled, ellipse
+#visualizer_color = blue, cyan, green, yellow, magenta, red
 
 # force update the tmux status bar when the song changes
 execute_on_song_change = tmux refresh-client -S
