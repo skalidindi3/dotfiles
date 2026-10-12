@@ -24,4 +24,4 @@ progressbar_elapsed_color = "yellow"
 playlist_display_mode = "columns"
 
 # force update the tmux status bar when the song changes
-execute_on_song_change = tmux set -g status-interval 1
+execute_on_song_change = tmux refresh-client -S
