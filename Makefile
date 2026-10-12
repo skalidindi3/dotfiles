@@ -4,17 +4,19 @@ provision:
 	# setup git filters
 	git config filter.mpdscribble_conf_login.clean 'sed -E "s/(username|password) = .*/\1 =/"'
 	# clone tmux package manager
+	mkdir -p ~/.config/tmux/plugins
 	git -C ~/.config/tmux/plugins/tpm pull \
 			|| git clone https://github.com/tmux-plugins/tpm ~/.config/tmux/plugins/tpm
 
 .PHONY: install_packages
 install_packages:
 # NOTE: git should already be installed to clone this
-ifeq ($(shell uname -s),Darwin)
+# NOTE: linux assume sudo apt install curl git xclip make build-essential openssh-server net-tools zsh
 	brew install \
 		stow \
-		git \
+		lazygit \
 		neovim \
+		tree-sitter-cli \
 		tmux \
 		curl \
 		wget \
@@ -23,37 +25,16 @@ ifeq ($(shell uname -s),Darwin)
 		fzf \
 		antidote \
 		zoxide \
-		tree \
+		lsd \
 		moreutils \
 		dust \
 		fd \
 		htop \
 		duf \
-		jq
+		jq \
+		qrencode \
+		mise
 		# NOTE: moreutils for vidir
-else
-ifeq ($(shell uname -s),Linux)
-	sudo apt install \
-		stow \
-		git \
-		neovim \
-		tmux \
-		curl \
-		wget \
-		rsync \
-		ripgrep \
-		fzf \
-		zsh-antidote \
-		zoxide \
-		tree \
-		moreutils \
-		fd-find \
-		htop \
-		duf \
-		jq
-		#dust
-endif
-endif
 
 .PHONY: install_extra
 install_extra:
