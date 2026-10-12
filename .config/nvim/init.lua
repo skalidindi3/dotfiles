@@ -15,10 +15,17 @@ require("plugins.bootstrap")
 local plugin_lists = {
     require("plugins.colorschemes"),
     require("plugins.statusline"),
+    require("plugins.semantics"),
+    require("plugins.rendering"),
     require("plugins.notifications"),
+    require("plugins.ide"),
     require("plugins.ai"),
 }
 -- cache plugin list before setup
 _G.all_plugins = vim.iter(plugin_lists):flatten():totable()
 require("lazy").setup({ _G.all_plugins })
 -- TODO: goolord/alpha-nvim start logo
+
+-- plugin config
+require("plugins.commands")
+require("plugins.macros")
