@@ -9,6 +9,12 @@ go = "latest"
 rust = "latest"
 uv = "latest"
 
+# `mise bootstrap` runs
+# - pre-packages, packages, post-packages
+# - repos
+# - dotfiles
+# - pre-tools, tools, post-tools
+
 [bootstrap.hooks]
 pre-packages = [
   'bash ./mise-bootstrap/setup-1pass-ppa.sh',
@@ -20,7 +26,6 @@ post-tools = [
   'mise exec -- uv python pin --global 3.15.0',
 ]
 
-# Bootstrap installs missing packages; upgrade explicitly with mise bootstrap packages upgrade.
 [bootstrap.packages]
 # system utilities and shared libs use native package manager
 "apt:curl" = { os = "linux" }
@@ -29,15 +34,8 @@ post-tools = [
 "brew:wget" = { os = "macos" }
 "apt:rsync" = { os = "linux" }
 "brew:rsync" = { os = "macos" }
-"apt:ffmpeg" = { os = "linux" }
-"brew:ffmpeg" = { os = "macos" }
 "apt:moreutils" = { os = "linux" } # vidir
 "brew:moreutils" = { os = "macos" } # vidir
-"apt:libimage-exiftool-perl" = { os = "linux" }
-"brew:exiftool" = { os = "macos" }
-"apt:android-sdk-platform-tools" = { os = "linux" }
-"apt:adb" = { os = "linux" }
-"brew-cask:android-platform-tools" = { os = "macos" }
 "apt:tailscale" = { os = "linux" }
 "brew-cask:tailscale-app" = { os = "macos" }
 
@@ -65,6 +63,17 @@ post-tools = [
 "brew:mpdscribble" = { env = "mpd" }
 "brew:ncmpcpp" = { env = "mpd" }
 
+# opt-in installation with `mise bootstrap -E media`
+"apt:ffmpeg" = { env = "media", os = "linux" }
+"brew:ffmpeg" = { env = "media", os = "macos" }
+"apt:libimage-exiftool-perl" = { env = "media", os = "linux" }
+"brew:exiftool" = { env = "media", os = "macos" }
+"brew:sox" = { env = "media" }
+
+# opt-in installation with `mise bootstrap -E android`
+"apt:android-sdk-platform-tools" = { env = "android", os = "linux" }
+"apt:adb" = { env = "android", os = "linux" }
+"brew-cask:android-platform-tools" = { env = "android", os = "macos" }
 
 [bootstrap.repos."~/.config/tmux/plugins/tpm"]
 url = "https://github.com/tmux-plugins/tpm"
