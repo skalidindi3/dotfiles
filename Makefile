@@ -1,8 +1,6 @@
 .PHONY: provision
 provision:
 	stow --no-folding .
-	# setup git filters
-	git config filter.mpdscribble_conf_login.clean 'sed -E "s/(username|password) = .*/\1 =/"'
 	# clone tmux package manager
 	mkdir -p ~/.config/tmux/plugins
 	git -C ~/.config/tmux/plugins/tpm pull \
@@ -46,7 +44,6 @@ ifeq ($(shell uname -s),Darwin)
 		ncmpcpp \
 		exiftool \
 		android-platform-tools
-	uv tool install --from git+https://github.com/skalidindi3/osxmpdkeys osxmpdkeys
 endif
 
 .PHONY: adopt
@@ -56,12 +53,6 @@ adopt:
 .PHONY: adopt_unsafe
 adopt_unsafe:
 	stow --no-folding --adopt -v .
-
-.PHONY: run_mpd
-run_mpd:
-	pgrep -x mpd || mpd ~/.config/mpd/mpd.conf
-	pgrep -x mpdscribble || mpdscribble --conf ~/.config/mpdscribble/mpdscribble.conf
-	pgrep -f mpdkeys || nohup mpdkeys &>/dev/null &
 
 .PHONY: clean
 clean:
