@@ -154,29 +154,15 @@
     - name: Initialize and bootstrap dotfiles
       tags: [dotfiles]
       environment:
-        PATH: "/home/linuxbrew/.linuxbrew/bin:/home/linuxbrew/.linuxbrew/sbin:{{ ansible_facts['env']['PATH'] }}"
-        NONINTERACTIVE: "1"
-        HOMEBREW_NO_SUDO: "1"
+        PATH: "{{ ansible_facts['user_dir'] }}/.local/bin:/home/linuxbrew/.linuxbrew/bin:/home/linuxbrew/.linuxbrew/sbin:{{ ansible_facts['env']['PATH'] }}"
       block:
-        - name: Check whether the Homebrew parent directory exists
-          ansible.builtin.stat:
-            path: /home/linuxbrew
-          register: linuxbrew_home
-
-        - name: Prepare the Homebrew parent directory for the remote user
-          become: true
-          ansible.builtin.file:
-            path: /home/linuxbrew
-            state: directory
-            owner: "{{ ansible_facts['user_id'] }}"
-            group: "{{ ansible_facts['user_gid'] }}"
-            mode: "0755"
-          when: not linuxbrew_home.stat.exists
-
-        - name: Install Homebrew and mise with make init
-          ansible.builtin.command:
-            argv: [make, init]
-            chdir: "{{ ansible_facts['user_dir'] }}/dotfiles"
+        - name: Install mise
+          ansible.builtin.shell: |
+            set -o pipefail
+            curl -fsSL https://mise.run | sh
+          args:
+            executable: /bin/bash
+            creates: "{{ ansible_facts['user_dir'] }}/.local/bin/mise"
 
         - name: Apply the dotfiles configuration with mise bootstrap
           ansible.builtin.command:
