@@ -5,7 +5,20 @@ task.run_auto_install = false
 dotfiles.root = "."
 
 [tools]
+go = "latest"
 rust = "latest"
+uv = "latest"
+
+[bootstrap.hooks]
+pre-packages = [
+  'bash ./mise-bootstrap/setup-1pass-ppa.sh',
+  'bash ./mise-bootstrap/setup-tailscale-ppa.sh',
+]
+post-tools = [
+  'mise use -g go rust uv',
+  'mise exec -- uv python install 3.15.0',
+  'mise exec -- uv python pin --global 3.15.0',
+]
 
 # Bootstrap installs missing packages; upgrade explicitly with mise bootstrap packages upgrade.
 [bootstrap.packages]
@@ -29,8 +42,6 @@ rust = "latest"
 "brew-cask:tailscale-app" = { os = "macos" }
 
 # cli/dev tools use homebrew (and avoid sudo install)
-"brew:uv" = "latest"
-"brew:go" = "latest"
 "brew:tmux" = "latest"
 "brew:neovim" = "latest"
 "brew:tree-sitter-cli" = "latest"
@@ -54,15 +65,6 @@ rust = "latest"
 "brew:mpdscribble" = { env = "mpd" }
 "brew:ncmpcpp" = { env = "mpd" }
 
-[bootstrap.hooks]
-pre-packages = [
-  'bash ./mise-bootstrap/setup-1pass-ppa.sh',
-  'bash ./mise-bootstrap/setup-tailscale-ppa.sh',
-]
-post-packages = [
-  'uv python install 3.15.0',
-  'uv python pin --global 3.15.0',
-]
 
 [bootstrap.repos."~/.config/tmux/plugins/tpm"]
 url = "https://github.com/tmux-plugins/tpm"
