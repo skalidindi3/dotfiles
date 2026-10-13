@@ -76,7 +76,7 @@
     - name: Install Ubuntu prerequisites
       become: true
       ansible.builtin.apt:
-        name: [git, curl, build-essential, zsh]
+        name: [git, curl, ca-certificates, build-essential, zsh]
         state: present
         update_cache: true
       tags: [base]
