@@ -114,7 +114,7 @@
         dest: "{{ ansible_facts['user_dir'] }}/dotfiles"
         key_file: "{{ github_private_key_dest }}"
         ssh_opts: -o StrictHostKeyChecking=yes
-        # Preserve an existing checkout and leave the private submodule uninitialized.
+        # preserve an existing checkout and leave the private submodule uninitialized.
         update: false
         force: false
         recursive: false
@@ -155,3 +155,125 @@
             chdir: "{{ ansible_facts['user_dir'] }}/dotfiles"
           environment:
             MISE_YES: "1"
+
+    # opt in with --tags all,forwarding (or --tags forwarding for only this step).
+    # docker may also enable runtime forwarding for its own bridge networks.
+    - name: Enable persistent IP forwarding
+      become: true
+      ansible.posix.sysctl:
+        name: "{{ item }}"
+        value: "1"
+        sysctl_file: /etc/sysctl.d/99-ip-forwarding.conf
+        sysctl_set: true
+        reload: true
+      loop:
+        - net.ipv4.ip_forward
+        - net.ipv4.conf.all.forwarding
+        - net.ipv6.conf.all.forwarding
+      tags: [never, forwarding]
+
+    # opt in with --tags all,dns (or --tags dns for only this step).
+    - name: Free up port 53 for DNS
+      become: true
+      tags: [never, dns]
+      block:
+        - name: Disable the systemd-resolved DNS stub listener
+          ansible.builtin.lineinfile:
+            path: /etc/systemd/resolved.conf
+            regexp: '^\s*#?\s*DNSStubListener\s*='
+            line: DNSStubListener=no
+            insertafter: '^\[Resolve\]'
+          register: dns_stub_listener
+
+        - name: Reload systemd and restart systemd-resolved
+          ansible.builtin.systemd_service:
+            name: systemd-resolved
+            daemon_reload: true
+            state: restarted
+          when: dns_stub_listener.changed
+
+    - name: Install Docker Engine from Docker's official Ubuntu repository
+      become: true
+      tags: [docker]
+      block:
+        - name: Require Ubuntu for the Docker repository
+          ansible.builtin.assert:
+            that: ansible_facts['distribution'] == 'Ubuntu'
+            fail_msg: This Docker installation block supports Ubuntu only.
+
+        - name: Install repository prerequisites
+          ansible.builtin.apt:
+            name: [ca-certificates, curl]
+            state: present
+            update_cache: true
+            cache_valid_time: 3600
+
+        - name: Create the APT keyring directory
+          ansible.builtin.file:
+            path: /etc/apt/keyrings
+            state: directory
+            mode: "0755"
+
+        - name: Download Docker's repository signing key
+          ansible.builtin.get_url:
+            url: https://download.docker.com/linux/ubuntu/gpg
+            dest: /etc/apt/keyrings/docker.asc
+            mode: "0644"
+
+        - name: Read the Debian package architecture
+          ansible.builtin.command:
+            argv: [dpkg, --print-architecture]
+          register: docker_architecture
+          changed_when: false
+          check_mode: false
+
+        - name: Configure Docker's stable APT repository
+          ansible.builtin.copy:
+            dest: /etc/apt/sources.list.d/docker.sources
+            mode: "0644"
+            content: |
+              Types: deb
+              URIs: https://download.docker.com/linux/ubuntu
+              Suites: {{ ansible_facts['distribution_release'] }}
+              Components: stable
+              Architectures: {{ docker_architecture.stdout }}
+              Signed-By: /etc/apt/keyrings/docker.asc
+
+        - name: Install Docker Engine, Buildx, and Compose
+          ansible.builtin.apt:
+            name: [docker-ce, docker-ce-cli, containerd.io, docker-buildx-plugin, docker-compose-plugin]
+            state: present
+            update_cache: true
+            fail_on_autoremove: true
+
+        - name: Enable and start Docker
+          ansible.builtin.systemd_service:
+            name: docker
+            enabled: true
+            state: started
+
+        - name: Ensure the Docker group exists
+          ansible.builtin.group:
+            name: docker
+            state: present
+
+        - name: Add the remote user to the Docker group
+          ansible.builtin.user:
+            name: "{{ ansible_facts['user_id'] }}"
+            groups: docker
+            append: true
+
+        - name: Reconnect to apply Docker group membership
+          ansible.builtin.meta: reset_connection
+
+        - name: Verify Docker can run hello-world
+          ansible.builtin.command:
+            argv: [docker, run, hello-world]
+          changed_when: false
+          when: not ansible_check_mode
+
+        - name: Verify outbound container networking
+          ansible.builtin.command:
+            argv: [docker, run, --rm, alpine, ping, -c, "3", 8.8.8.8]
+          changed_when: false
+          when: not ansible_check_mode
