@@ -170,6 +170,9 @@
             chdir: "{{ ansible_facts['user_dir'] }}/dotfiles"
           environment:
             MISE_YES: "1"
+            # Base install by default; set in inventory or via -e.
+            # Example: -e '{"dotfiles_environments":["media","android"]}'
+            MISE_ENV: "{{ dotfiles_environments | default([]) | join(',') }}"
 
     # opt in with --tags all,forwarding (or --tags forwarding for only this step).
     # docker may also enable runtime forwarding for its own bridge networks.
