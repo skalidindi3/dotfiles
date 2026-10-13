@@ -1,3 +1,20 @@
+############
+# Homebrew #
+############
+# Initialize before checking for any Homebrew-installed tools.
+if command -v brew >/dev/null 2>&1; then
+    eval "$(brew shellenv)"
+else
+    for brew_bin in /opt/homebrew/bin/brew /usr/local/bin/brew /home/linuxbrew/.linuxbrew/bin/brew; do
+        if [ -x "$brew_bin" ]; then
+            eval "$("$brew_bin" shellenv)"
+            break
+        fi
+    done
+    unset brew_bin
+fi
+
+
 ##########
 # Editor #
 ##########
@@ -92,18 +109,15 @@ if [ -e ~/Documents/projects ]; then
 fi
 
 
-############
-# Homebrew #
-############
-if [ -e /opt/homebrew/bin/brew ]; then
-    eval "$(/opt/homebrew/bin/brew shellenv)"
-fi
-
-
 ########
 # mise #
 ########
-if which mise &> /dev/null; then
+# uv tool executables (including mpdkeys) are installed here by default.
+# Add this before mise activation so mise-managed runtimes take precedence.
+if [ -d "$HOME/.local/bin" ]; then
+    export PATH="$HOME/.local/bin:$PATH"
+fi
+if command -v mise >/dev/null 2>&1; then
     if [ -n "$ZSH_VERSION" ]; then
         eval "$(mise activate zsh)"
     else
@@ -115,9 +129,7 @@ fi
 ##########
 # Python #
 ##########
-if [ -e $HOME/.local/bin/uv ]; then
-    export PATH="$HOME/.local/bin:$PATH"
-    export PATH="$(dirname $(uv run which python)):$PATH"
+if command -v uv >/dev/null 2>&1; then
     alias ipython='uvx --with $(\ls -m ~/.cache/uv/wheels-v5/pypi | tr -d " " | tr -d "\n") ipython'
 fi
 

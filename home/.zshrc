@@ -93,12 +93,16 @@ if command -v which fzf &> /dev/null; then
 fi
 
 # antidote
-if [[ -f /opt/homebrew/opt/antidote/share/antidote/antidote.zsh ]]; then
-    source /opt/homebrew/opt/antidote/share/antidote/antidote.zsh
-    [[ -f ~/.zsh_plugins.txt ]] && antidote load
+antidote_script=''
+if command -v brew >/dev/null 2>&1; then
+    antidote_script="$(brew --prefix)/opt/antidote/share/antidote/antidote.zsh"
 fi
-if [[ -f /usr/share/zsh-antidote/antidote.zsh ]]; then
+if [[ -f "$antidote_script" ]]; then
+    source "$antidote_script"
+    [[ -f ~/.zsh_plugins.txt ]] && antidote load
+elif [[ -f /usr/share/zsh-antidote/antidote.zsh ]]; then
     source /usr/share/zsh-antidote/antidote.zsh
     [[ -f ~/.zsh_plugins.txt ]] && antidote load
 fi
+unset antidote_script
 

@@ -1,59 +1,7 @@
-.PHONY: provision
-provision:
-	stow --no-folding .
-	# clone tmux package manager
-	mkdir -p ~/.config/tmux/plugins
-	git -C ~/.config/tmux/plugins/tpm pull \
-			|| git clone https://github.com/tmux-plugins/tpm ~/.config/tmux/plugins/tpm
+SHELL := /bin/bash
 
-.PHONY: install_packages
-install_packages:
-# NOTE: git should already be installed to clone this
-# NOTE: linux assume sudo apt install curl git xclip make build-essential openssh-server net-tools zsh
-	brew install \
-		stow \
-		lazygit \
-		neovim \
-		tree-sitter-cli \
-		tmux \
-		curl \
-		wget \
-		rsync \
-		ripgrep \
-		fzf \
-		antidote \
-		zoxide \
-		lsd \
-		moreutils \
-		dust \
-		fd \
-		htop \
-		duf \
-		jq \
-		qrencode \
-		mise
-		# NOTE: moreutils for vidir
+.PHONY: init
 
-.PHONY: install_extra
-install_extra:
-ifeq ($(shell uname -s),Darwin)
-	brew install --cask rar
-	brew install \
-		mpd \
-		mpdscribble \
-		ncmpcpp \
-		exiftool \
-		android-platform-tools
-endif
-
-.PHONY: adopt
-adopt:
-	stow --no-folding --adopt -nv .
-
-.PHONY: adopt_unsafe
-adopt_unsafe:
-	stow --no-folding --adopt -v .
-
-.PHONY: clean
-clean:
-	stow --delete .
+init:
+	@/bin/bash -c "$$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+	@PATH="$$PATH:/opt/homebrew/bin:/usr/local/bin:/home/linuxbrew/.linuxbrew/bin" brew install mise

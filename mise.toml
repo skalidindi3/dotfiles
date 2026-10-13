@@ -1,0 +1,34 @@
+min_version = "2026.10.8"
+
+[settings]
+task.run_auto_install = false
+dotfiles.root = "."
+
+# NOTE: mise bootstrap does hooks, packages (none for now), repos, and dotfiles
+# NOTE: mise bootstrap --update will update repos and dotfiles, but not pre-packages in Brewfile
+
+[bootstrap.hooks]
+pre-packages = 'brew bundle install --no-upgrade --file=./Brewfile'
+
+[bootstrap.repos."~/.config/tmux/plugins/tpm"]
+url = "https://github.com/tmux-plugins/tpm"
+
+[dotfile_groups.home]
+root = "home"
+target = "~"
+mode = "symlink-each"
+relative = true
+
+[tasks.adopt]
+description = "Preview importing a local file into home/"
+usage = 'arg "<file>" help="Existing file to import"'
+run = 'mise dot add --group home --force --dry-run -- "${usage_file?}"'
+
+[tasks.adopt_unsafe]
+description = "Import a local file into home/, replacing its source, and link it back"
+usage = 'arg "<file>" help="Existing file to import"'
+run = 'mise dot add --group home --force --yes -- "${usage_file?}"'
+
+[tasks.clean]
+description = "Unapply this checkout's mise dotfile links"
+run = 'mise dot unapply --yes --group home'

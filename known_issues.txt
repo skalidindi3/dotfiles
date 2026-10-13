@@ -10,12 +10,9 @@ custom .gitconfig usage:
 
 
 TODOs:
-- use mise to install uv, go
-- switch linux to homebrew (other than build-essential)
-- switch Makefile to anisble
-    - install packages
-        - lazygit
-        - lazydocker ? (server vs edge)
+- restore mpd/mpdscribble handling
+- remaining setup ideas:
+    - lazydocker ? (server vs edge)
     - setup neovim
     - setup tmux
     - launch mpd* daemons
