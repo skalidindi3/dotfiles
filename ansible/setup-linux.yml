@@ -1,0 +1,157 @@
+---
+- name: Configure Linux
+  hosts: all
+  remote_user: chaitu
+
+  vars:
+    dotfiles_repo: git@github.com:skalidindi3/dotfiles.git
+    github_private_key_dest: "{{ ansible_facts['user_dir'] }}/.ssh/id_ed25519"
+
+  tasks:
+    - name: Authorize this laptop's SSH key
+      ansible.posix.authorized_key:
+        user: chaitu
+        key: "{{ lookup('ansible.builtin.file', '~/.ssh/id_ed25519.pub') }}"
+        state: present
+        exclusive: false
+      tags: [access]
+
+    - name: Install the GitHub private key without replacing existing contents
+      tags: [github]
+      block:
+        - name: Require a source key path
+          ansible.builtin.assert:
+            that:
+              - github_private_key_file is defined
+              - github_private_key_file | default('') | length > 0
+            fail_msg: Supply the controller's key path with -e github_private_key_file=/path/to/key.
+
+        - name: Inspect the source key on the controller
+          ansible.builtin.stat:
+            path: "{{ github_private_key_file | expanduser }}"
+            follow: true
+            checksum_algorithm: sha256
+          delegate_to: localhost
+          become: false
+          register: github_source_key
+
+        - name: Require a readable source key file
+          ansible.builtin.assert:
+            that:
+              - github_source_key.stat.isreg | default(false)
+              - github_source_key.stat.checksum is defined
+            fail_msg: The source key must be an existing, readable regular file on the controller.
+
+        - name: Inspect the destination key
+          ansible.builtin.stat:
+            path: "{{ github_private_key_dest }}"
+            follow: false
+            checksum_algorithm: sha256
+          register: github_destination_key
+
+        - name: Refuse to replace a different key or a non-regular destination
+          ansible.builtin.assert:
+            that:
+              - >-
+                not github_destination_key.stat.exists or
+                ((github_destination_key.stat.isreg | default(false)) and
+                 (github_destination_key.stat.checksum | default('')) == github_source_key.stat.checksum)
+            fail_msg: The destination exists and differs from the source, or is not a regular file. It has not been overwritten.
+
+        - name: Ensure the key directory is private
+          ansible.builtin.file:
+            path: "{{ github_private_key_dest | dirname }}"
+            state: directory
+            mode: "0700"
+
+        - name: Copy the private key only when absent
+          ansible.builtin.copy:
+            src: "{{ github_private_key_file | expanduser }}"
+            dest: "{{ github_private_key_dest }}"
+            mode: "0600"
+            force: false
+          no_log: true
+          diff: false
+
+    - name: Install Ubuntu prerequisites
+      become: true
+      ansible.builtin.apt:
+        name: [git, curl, build-essential, zsh]
+        state: present
+        update_cache: true
+      tags: [base]
+
+    - name: Configure GitHub SSH host verification
+      tags: [dotfiles]
+      block:
+        - name: Ensure the remote SSH directory exists
+          ansible.builtin.file:
+            path: "{{ ansible_facts['user_dir'] }}/.ssh"
+            state: directory
+            mode: "0700"
+
+        - name: Fetch GitHub's published host keys over verified HTTPS
+          ansible.builtin.uri:
+            url: https://api.github.com/meta
+            return_content: true
+            validate_certs: true
+            use_netrc: false
+          delegate_to: localhost
+          become: false
+          register: github_host_metadata
+
+        - name: Add GitHub host keys to the remote known_hosts file
+          ansible.builtin.known_hosts:
+            path: "{{ ansible_facts['user_dir'] }}/.ssh/known_hosts"
+            name: github.com
+            key: "github.com {{ item }}"
+            state: present
+          loop: "{{ github_host_metadata.json.ssh_keys }}"
+
+    - name: Download dotfiles to the remote user's home directory
+      ansible.builtin.git:
+        repo: "{{ dotfiles_repo }}"
+        dest: "{{ ansible_facts['user_dir'] }}/dotfiles"
+        key_file: "{{ github_private_key_dest }}"
+        ssh_opts: -o StrictHostKeyChecking=yes
+        # Preserve an existing checkout and leave the private submodule uninitialized.
+        update: false
+        force: false
+        recursive: false
+      environment:
+        GIT_TERMINAL_PROMPT: "0"
+      tags: [dotfiles]
+
+    - name: Initialize and bootstrap dotfiles
+      tags: [dotfiles]
+      environment:
+        PATH: "/home/linuxbrew/.linuxbrew/bin:/home/linuxbrew/.linuxbrew/sbin:{{ ansible_facts['env']['PATH'] }}"
+        NONINTERACTIVE: "1"
+        HOMEBREW_NO_SUDO: "1"
+      block:
+        - name: Check whether the Homebrew parent directory exists
+          ansible.builtin.stat:
+            path: /home/linuxbrew
+          register: linuxbrew_home
+
+        - name: Prepare the Homebrew parent directory for the remote user
+          become: true
+          ansible.builtin.file:
+            path: /home/linuxbrew
+            state: directory
+            owner: "{{ ansible_facts['user_id'] }}"
+            group: "{{ ansible_facts['user_gid'] }}"
+            mode: "0755"
+          when: not linuxbrew_home.stat.exists
+
+        - name: Install Homebrew and mise with make init
+          ansible.builtin.command:
+            argv: [make, init]
+            chdir: "{{ ansible_facts['user_dir'] }}/dotfiles"
+
+        - name: Apply the dotfiles configuration with mise bootstrap
+          ansible.builtin.command:
+            argv: [mise, bootstrap]
+            chdir: "{{ ansible_facts['user_dir'] }}/dotfiles"
+          environment:
+            MISE_YES: "1"
