@@ -7,11 +7,58 @@ dotfiles.root = "."
 [tools]
 rust = "latest"
 
-# NOTE: mise bootstrap does hooks, packages (none for now), repos, and dotfiles
-# NOTE: mise bootstrap --update will update repos and dotfiles, but not pre-packages in Brewfile
+# Bootstrap installs missing packages; upgrade explicitly with mise bootstrap packages upgrade.
+[bootstrap.packages]
+# system utilities and shared libs use native package manager
+"apt:curl" = { os = "linux" }
+"brew:curl" = { os = "macos" }
+"apt:wget" = { os = "linux" }
+"brew:wget" = { os = "macos" }
+"apt:rsync" = { os = "linux" }
+"brew:rsync" = { os = "macos" }
+"apt:ffmpeg" = { os = "linux" }
+"brew:ffmpeg" = { os = "macos" }
+"apt:moreutils" = { os = "linux" } # vidir
+"brew:moreutils" = { os = "macos" } # vidir
+"apt:libimage-exiftool-perl" = { os = "linux" }
+"brew:exiftool" = { os = "macos" }
+"apt:android-sdk-platform-tools" = { os = "linux" }
+"apt:adb" = { os = "linux" }
+"brew-cask:android-platform-tools" = { os = "macos" }
+"apt:tailscale" = { os = "linux" }
+"brew-cask:tailscale-app" = { os = "macos" }
+
+# cli/dev tools use homebrew (and avoid sudo install)
+"brew:uv" = "latest"
+"brew:go" = "latest"
+"brew:tmux" = "latest"
+"brew:neovim" = "latest"
+"brew:tree-sitter-cli" = "latest"
+"brew:antidote" = "latest"
+"brew:lsd" = "latest"
+"brew:ripgrep" = "latest"
+"brew:fzf" = "latest"
+"brew:zoxide" = "latest"
+"brew:lazygit" = "latest"
+"brew:jq" = "latest"
+"brew-cask:rar" = "latest"
+"brew:dust" = "latest"
+"brew:duf" = "latest"
+"brew:htop" = "latest"
+"brew-cask:1password-cli" = "latest"
+"brew:fd" = "latest"
+"brew:qrencode" = "latest"
+
+# opt-in installation with `mise bootstrap -E mpd`
+"brew:mpd" = { env = "mpd" }
+"brew:mpdscribble" = { env = "mpd" }
+"brew:ncmpcpp" = { env = "mpd" }
 
 [bootstrap.hooks]
-pre-packages = 'brew bundle install --no-upgrade --file=./Brewfile'
+pre-packages = [
+  'bash ./mise-bootstrap/setup-1pass-ppa.sh',
+  'bash ./mise-bootstrap/setup-tailscale-ppa.sh',
+]
 post-packages = [
   'uv python install 3.15.0',
   'uv python pin --global 3.15.0',
