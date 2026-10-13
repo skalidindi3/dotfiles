@@ -41,8 +41,11 @@ post-tools = [
 "brew:rsync" = { os = "macos" }
 "apt:moreutils" = { os = "linux" } # vidir
 "brew:moreutils" = { os = "macos" } # vidir
+"apt:net-tools" = { os = "linux" }
+"brew:net-tools" = { os = "macos" }
 "apt:tailscale" = { os = "linux" }
 "brew-cask:tailscale-app" = { os = "macos" }
+"apt:xclip" = { os = "linux" }
 
 # cli/dev tools use homebrew (and avoid sudo install)
 "brew:tmux" = "latest"
