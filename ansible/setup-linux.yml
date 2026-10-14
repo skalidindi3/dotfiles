@@ -165,11 +165,29 @@
             creates: "{{ ansible_facts['user_dir'] }}/.local/bin/mise"
 
         - name: Apply the dotfiles configuration with mise bootstrap
-          ansible.builtin.command:
-            argv: [mise, bootstrap]
+          become: true
+          # Nested sudo calls cannot use Ansible's become password. Grant access
+          # only for this run; the remote shell cleans up even if bootstrap fails.
+          ansible.builtin.shell: |
+            set -euo pipefail
+            sudoers_file="$(/usr/bin/mktemp /etc/sudoers.d/99-mise-bootstrap-XXXXXX)"
+            trap '/usr/bin/rm -f -- "$sudoers_file"' EXIT
+            trap 'exit 129' HUP
+            trap 'exit 130' INT
+            trap 'exit 143' TERM
+            printf '%s ALL=(root) NOPASSWD: ALL\n' "$BOOTSTRAP_USER" > "$sudoers_file"
+            /usr/bin/chmod 0440 "$sudoers_file"
+            /usr/sbin/visudo -cf "$sudoers_file"
+            /usr/sbin/runuser -u "$BOOTSTRAP_USER" -- /usr/bin/env \
+              -u SUDO_USER -u SUDO_UID -u SUDO_GID -u SUDO_COMMAND \
+              mise bootstrap
+          args:
+            executable: /bin/bash
             chdir: "{{ ansible_facts['user_dir'] }}/dotfiles"
           environment:
+            BOOTSTRAP_USER: "{{ ansible_facts['user_id'] }}"
             MISE_YES: "1"
+            CODEX_NON_INTERACTIVE: "1"
             # Base install by default; set in inventory or via -e.
             # Example: -e '{"dotfiles_environments":["media","android"]}'
             MISE_ENV: "{{ dotfiles_environments | default([]) | join(',') }}"
