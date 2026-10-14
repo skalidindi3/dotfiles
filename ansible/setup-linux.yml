@@ -429,3 +429,99 @@
             value: "false"
             state: present
           when: gnome_shell.stat.exists
+
+    # Opt in with --tags all,tailscale-initramfs (or --tags tailscale-initramfs).
+    # Supply headscale_url and a separate headscale_initramfs_preauth_key.
+    # Tailscale and Dropbear's initramfs SSH configuration must already be installed.
+    - name: Enable Tailscale in initramfs
+      become: true
+      tags: [never, tailscale-initramfs]
+      when: not ansible_check_mode
+      block:
+        - name: Require the Headscale login server for initramfs
+          ansible.builtin.assert:
+            that: headscale_url | default('') | length > 0
+            fail_msg: Supply -e headscale_url=https://headscale.example.com.
+
+        - name: Check for an existing initramfs enrollment
+          ansible.builtin.stat:
+            path: /etc/tailscale/initramfs/tailscaled.state
+            get_checksum: false
+          register: tailscale_initramfs_state
+
+        - name: Require headscale_initramfs_preauth_key for a new initramfs node
+          ansible.builtin.assert:
+            that: headscale_initramfs_preauth_key | default('') | trim | length > 0
+          when: not tailscale_initramfs_state.stat.exists
+          no_log: true
+
+        - name: Install the repository certificate prerequisite
+          ansible.builtin.apt:
+            name: ca-certificates
+            state: present
+            update_cache: true
+            cache_valid_time: 3600
+
+        - name: Create the initramfs repository keyring directory
+          ansible.builtin.file:
+            path: /usr/local/share/keyrings
+            state: directory
+            mode: "0755"
+
+        - name: Download the tailscale-initramfs repository signing key
+          ansible.builtin.get_url:
+            url: https://lugoues.github.io/tailscale-initramfs/public.key
+            dest: /usr/local/share/keyrings/tailscale-initramfs-keyring.asc
+            mode: "0644"
+
+        - name: Configure the tailscale-initramfs APT repository
+          ansible.builtin.copy:
+            dest: /etc/apt/sources.list.d/tailscale-initramfs.list
+            mode: "0644"
+            content: |
+              deb [signed-by=/usr/local/share/keyrings/tailscale-initramfs-keyring.asc] https://lugoues.github.io/tailscale-initramfs/repo stable main
+
+        - name: Install tailscale-initramfs
+          ansible.builtin.apt:
+            name: tailscale-initramfs
+            state: present
+            update_cache: true
+
+        - name: Enroll the initramfs node with Headscale
+          ansible.builtin.command:
+            argv:
+              - setup-initramfs-tailscale
+              - "--hostname={{ ansible_facts['hostname'] }}-initramfs"
+              - "--login-server={{ headscale_url | regex_replace('/+$', '') }}"
+              - --auth-key=file:/dev/stdin
+              - --timeout=60s
+            # Omit --ssh so Dropbear provides SSH; preserve an existing enrollment.
+            creates: /etc/tailscale/initramfs/tailscaled.state
+            stdin: "{{ headscale_initramfs_preauth_key | default('') }}"
+          no_log: true
+
+        # The upstream helper's EXIT trap can mask errors; check its saved outputs.
+        - name: Inspect the saved initramfs configuration
+          ansible.builtin.stat:
+            path: "{{ item }}"
+            get_checksum: false
+          loop:
+            - /etc/tailscale/initramfs/tailscaled.state
+            - /etc/tailscale/initramfs/default.env
+          register: tailscale_initramfs_outputs
+
+        - name: Require a completed initramfs enrollment before rebuilding
+          ansible.builtin.assert:
+            that:
+              - item.stat.isreg | default(false)
+              - item.stat.size | default(0) > 0
+            fail_msg: >-
+              Initramfs enrollment is incomplete. Check the preauth key and
+              /tmp/setup-initramfs-tailscale-daemon.log on the remote host.
+          loop: "{{ tailscale_initramfs_outputs.results }}"
+          loop_control:
+            label: "{{ item.item }}"
+
+        - name: Rebuild initramfs with Tailscale enabled
+          ansible.builtin.command:
+            argv: [update-initramfs, -u, -v]
