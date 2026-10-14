@@ -403,3 +403,29 @@
             argv: [docker, run, --rm, alpine, ping, -c, "3", 8.8.8.8]
           changed_when: false
           when: not ansible_check_mode
+
+    # Included on GNOME desktops by default; exclude with --skip-tags desktop.
+    - name: Reduce Ubuntu desktop animations
+      tags: [desktop]
+      become: false
+      block:
+        - name: Check whether GNOME Shell is installed
+          ansible.builtin.stat:
+            path: /usr/bin/gnome-shell
+          register: gnome_shell
+
+        - name: Install the desktop settings dependencies
+          become: true
+          ansible.builtin.apt:
+            name: [dconf-cli, dbus, python3-psutil, python3-gi]
+            state: present
+            update_cache: true
+            cache_valid_time: 3600
+          when: gnome_shell.stat.exists
+
+        - name: Disable GNOME animations for the remote user
+          community.general.dconf:
+            key: /org/gnome/desktop/interface/enable-animations
+            value: "false"
+            state: present
+          when: gnome_shell.stat.exists
