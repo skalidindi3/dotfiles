@@ -192,6 +192,96 @@
             # Example: -e '{"dotfiles_environments":["media","android"]}'
             MISE_ENV: "{{ dotfiles_environments | default([]) | join(',') }}"
 
+    # Tailscale is installed by the dotfiles bootstrap above.
+    # Opt in with --tags all,tailscale (or --tags tailscale after installation).
+    # Supply headscale_url and headscale_preauth_key via -e or -e @vars.yml.
+    - name: Initialize Tailscale with Headscale
+      become: true
+      tags: [never, tailscale]
+      when: not ansible_check_mode
+      vars:
+        tailscale_backend_state: "{{ (tailscale_status.stdout | from_json)['BackendState'] }}"
+        tailscale_login_server: "{{ headscale_url | regex_replace('/+$', '') }}"
+      block:
+        - name: Require the Headscale login server
+          ansible.builtin.assert:
+            that: headscale_url | default('') | length > 0
+            fail_msg: Supply -e headscale_url=https://headscale.example.com.
+
+        - name: Enable and start tailscaled
+          ansible.builtin.systemd_service:
+            name: tailscaled
+            enabled: true
+            state: started
+
+        - name: Read the Tailscale login state
+          ansible.builtin.command:
+            argv: [tailscale, status, --json, --peers=false]
+          register: tailscale_status
+          changed_when: false
+          until: >-
+            tailscale_status.rc == 0 and
+            (tailscale_status.stdout | from_json)['BackendState'] != 'NoState'
+          retries: 5
+          delay: 2
+
+        - name: Read the configured Tailscale login server
+          ansible.builtin.command:
+            argv: [tailscale, debug, prefs]
+          register: tailscale_preferences
+          changed_when: false
+          no_log: true
+
+        - name: Check that Tailscale can be initialized without replacing an existing enrollment
+          ansible.builtin.assert:
+            that:
+              - tailscale_backend_state in ['NeedsLogin', 'Stopped', 'Starting', 'Running']
+              - >-
+                tailscale_backend_state == 'NeedsLogin' or
+                ((tailscale_preferences.stdout | from_json)['ControlURL'] |
+                 regex_replace('/+$', '')) == tailscale_login_server
+            fail_msg: >-
+              Tailscale is in state {{ tailscale_backend_state }} and either needs
+              administrator attention or uses a different login server.
+              Resolve its existing enrollment before rerunning this step.
+
+        - name: Require headscale_preauth_key when login is needed
+          ansible.builtin.assert:
+            that: headscale_preauth_key | default('') | trim | length > 0
+          when: tailscale_backend_state == 'NeedsLogin'
+          no_log: true
+
+        - name: Enroll with the Headscale preauth key
+          ansible.builtin.command:
+            argv:
+              - tailscale
+              - up
+              - "--login-server={{ tailscale_login_server }}"
+              - --auth-key=file:/dev/stdin
+              - --timeout=60s
+            # Pass the key on stdin instead of placing it in process arguments.
+            stdin: "{{ headscale_preauth_key }}"
+          when: tailscale_backend_state == 'NeedsLogin'
+          no_log: true
+
+        - name: Reconnect a stopped Tailscale client using its existing enrollment
+          ansible.builtin.command:
+            # A bare "up" preserves existing settings; bound its wait externally.
+            argv: [timeout, 60s, tailscale, up]
+          when: tailscale_backend_state == 'Stopped'
+
+        - name: Verify Tailscale is running and has an assigned address
+          ansible.builtin.command:
+            argv: [tailscale, status, --json, --peers=false]
+          register: tailscale_connected
+          changed_when: false
+          until: >-
+            tailscale_connected.rc == 0 and
+            (tailscale_connected.stdout | from_json)['BackendState'] == 'Running' and
+            (tailscale_connected.stdout | from_json)['TailscaleIPs'] | length > 0
+          retries: 5
+          delay: 2
+
     # opt in with --tags all,forwarding (or --tags forwarding for only this step).
     # docker may also enable runtime forwarding for its own bridge networks.
     - name: Enable persistent IP forwarding
