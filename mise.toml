@@ -32,6 +32,7 @@ post-tools = [
   'mise use -g go rust uv',
   'mise exec -- uv python install {{ vars.python_version }}',
   'mise exec -- uv python pin --global {{ vars.python_version }}',
+  'bash -o pipefail -c "curl -fsSL https://chatgpt.com/codex/install.sh | sh"',
 ]
 
 [bootstrap.packages]
