@@ -4,6 +4,9 @@ min_version = "2026.10.8"
 task.run_auto_install = false
 dotfiles.root = "."
 
+[vars]
+python_version = "3.15.0"
+
 [tools]
 go = "latest"
 rust = "latest"
@@ -27,8 +30,8 @@ post-packages = [
 ]
 post-tools = [
   'mise use -g go rust uv',
-  'mise exec -- uv python install 3.15.0',
-  'mise exec -- uv python pin --global 3.15.0',
+  'mise exec -- uv python install {{ vars.python_version }}',
+  'mise exec -- uv python pin --global {{ vars.python_version }}',
 ]
 
 [bootstrap.packages]
