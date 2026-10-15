@@ -61,10 +61,7 @@ zstyle ':completion:*' list-dirs-first true         # group completions, cycle d
 zstyle ':completion:*:processes' \
   command 'ps -au$USER'                             # complete current running processes for `kill`
 
-# Source custom aliases and colors
-if [[ -f ~/.bash_aliases ]]; then
-    source ~/.bash_aliases
-fi
+# Source private shell settings
 if [[ -d ~/dotfiles/private/sourceable ]]; then
     for extra_env in ~/dotfiles/private/sourceable/*; do
         source $extra_env
