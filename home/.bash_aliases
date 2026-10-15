@@ -15,6 +15,40 @@ else
 fi
 
 
+########
+# mise #
+########
+# Initialize before aliases check for installed tools.
+# brew: bootstrap packages use the standard prefix without brew or mise shims.
+for mise_brew_prefix in /opt/homebrew /home/linuxbrew/.linuxbrew; do
+    if [ -d "$mise_brew_prefix/Cellar" ]; then
+        for mise_brew_dir in "$mise_brew_prefix/sbin" "$mise_brew_prefix/bin"; do
+            if [ -d "$mise_brew_dir" ]; then
+                case ":$PATH:" in
+                    *":$mise_brew_dir:"*) ;;
+                    *) export PATH="$mise_brew_dir:$PATH" ;;
+                esac
+            fi
+        done
+        break
+    fi
+done
+unset mise_brew_prefix mise_brew_dir
+
+# uv tool executables (including mpdkeys) are installed here by default.
+# Add this before mise activation so mise-managed runtimes take precedence.
+if [ -d "$HOME/.local/bin" ]; then
+    export PATH="$HOME/.local/bin:$PATH"
+fi
+if command -v mise >/dev/null 2>&1; then
+    if [ -n "$ZSH_VERSION" ]; then
+        eval "$(mise activate zsh)"
+    else
+        eval "$(mise activate bash)"
+    fi
+fi
+
+
 ##########
 # Editor #
 ##########
@@ -105,23 +139,6 @@ if [ -e ~/Documents/projects ]; then
     cdp() { cd "${HOME}/Documents/projects/$@"; }
     if [ -n "$ZSH_VERSION" ]; then
         compctl -W "${HOME}/Documents/projects/$1" -/ cdp
-    fi
-fi
-
-
-########
-# mise #
-########
-# uv tool executables (including mpdkeys) are installed here by default.
-# Add this before mise activation so mise-managed runtimes take precedence.
-if [ -d "$HOME/.local/bin" ]; then
-    export PATH="$HOME/.local/bin:$PATH"
-fi
-if command -v mise >/dev/null 2>&1; then
-    if [ -n "$ZSH_VERSION" ]; then
-        eval "$(mise activate zsh)"
-    else
-        eval "$(mise activate bash)"
     fi
 fi
 

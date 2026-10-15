@@ -96,6 +96,10 @@ fi
 antidote_script=''
 if command -v brew >/dev/null 2>&1; then
     antidote_script="$(brew --prefix)/opt/antidote/share/antidote/antidote.zsh"
+elif command -v mise >/dev/null 2>&1; then
+    if antidote_prefix="$(mise bootstrap packages where brew:antidote 2>/dev/null)"; then
+        antidote_script="$antidote_prefix/share/antidote/antidote.zsh"
+    fi
 fi
 if [[ -f "$antidote_script" ]]; then
     source "$antidote_script"
@@ -104,5 +108,5 @@ elif [[ -f /usr/share/zsh-antidote/antidote.zsh ]]; then
     source /usr/share/zsh-antidote/antidote.zsh
     [[ -f ~/.zsh_plugins.txt ]] && antidote load
 fi
-unset antidote_script
+unset antidote_script antidote_prefix
 
