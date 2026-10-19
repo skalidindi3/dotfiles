@@ -53,6 +53,8 @@ post-tools = [
 "apt:tailscale" = { os = "linux" }
 "brew-cask:tailscale-app" = { os = "macos" }
 "apt:xclip" = { os = "linux" }
+"apt:fastfetch" = { os = "linux" }
+"brew:fastfetch" = { os = "macos" }
 
 # cli/dev tools use homebrew (and avoid sudo install)
 "brew:tmux" = "latest"
