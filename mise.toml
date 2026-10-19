@@ -106,6 +106,14 @@ target = "~"
 mode = "symlink-each"
 relative = true
 
+[tasks.upgrade]
+description = "Refresh package metadata and upgrade configured packages and tools"
+raw = true
+run = [
+  "mise bootstrap packages upgrade",
+  "mise upgrade",
+]
+
 [tasks.adopt]
 description = "Preview importing a local file into home/"
 usage = 'arg "<file>" help="Existing file to import"'
