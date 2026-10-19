@@ -3,6 +3,7 @@
 Requires system Python 3.11+ and mise. Run with --dry-run to preview moves.
 Backups retain paths relative to the group's target beneath checkout/backups/.
 Backup failures restore completed moves; subsequent mise failures retain backups.
+Failed attempts remove the empty backup directories they created.
 """
 
 from __future__ import annotations
@@ -12,6 +13,7 @@ from collections.abc import Iterator
 from contextlib import contextmanager
 from dataclasses import dataclass
 from datetime import datetime, timezone
+import errno
 import json
 import os
 from pathlib import Path
@@ -202,8 +204,38 @@ def restore_originals(completed: list[tuple[Conflict, Path]]) -> list[Exception]
     return failures
 
 
+def create_backup_parents(path: Path, created_directories: list[Path]) -> None:
+    """Create missing directories and record only those owned by this attempt."""
+    missing: list[Path] = []
+    ancestor = path
+    while lstat_if_present(ancestor) is None:
+        missing.append(ancestor)
+        ancestor = ancestor.parent
+    require_directory_path(ancestor)
+    for directory in reversed(missing):
+        with defer_interruptions():
+            directory.mkdir(mode=0o700)
+            created_directories.append(directory)
+
+
+def remove_empty_backup_directories(created_directories: list[Path]) -> list[Exception]:
+    """Remove this attempt's empty directories, preserving remaining backups."""
+    failures: list[Exception] = []
+    for directory in reversed(created_directories):
+        try:
+            directory.rmdir()
+        except FileNotFoundError:
+            continue
+        except OSError as failure:
+            if failure.errno in (errno.ENOTEMPTY, errno.EEXIST):
+                continue
+            failure.add_note(f"Could not remove empty backup directory: {directory}")
+            failures.append(failure)
+    return failures
+
+
 def back_up_conflicts(checkout: Path, conflicts: list[Conflict], dry_run: bool) -> None:
-    """Move originals on one filesystem, restoring completed moves on any failure."""
+    """Create backup paths as needed and undo moves and empty directories on failure."""
     if not conflicts:
         print("No dotfile conflicts to back up.")
         return
@@ -221,18 +253,22 @@ def back_up_conflicts(checkout: Path, conflicts: list[Conflict], dry_run: bool) 
             )
         return
 
-    backup_root.mkdir(mode=0o700, exist_ok=True)
-    timestamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%S.%fZ")
-    backup_directory = Path(tempfile.mkdtemp(prefix=f"{timestamp}-", dir=backup_root))
+    backup_directory: Path | None = None
+    created_directories: list[Path] = []
     completed: list[tuple[Conflict, Path]] = []
     try:
         for conflict in conflicts:
-            (backup_directory / conflict.relative_path).parent.mkdir(parents=True, exist_ok=True)
-        for conflict in conflicts:
-            backup = backup_directory / conflict.relative_path
             require_directory_path(conflict.destination.parent)
             if file_identity(conflict.destination.lstat()) != file_identity(conflict.original_stat):
                 raise RuntimeError(f"Destination changed during backup: {conflict.destination}")
+            if backup_directory is None:
+                create_backup_parents(backup_root, created_directories)
+                timestamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%S.%fZ")
+                with defer_interruptions():
+                    backup_directory = Path(tempfile.mkdtemp(prefix=f"{timestamp}-", dir=backup_root))
+                    created_directories.append(backup_directory)
+            backup = backup_directory / conflict.relative_path
+            create_backup_parents(backup.parent, created_directories)
             if lstat_if_present(backup) is not None:
                 raise FileExistsError(f"Refusing to overwrite backup: {backup}")
             with defer_interruptions():
@@ -242,12 +278,16 @@ def back_up_conflicts(checkout: Path, conflicts: list[Conflict], dry_run: bool) 
     except BaseException as failure:
         with defer_interruptions():
             restoration_failures = restore_originals(completed)
-        if restoration_failures:
+            cleanup_failures = remove_empty_backup_directories(created_directories)
+        if restoration_failures or cleanup_failures:
             raise BaseExceptionGroup(
-                f"Backup failed; some originals require recovery from {backup_directory}",
-                [failure, *restoration_failures],
+                f"Backup failed; restoration or directory cleanup also failed under {backup_root}",
+                [failure, *restoration_failures, *cleanup_failures],
             ) from None
-        failure.add_note("All completed backup moves were restored; mise must not continue.")
+        failure.add_note(
+            "All completed backup moves were restored and newly created empty directories "
+            "were removed; mise must not continue."
+        )
         raise
 
 
