@@ -15,7 +15,7 @@ uv = "latest"
 # `mise bootstrap` runs
 # - pre-packages, packages, post-packages
 # - repos
-# - dotfiles
+# - pre-dotfiles, dotfiles
 # - pre-tools, tools, post-tools
 
 [bootstrap.hooks]
@@ -27,6 +27,9 @@ pre-packages = [
 post-packages = [
   'bash ./mise-bootstrap/setup-docker-user.sh',
   'bash ./mise-bootstrap/test-docker.sh',
+]
+pre-dotfiles = [
+  'python3 ./mise-bootstrap/backup-dotfiles.py',
 ]
 post-tools = [
   'mise use -g go rust uv',
