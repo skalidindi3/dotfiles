@@ -1,3 +1,4 @@
-zdharma-continuum/fast-syntax-highlighting kind:defer
-
 Aloxaf/fzf-tab kind:defer
+
+# Highlight after completion widgets have been installed.
+zdharma-continuum/fast-syntax-highlighting kind:defer

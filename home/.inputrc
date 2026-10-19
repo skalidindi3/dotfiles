@@ -1,0 +1,18 @@
+# Preserve system defaults, then apply preferences for Bash and other Readline apps.
+$include /etc/inputrc
+set editing-mode emacs
+
+# Meta key handling
+set input-meta on
+set output-meta on
+set convert-meta off
+
+# Home/End: application-mode (SS3) and normal-mode (CSI) terminal sequences.
+"\eOH": beginning-of-line
+"\eOF": end-of-line
+"\e[H": beginning-of-line
+"\e[F": end-of-line
+# Meta-B/F and Option-Delete, matching the Zsh bindings.
+"\eb": backward-word
+"\ef": forward-word
+"\C-h": backward-kill-word
