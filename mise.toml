@@ -118,3 +118,7 @@ run = 'mise dot add --group home --force --yes -- "${usage_file?}"'
 [tasks.clean]
 description = "Unapply this checkout's mise dotfile links"
 run = 'mise dot unapply --yes --group home'
+
+[tasks.install_beets]
+description = "Install beets with the selected extras"
+run = "uv tool install 'beets[embedart,fetchart,lastgenre,lyrics,scrub]'"
