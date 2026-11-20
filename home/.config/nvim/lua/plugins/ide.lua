@@ -120,7 +120,8 @@ return {
         dependencies = {
             -- auto install LSPs to stdpath for nvim
             -- NOTE: must be loaded before dependants
-            { "mason-org/mason.nvim", config = true },
+            -- Let mise-managed executables take precedence over Mason copies.
+            { "mason-org/mason.nvim", opts = { PATH = "append" } },
             -- auto install tools (linters, formatters, etc) to stdpath for nvim
             "WhoIsSethDaniel/mason-tool-installer.nvim",
             -- translate lsp names to package names
@@ -146,14 +147,8 @@ return {
                 ty = {},
             }
 
-            local extra_tools = {
-                "stylua",
-                "ruff",
-            }
-
-            local ensure_installed = vim.tbl_keys(servers or {})
-            vim.list_extend(ensure_installed, extra_tools)
-            require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
+            -- Python tools and their dependencies are managed by mise.
+            require("mason-tool-installer").setup({ ensure_installed = { "lua_ls", "stylua" } })
 
             for server, cfg in pairs(servers) do
                 vim.lsp.config(server, cfg)
