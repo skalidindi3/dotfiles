@@ -1,2 +1,22 @@
 [settings]
+task.run_auto_install = false
 not_found_auto_install = false
+python.uv_venv_auto = "source"
+
+[vars]
+python_version = "3.15.0"
+
+[tools]
+go = "latest"
+rust = "latest"
+uv = "latest"
+# mise owns and upgrades persistent Python tools; use uvx for temporary tools.
+# NOTE: mise uses uv-managed CPython <python_version>
+"pypi:ty" = "latest"
+"pypi:ruff" = "latest"
+
+[bootstrap.hooks]
+pre-tools = [
+  'mise exec uv -- uv python install --default "{{ vars.python_version }}"',
+  'mise exec uv -- uv python pin --global "{{ vars.python_version }}"',
+]

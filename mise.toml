@@ -1,20 +1,7 @@
 min_version = "2026.10.8"
 
 [settings]
-task.run_auto_install = false
 dotfiles.root = "."
-
-[vars]
-python_version = "3.15.0"
-
-[tools]
-go = "latest"
-rust = "latest"
-uv = "latest"
-# mise owns and upgrades persistent Python tools; use uvx for temporary tools.
-# NOTE: mise uses uv-managed CPython <python_version>
-"pypi:ty" = "latest"
-"pypi:ruff" = "latest"
 
 # `mise bootstrap` runs
 # - pre-packages, packages, post-packages
@@ -36,9 +23,6 @@ pre-dotfiles = [
   'python3 ./mise-bootstrap/backup-dotfiles.py',
 ]
 post-tools = [
-  'mise use -g go rust uv pypi:ty pypi:ruff',
-  'mise exec -- uv python install {{ vars.python_version }}',
-  'mise exec -- uv python pin --global {{ vars.python_version }}',
   'bash -o pipefail -c "curl -fsSL https://chatgpt.com/codex/install.sh | sh"',
 ]
 
@@ -117,8 +101,8 @@ description = "Refresh package metadata and upgrade configured packages and tool
 raw = true
 run = [
   "mise bootstrap packages upgrade",
-  "mise upgrade",
-  "uv tool upgrade --all",
+  "mise upgrade --global",
+  'uv tool upgrade --all',
 ]
 
 [tasks.adopt]
