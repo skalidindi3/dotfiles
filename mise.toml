@@ -16,9 +16,6 @@ post-packages = [
 pre-dotfiles = [
   'python3 ./mise-bootstrap/backup-dotfiles.py',
 ]
-post-tools = [
-  'bash -o pipefail -c "curl -fsSL https://chatgpt.com/codex/install.sh | sh"',
-]
 
 [bootstrap.repos."~/.config/tmux/plugins/tpm"]
 url = "https://github.com/tmux-plugins/tpm"

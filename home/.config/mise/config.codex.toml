@@ -1,0 +1,11 @@
+[tools."github:openai/codex"]
+version = "latest"
+version_prefix = "rust-v"
+prerelease = false
+auto_update = "24h"
+os = ["linux/x64", "macos/arm64"]
+bin_path = "bin"
+
+[tools."github:openai/codex".platforms]
+linux-x64 = { asset_pattern = "codex-package-x86_64-unknown-linux-musl.tar.gz" }
+macos-arm64 = { asset_pattern = "codex-package-aarch64-apple-darwin.tar.gz" }
