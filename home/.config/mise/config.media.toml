@@ -1,0 +1,5 @@
+[bootstrap.packages]
+"apt:ffmpeg" = { os = "linux" }
+"brew:ffmpeg" = { os = "macos" }
+"apt:libimage-exiftool-perl" = { os = "linux" }
+"brew:exiftool" = { os = "macos" }

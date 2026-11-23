@@ -6,6 +6,12 @@ python.uv_venv_auto = "source"
 [vars]
 python_version = "3.15.0"
 
+# `mise bootstrap` runs
+# - pre-packages, packages, post-packages
+# - repos
+# - pre-dotfiles, dotfiles
+# - pre-tools, tools, post-tools
+
 [tools]
 go = "latest"
 rust = "latest"
@@ -20,3 +26,40 @@ pre-tools = [
   'mise exec uv -- uv python install --default "{{ vars.python_version }}"',
   'mise exec uv -- uv python pin --global "{{ vars.python_version }}"',
 ]
+
+[bootstrap.packages]
+# system utilities and shared libs use native package manager
+"apt:curl" = { os = "linux" }
+"brew:curl" = { os = "macos" }
+"apt:wget" = { os = "linux" }
+"brew:wget" = { os = "macos" }
+"apt:rsync" = { os = "linux" }
+"brew:rsync" = { os = "macos" }
+"apt:moreutils" = { os = "linux" } # vidir
+"brew:moreutils" = { os = "macos" } # vidir
+"apt:net-tools" = { os = "linux" }
+"brew:net-tools" = { os = "macos" }
+"apt:tailscale" = { os = "linux" }
+"brew-cask:tailscale-app" = { os = "macos" }
+"apt:xclip" = { os = "linux" }
+"apt:fastfetch" = { os = "linux" }
+"brew:fastfetch" = { os = "macos" }
+
+# cli/dev tools use homebrew (and avoid sudo install)
+"brew:tmux" = "latest"
+"brew:neovim" = "latest"
+"brew:tree-sitter-cli" = "latest"
+"brew:antidote" = "latest"
+"brew:lsd" = "latest"
+"brew:ripgrep" = "latest"
+"brew:fzf" = "latest"
+"brew:zoxide" = "latest"
+"brew:lazygit" = "latest"
+"brew:jq" = "latest"
+"brew-cask:rar" = "latest"
+"brew:dust" = "latest"
+"brew:duf" = "latest"
+"brew:htop" = "latest"
+"brew-cask:1password-cli" = "latest"
+"brew:fd" = "latest"
+"brew:qrencode" = "latest"

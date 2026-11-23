@@ -1,0 +1,8 @@
+[tools."pypi:beets"]
+version = "latest"
+extras = ["embedart", "fetchart", "lastgenre", "lyrics", "scrub"]
+lazy = true
+lazy_bins = ["beet"]
+
+[bootstrap.packages]
+"brew:sox" = "latest"

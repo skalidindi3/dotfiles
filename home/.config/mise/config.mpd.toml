@@ -1,0 +1,4 @@
+[bootstrap.packages]
+"brew:mpd" = "latest"
+"brew:mpdscribble" = "latest"
+"brew:ncmpcpp" = "latest"

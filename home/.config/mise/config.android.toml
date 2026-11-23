@@ -1,0 +1,4 @@
+[bootstrap.packages]
+"apt:android-sdk-platform-tools" = { os = "linux" }
+"apt:adb" = { os = "linux" }
+"brew-cask:android-platform-tools" = { os = "macos" }

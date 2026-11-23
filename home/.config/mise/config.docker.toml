@@ -1,0 +1,6 @@
+[bootstrap.packages]
+"apt:docker-ce" = { os = "linux" }
+"apt:docker-ce-cli" = { os = "linux" }
+"apt:containerd.io" = { os = "linux" }
+"apt:docker-buildx-plugin" = { os = "linux" }
+"apt:docker-compose-plugin" = { os = "linux" }
