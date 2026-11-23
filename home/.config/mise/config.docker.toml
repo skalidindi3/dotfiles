@@ -4,3 +4,4 @@
 "apt:containerd.io" = { os = "linux" }
 "apt:docker-buildx-plugin" = { os = "linux" }
 "apt:docker-compose-plugin" = { os = "linux" }
+"brew:lazydocker" = "latest"
